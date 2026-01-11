@@ -11,15 +11,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-muted: #666666;
-            --accent: #0070f3;
-            --accent-soft: #eef6ff;
-            --border: #eaeaea;
-            --secondary-bg: #fafafa;
+            /* Background: A soft, warm gray instead of pure white */
+            --bg-color: #f8f9fa; 
+            --secondary-bg: #ffffff; /* Use pure white only for "lifting" cards */
+            
+            /* Typography: Deep slate instead of harsh black */
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            
+            /* Accent: A more mature Indigo-Blue */
+            --accent: #4834d4;
+            --accent-soft: #f0f3ff;
+            
+            /* Borders: Almost invisible, very soft */
+            --border: rgba(0, 0, 0, 0.05);
+            
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="dark"] {
@@ -135,8 +143,8 @@
 
         /* Hero */
         .hero {
-            padding: 8rem 0 4rem;
-            min-height: 75vh;
+            padding: 5.5rem 0 2.5rem;
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -192,6 +200,7 @@
             gap: 1rem;
             margin-bottom: 3rem;
         }
+
 
         .btn {
             display: inline-flex;
@@ -359,6 +368,8 @@
             gap: 0.3rem;
         }
 
+
+
         /* Skills */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
         .skill-category h4 { font-size: 0.9rem; margin-bottom: 0.8rem; font-weight: 700; }
@@ -375,12 +386,17 @@
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 0 1.5rem;
+                min-height: 45vh;
+            }
             .hero h1 { font-size: 2.5rem; }
             .awards-grid-ux { grid-template-columns: 1fr; }
-            .ai-chat-widget { width: calc(100% - 40px); right: 20px; bottom: 80px; }
+
         }
     </style>
 </head>
+
 <body data-theme="light">
     <div class="progress-bar" id="progressBar"></div>
 
@@ -412,7 +428,7 @@
             
             <div class="hero-actions">
                 <a href="#projects" class="btn primary">View Projects</a>
-                <a href="#" class="btn secondary" id="resumeBtn">Resume</a>
+                <a href="#experience" class="btn secondary" id="resumeBtn">Resume ↓</a>
             </div>
 
         </section>
@@ -424,28 +440,30 @@
             <div class="experience-item">
                 <div class="exp-header">
                     <div class="exp-role">
-                        <h3>Software Developer Intern</h3>
-                        <span class="exp-company">Sunway University | Malaysia</span>
+                        <h3>Software Engineer Intern (Applied AI)</h3>
+                        <span class="exp-company">Sunway University | Kuala Lumpur, Malaysia</span>
                     </div>
                     <div class="exp-meta">June 2025 – July 2025</div>
                 </div>
                 <ul class="exp-bullets">
-                    <li>Built parallel analysis tools for <span class="highlight">15,000+ parameters</span>, achieving 4x throughput improvement.</li>
-                    <li>Reduced execution time by <span class="highlight">70%</span> via modular data workflow design.</li>
+                    <li>Built cross-platform <span class="highlight">Python</span> tools for parallel analysis of <span class="highlight">15,000+ parameters</span>, designing modular data workflows that streamlined complex computational tasks.</li>
+                    <li>Optimised the core processing logic to achieve <span class="highlight">4x throughput</span> and reduce execution time by <span class="highlight">70%</span>.</li>
+                    <li>Engineered containerized backend services using Docker on AWS, implementing automated validation that improved system scalability and reliability.</li>
                 </ul>
             </div>
 
             <div class="experience-item">
                 <div class="exp-header">
                     <div class="exp-role">
-                        <h3>Software Developer Intern</h3>
-                        <span class="exp-company">DIAT - DRDO | India</span>
+                        <h3>Software Engineer Intern (Applied Research)</h3>
+                        <span class="exp-company">DIAT – DRDO (Gov. of India) | Pune, India</span>
                     </div>
                     <div class="exp-meta">Dec 2024 – Feb 2025</div>
                 </div>
                 <ul class="exp-bullets">
-                    <li>Engineered Python modules for <span class="highlight">high-level drone autonomy</span> and mission planning.</li>
-                    <li>Automated mission simulations, reducing testing time by <span class="highlight">40%</span>.</li>
+                    <li>Engineered <span class="highlight">Python</span> modules for high-level drone autonomy and mission planning, implementing route generation and safety constraint logic.</li>
+                    <li>Built internal tools to automate mission simulations and data processing, <span class="highlight">reducing testing time by 40%</span>.</li>
+                    <li>Integrated and tested autonomy logic in simulated environments to validate consistent drone behaviour.</li>
                 </ul>
             </div>
 
@@ -453,26 +471,18 @@
                 <div class="exp-header">
                     <div class="exp-role">
                         <h3>Full Stack Developer Intern</h3>
-                        <span class="exp-company">MyMegaMinds | Pune, India</span>
+                        <span class="exp-company">Mymegaminds | Pune, India</span>
                     </div>
                     <div class="exp-meta">Feb 2024 – June 2024</div>
                 </div>
                 <ul class="exp-bullets">
-                    <li>
-                        Developed the LeleKart e-commerce platform for 5,000+ users using React (JavaScript) and Flutter (Dart),
-                        supported by a scalable Node.js and Express RESTful backend.
-                    </li>
-                    <li>
-                        Optimized application performance through improved asset rendering and caching, reducing average page
-                        load time from <span class="highlight">5s to 1.3s</span>
-                        (<span class="highlight">~74% improvement</span>).
-                    </li>
-                    <li>
-                        Released production-ready Web and Android builds, maintaining
-                        <span class="highlight">&gt;98.8% uptime</span> through rigorous testing and monitoring.
-                    </li>
+                    <li>Developed the "LeleKart" e-commerce app for <span class="highlight">5,000+ users</span> using React (JavaScript) and Flutter (Dart), supported by a robust Node.js/Express backend.</li>
+                    <li>Optimised application performance by refining asset rendering and caching, reducing page <span class="highlight">load time from 5s to 1.3s (74% improvement)</span>.</li>
+                    <li>Accelerated RESTful API releases by implementing BLoC architecture and automated CI/CD.</li>
+                    <li>Released production-ready Web and Android builds, maintaining <span class="highlight">>98.8% uptime</span> through rigorous testing.</li>
                 </ul>
             </div>
+        </section>
 
         <!-- HONORS & AWARDS (UX REFRESH) -->
         <section id="awards" class="section fade-in">
@@ -489,69 +499,78 @@
                     <!-- International -->
                     <div class="award-card-ux" data-cat="international">
                         <span class="award-badge-ux">Gold Medal</span>
-                        <div class="award-meta-ux">IMU University, Malaysia • 2025</div>
-                        <h3 class="award-title-ux">e-Inovasi Gold Medalist</h3>
-                        <p class="award-details-ux">Ranked 1st among 1000+ teams for JDescriptor, an open-access pharmaceutical chemistry molecular descriptor tool.</p>
+                        <div class="award-meta-ux">e-Inovasi, IMU University, Malaysia • Sep 2025</div>
+                        <h3 class="award-title-ux">e-Inovasi 2025 Gold Medalist</h3>
+                        <p class="award-details-ux">Secured 1st place among 1000+ teams. Built cross-platform Python tools for parallel analysis of 15,000+ parameters, designing modular data workflows for pharmaceutical chemistry education and research.</p>
                     </div>
 
                     <div class="award-card-ux" data-cat="international">
                         <span class="award-badge-ux">Silver Medal</span>
-                        <div class="award-meta-ux">Sunway University, Malaysia • 2025</div>
-                        <h3 class="award-title-ux">Malaysia Startup Challenge</h3>
-                        <p class="award-details-ux">Silver Medal in Startup Product category for a scalable AI-driven e-commerce ecosystem with Prof. Long Ming.</p>
+                        <div class="award-meta-ux">Malaysia Startup Challenge 2025 • Aug 2025</div>
+                        <h3 class="award-title-ux">Tertiary – Startup Product Category</h3>
+                        <p class="award-details-ux">Competed against 1000+ international startups. Developed a scalable AI-driven e-commerce ecosystem with automated inventory management and real-time personalization, led by Prof. Long Ming.</p>
                     </div>
 
                     <!-- Hackathons -->
                     <div class="award-card-ux" data-cat="hackathon">
+                        <span class="award-badge-ux">Top 5 Finalist</span>
+                        <div class="award-meta-ux">Smart India Hackathon 2024, Ministry of Education & AICTE • Dec 2024</div>
+                        <h3 class="award-title-ux">Smart India Hackathon 2024</h3>
+                        <p class="award-details-ux">Top 5 finalist among 500+ teams. Developed a full-stack mobile and web app for Indian Sign Language real-time translation using AI/ML technologies.</p>
+                    </div>
+
+                    <div class="award-card-ux" data-cat="hackathon">
                         <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">MindSpark - COEP Tech University</div>
-                        <h3 class="award-title-ux">NeuralBytes: Health SOS</h3>
-                        <p class="award-details-ux">Emergency response system for seniors with heartbeat monitoring, real-time nurse tracking, and voice SOS.</p>
+                        <div class="award-meta-ux">Tietoevry Hackathon, MindSpark - COEP Tech University & Krafton • Nov 2024</div>
+                        <h3 class="award-title-ux">NeuralBytes – Emergency Health Assistance App</h3>
+                        <p class="award-details-ux">1st place among 240+ teams. Developed a mobile app for senior citizens' emergency health assistance with SOS alerts, heartbeat monitoring, and real-time nurse tracking using Flutter and Firebase.</p>
                         <a href="#" class="award-repo-ux">GitHub ↗</a>
                     </div>
 
                     <div class="award-card-ux" data-cat="hackathon">
                         <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">AISSM Hackathon 2024</div>
-                        <h3 class="award-title-ux">Silicon Fusion Winner</h3>
-                        <p class="award-details-ux">Developed a backend-focused DSA teaching platform in two intense rounds leveraging advanced concepts for scale.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">DY Patil Institute • 6-Hour Challenge</div>
-                        <h3 class="award-title-ux">HealthEase: Healthcare App</h3>
-                        <p class="award-details-ux">Groundbreaking app integrating consultations, ambulance tracking, and medicine ordering in record time.</p>
-                        <a href="#" class="award-repo-ux">GitHub ↗</a>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">MIT WPU Codethon 2024</div>
-                        <h3 class="award-title-ux">Dazel: Dating Platform</h3>
-                        <p class="award-details-ux">Proprietary matching engine using 30+ parameters and geolocation-based profile exploration.</p>
+                        <div class="award-meta-ux">Silicon Fusion, AISSMS College of Engineering • Oct 2024</div>
+                        <h3 class="award-title-ux">DSA Teaching Platform</h3>
+                        <p class="award-details-ux">1st place among 50+ teams. Built a backend-focused DSA teaching platform leveraging advanced algorithms for seamless, scalable education delivery.</p>
                     </div>
 
                     <div class="award-card-ux" data-cat="hackathon">
                         <span class="award-badge-ux">3rd Place</span>
-                        <div class="award-meta-ux">VCET Hackathon 2024</div>
-                        <h3 class="award-title-ux">Custom Auth Service</h3>
-                        <p class="award-details-ux">3-factor auth service featuring DDoS defense, fingerprint login, and session analytics dashboard.</p>
+                        <div class="award-meta-ux">VCET Hackathon 2024 • Oct 2024</div>
+                        <h3 class="award-title-ux">Custom Authentication Service</h3>
+                        <p class="award-details-ux">3rd place among 200+ teams. Built a secure authentication service with 3-factor authentication (Email, OTP, Fingerprint), DDoS defense, and admin dashboard for session tracking.</p>
+                        <a href="#" class="award-repo-ux">GitHub ↗</a>
+                    </div>
+
+                    <div class="award-card-ux" data-cat="hackathon">
+                        <span class="award-badge-ux">1st Place</span>
+                        <div class="award-meta-ux">MIT-WPU Codethon 2024 • May 2024</div>
+                        <h3 class="award-title-ux">Dazel – Innovative Dating Platform</h3>
+                        <p class="award-details-ux">1st place among 80+ teams. Created a dating app with robust matching algorithm using 30+ parameters, geolocation-based matching, and real-time chat with advanced data encryption.</p>
+                        <a href="#" class="award-repo-ux">GitHub ↗</a>
+                    </div>
+
+                    <div class="award-card-ux" data-cat="hackathon">
+                        <span class="award-badge-ux">1st Place</span>
+                        <div class="award-meta-ux">Hash It Out Hackathon, ZION Event - Dr. D. Y. Patil Institute of Technology • Apr 2024</div>
+                        <h3 class="award-title-ux">HealthEase – Comprehensive Healthcare App</h3>
+                        <p class="award-details-ux">1st place among 70+ teams. Developed a healthcare mobile app in Flutter integrating doctor consultations, ambulance tracking, and medicine ordering in a 6-hour hackathon.</p>
+                        <a href="#" class="award-repo-ux">GitHub ↗</a>
                     </div>
 
                     <!-- Coding -->
                     <div class="award-card-ux" data-cat="coding">
                         <span class="award-badge-ux">1st Runner Up</span>
-                        <div class="award-meta-ux">Dataverse Coding Challenge</div>
-                        <h3 class="award-title-ux">DSA Coding Champion</h3>
-                        <p class="award-details-ux">Recognized for outstanding performance in solving complex algorithmic problems in a timed competition.</p>
+                        <div class="award-meta-ux">Dataverse 2024, Dr. D. Y. Patil Institute of Technology • Mar 2024</div>
+                        <h3 class="award-title-ux">Data Science Competition</h3>
+                        <p class="award-details-ux">2nd place in solo competition. Demonstrated exceptional problem-solving skills in Data Structures and Algorithms by solving complex algorithmic challenges.</p>
                     </div>
 
                     <div class="award-card-ux" data-cat="coding">
-                        <span class="award-badge-ux">1st Runner Up</span>
-                        <div class="award-meta-ux">Techno Stream National Event</div>
-                        <h3 class="award-title-ux">Blind C Coding Winner</h3>
-                        <p class="award-details-ux">Successfully coded logic in C while the monitor was turned off, demonstrating high-level syntax proficiency.</p>
+                        <span class="award-badge-ux">2nd Place</span>
+                        <div class="award-meta-ux">Blind C Coding Competition, Dr. Panjabrao Deshmukh Polytechnic • Mar 2022</div>
+                        <h3 class="award-title-ux">Algorithmic Coding Challenge</h3>
+                        <p class="award-details-ux">2nd place among 150+ participants in solo competition. Successfully coded in C programming language without visual feedback (monitor turned off), demonstrating high-level syntax mastery.</p>
                     </div>
                 </div>
             </div>
@@ -565,23 +584,22 @@
                     <span class="stack">FastAPI • Flutter • Docker</span>
                     <h3>Mudra</h3>
                     <p class="project-desc">Cross-platform Indian Sign Language system with Text-to-Sign translation. Latency optimized to 200ms.</p>
-                    <a href="https://github.com/gauravmasand/Indian-Sign-Language-Project" class="project-link">GitHub ↗</a>
+                    <a href="#" class="project-link">GitHub ↗</a>
                 </div>
 
                 <div class="project-card">
                     <span class="stack">Node.js • Redis • MongoDB</span>
                     <h3>Dazel</h3>
                     <p class="project-desc">High-scale matching engine using Redis caching to maintain sub-200ms response times.</p>
-                    <a href="https://github.com/gauravmasand/dazel-dating-app-flutter" class="project-link">GitHub ↗</a>
+                    <a href="#" class="project-link">GitHub ↗</a>
                 </div>
             </div>
         </section>
-        
+
         <!-- SKILLS -->
         <section id="skills" class="section fade-in">
             <h2 class="section-title">Stack</h2>
             <div class="skills-grid">
-
                 <div class="skill-category">
                     <h4>Languages</h4>
                     <div class="skill-list">
@@ -589,13 +607,13 @@
                         <span class="skill-tag">JavaScript</span>
                         <span class="skill-tag">TypeScript</span>
                         <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">Java</span>
                         <span class="skill-tag">C</span>
                         <span class="skill-tag">C++</span>
                         <span class="skill-tag">SQL</span>
                         <span class="skill-tag">HTML/CSS</span>
                     </div>
                 </div>
-
                 <div class="skill-category">
                     <h4>Frameworks & Libraries</h4>
                     <div class="skill-list">
@@ -608,7 +626,6 @@
                         <span class="skill-tag">Flask</span>
                     </div>
                 </div>
-
                 <div class="skill-category">
                     <h4>Databases</h4>
                     <div class="skill-list">
@@ -618,21 +635,19 @@
                         <span class="skill-tag">Firebase</span>
                     </div>
                 </div>
-
                 <div class="skill-category">
                     <h4>Cloud & DevOps</h4>
                     <div class="skill-list">
-                        <span class="skill-tag">AWS (EC2, S3, Lambda)</span>
                         <span class="skill-tag">Docker</span>
                         <span class="skill-tag">GitHub</span>
                         <span class="skill-tag">Linux</span>
                         <span class="skill-tag">Postman</span>
                         <span class="skill-tag">Swagger</span>
+                        <span class="skill-tag">AWS (EC2, S3, Lambda)</span>
                         <span class="skill-tag">RESTful APIs</span>
                         <span class="skill-tag">WebSocket</span>
                     </div>
                 </div>
-
                 <div class="skill-category">
                     <h4>Backend & System</h4>
                     <div class="skill-list">
@@ -644,7 +659,6 @@
                         <span class="skill-tag">AI/ML Model Integration</span>
                     </div>
                 </div>
-
                 <div class="skill-category">
                     <h4>Core CS</h4>
                     <div class="skill-list">
@@ -653,14 +667,12 @@
                         <span class="skill-tag">OS (Linux/Unix)</span>
                         <span class="skill-tag">CN (TCP/IP)</span>
                         <span class="skill-tag">DBMS</span>
-                        <span class="skill-tag">Multithreading</span>
+                        <span class="skill-tag">Multithreading & Concurrency</span>
                         <span class="skill-tag">Distributed Systems</span>
                     </div>
                 </div>
-
             </div>
         </section>
-
 
         <section id="contact" class="section fade-in">
             <div class="contact-box">
@@ -671,8 +683,43 @@
     </main>
 
 
-    <script>
 
+    <script>
+        // AI CONFIG
+        const apiKey = "";
+        const GAURAV_CONTEXT = `
+            You are Gaurav AI. Gaurav is a high-achieving Software Engineer (Applied AI).
+            LATEST ACHIEVEMENTS:
+            - MindSpark COEP: 1st Place for NeuralBytes (Emergency Health App).
+            - e-Inovasi 2025 (Malaysia): Gold Medalist for JDescriptor (1st among 1000+ teams).
+            - Malaysia Startup Challenge 2025: Silver Medal for AI E-commerce ecosystem.
+            - Silicon Fusion (AISSM Hackathon 2024): 1st Place for DSA Teaching Platform. Developed a backend-focused platform for scalable education.
+            - Hash It Out (DY Patil): 1st Place for HealthEase (6-hour hackathon). Healthcare app integrating consultation, ambulance, and medicine purchase.
+            - MIT WPU Codethon: 1st Place for Dazel (matching algorithm).
+            - VCET 2024: 3rd Place for Custom Auth (3-factor auth, DDoS defense).
+            - Dataverse: 1st Runner Up in DSA coding challenge.
+            - Blind Coding: 2nd Place in National Blind C Coding.
+            WORK: Sunway University (4x throughput), DIAT-DRDO (Drone autonomy), MyMegaMinds (Load time -74%), Suninfotech (Web Intern).
+            BEHAVIOR: Professional, concise, metric-oriented. Highlight the Silicon Fusion win as a backend-heavy DSA achievement.
+        `;
+
+        async function callGemini(prompt, systemInstruction) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble connecting.";
+                } catch (e) {
+                    await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
+                }
+            }
+            return "Connection error.";
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             // AWARD FILTER LOGIC (UX IMPROVEMENT)
@@ -706,6 +753,25 @@
                 const current = document.body.getAttribute('data-theme');
                 document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
             });
+
+            // AI Pitch
+            const generatePitchBtn = document.getElementById('generatePitchBtn');
+            const pitchResult = document.getElementById('pitchResult');
+            const jobTitleInput = document.getElementById('jobTitle');
+
+            generatePitchBtn.addEventListener('click', async () => {
+                const job = jobTitleInput.value.trim();
+                if (!job) return;
+                generatePitchBtn.disabled = true;
+                pitchResult.style.display = 'block';
+                pitchResult.innerText = "Generating custom pitch...";
+                const prompt = `Generate a 2-sentence career pitch for Gaurav Masand applying for: ${job}. Highlight his 1st place wins like Silicon Fusion and technical depth.`;
+                const pitch = await callGemini(prompt, GAURAV_CONTEXT);
+                pitchResult.innerText = pitch;
+                generatePitchBtn.disabled = false;
+            });
+
+
 
             // Email Copy
             document.getElementById('emailCopy').addEventListener('click', () => {

@@ -1,0 +1,172 @@
+/* AWARDS RESTRUCTURED UX - PREMIUM UPDATES */
+.awards-ux-container {
+  margin-top: 1rem;
+}
+
+.awards-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for clean look */
+}
+
+.awards-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+}
+
+.tab-btn.active {
+  background: var(--text-main);
+  color: var(--bg-color);
+  border-color: var(--text-main);
+}
+
+.awards-grid-ux {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  position: relative; /* Essential for absolute positioning of hidden items */
+}
+
+.award-card-ux {
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  /* Animation Properties */
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Hidden state used by the script */
+.award-card-ux.is-hidden {
+  opacity: 0;
+  transform: translateY(15px);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.award-card-ux:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+  z-index: 2;
+}
+
+.award-badge-ux {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  width: fit-content;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.award-title-ux {
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-main);
+}
+
+.award-meta-ux {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.award-details-ux {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.award-repo-ux {
+  margin-top: auto;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text-main);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.2s ease;
+}
+
+.award-repo-ux:hover {
+  color: var(--accent);
+}
+
+/* --- NEW: SHOW MORE UI --- */
+.show-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.btn-show-more {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-show-more:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  transform: scale(1.02);
+}
+
+.btn-show-more .count {
+  background: var(--accent);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.chevron {
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media (max-width: 768px) {
+  .awards-grid-ux {
+    grid-template-columns: 1fr;
+  }
+}
