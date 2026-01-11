@@ -80,11 +80,11 @@
         .navbar {
             position: sticky;
             top: 0;
-            z-index: 100;
-            background: var(--bg-color);
+            z-index: 1000;
+            background-color: var(--bg-color);
             border-bottom: 1px solid var(--border);
             padding: 0.75rem 0;
-            opacity: 0.98;
+            width: 100%;
         }
 
         .nav-content {
@@ -99,16 +99,21 @@
             letter-spacing: -1px;
         }
 
+        /* --- Desktop Navigation Layout --- */
         .nav-right {
             display: flex;
             align-items: center;
             gap: 2rem;
+            /* This ensures children are placed in a standard row on desktop */
+            flex-direction: row; 
         }
 
         .nav-links {
             display: flex;
             list-style: none;
             gap: 1.5rem;
+            /* Ensures the links come before the theme icon in the DOM flow */
+            order: 1; 
         }
 
         .nav-links a {
@@ -134,6 +139,8 @@
             align-items: center;
             justify-content: center;
             transition: var(--transition);
+            /* Ensures the icon is the rightmost element in the nav-right container */
+            order: 2; 
         }
 
         .theme-toggle:hover {
@@ -378,7 +385,9 @@
 
         /* Footer */
         .contact-box { background: var(--secondary-bg); padding: 3rem; border-radius: 20px; text-align: center; border: 1px solid var(--border); margin-top: 4rem; }
-        .email-copy { cursor: pointer; color: var(--accent); font-weight: 700; border-bottom: 2px solid var(--accent); }
+        .email-copy { cursor: pointer; color: var(--accent); font-weight: 700; border-bottom: 2px solid var(--accent); text-decoration: none; transition: var(--transition); }
+        .email-copy:hover,
+        .email-copy:focus { background: var(--accent-soft); border-radius: 6px; padding: 0.1rem 0.3rem; color: var(--accent); outline: none; }
         .footer-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 3rem 0; }
 
         /* Utilities */
@@ -394,7 +403,339 @@
             .awards-grid-ux { grid-template-columns: 1fr; }
 
         }
+
+        /* Extracurricular actiities */
+        #activities .project-link {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        #activities .project-link:hover {
+            text-decoration: underline;
+        }
+
+        .value-prop {
+            line-height: 1.8;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 800px;
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: 600;
+            background: var(--accent-soft);
+            padding: 0 2px;
+        }
+
+        /* Responsiveness */
+        .skills-grid { 
+            display: grid; 
+            /* Force exactly 3 columns on desktop */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 2.5rem; 
+        }
+
+        /* Tablet Responsiveness */
+        @media (max-width: 900px) {
+            .skills-grid { 
+                /* Switch to 2 columns for tablets */
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 2rem;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            .skills-grid { 
+                /* Stack to 1 column for phones */
+                grid-template-columns: 1fr; 
+                gap: 1.5rem;
+            }
+            
+            .skill-category h4 {
+                font-size: 1rem;
+                border-bottom: 1px solid var(--border);
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1.25rem; }
+            
+            /* Navbar Mobile Fix */
+            .nav-links { gap: 0.8rem; }
+            .nav-links a { font-size: 0.75rem; }
+            .logo { font-size: 1.1rem; }
+
+            /* Hero adjustments */
+            .hero { padding: 4rem 0 2rem; min-height: auto; }
+            .hero h1 { font-size: 2.2rem; white-space: normal; line-height: 1.2; }
+            .value-prop { font-size: 0.95rem; line-height: 1.6; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .btn { justify-content: center; width: 100%; }
+
+            /* Experience & Education */
+            .exp-header { flex-direction: column; gap: 0.25rem; }
+            .exp-meta { text-align: left; font-size: 0.8rem; margin-top: 0.2rem; }
+            .exp-role h3 { font-size: 1.1rem; }
+
+            /* Project Grid - Stack to 1 column */
+            .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .project-card { padding: 1.5rem; }
+
+            /* Awards Grid - Stack to 1 column */
+            .awards-grid-ux { grid-template-columns: 1fr; }
+            .award-card-ux { padding: 1.25rem; }
+
+            /* Research Section Mobile Fix */
+            #research .project-card {
+                flex-direction: column;
+                align-items: flex-start !important;
+                gap: 1.25rem !important;
+            }
+            #research .btn { width: auto; align-self: flex-start; }
+
+            /* Section Spacing */
+            .section { padding: 3.5rem 0 1.5rem; }
+            .section-title { margin-bottom: 1.5rem; font-size: 0.7rem; }
+        }
+
+        /* Extra small devices (Phones < 400px) */
+        @media (max-width: 400px) {
+            .nav-right { gap: 0.75rem; }
+            .nav-links { display: none; } /* Consider a burger menu if links are many, or keep simple */
+            .hero h1 { font-size: 1.8rem; }
+            .skills-grid { grid-template-columns: 1fr 1fr; } /* Force 2 columns on tiny screens */
+        }
+
+        /* NAV BAR */
+
+        /* --- Optimized Navbar Base --- */
+        /* --- Optimized Navbar & Mobile Fix --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: var(--bg-color); /* Prevents background text bleed */
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 0;
+            width: 100%;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mobile Fix for Hidden Links (Research & Stack) */
+        @media (max-width: 768px) {
+            .nav-content {
+                flex-direction: column; 
+                align-items: flex-start; /* Aligns logo to the left */
+                gap: 1rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .nav-right {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                overflow: hidden; /* Contains the scroll */
+            }
+
+            .nav-links {
+                display: flex;
+                overflow-x: auto; /* ENABLES SWIPING */
+                -webkit-overflow-scrolling: touch; 
+                white-space: nowrap; /* PREVENTS OVERLAP/WRAPPING */
+                gap: 1.25rem;
+                padding: 0.5rem 0;
+                flex: 1; /* Takes available space */
+                scrollbar-width: none; /* Hides scrollbar Firefox */
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none; /* Hides scrollbar Chrome/Android/Safari */
+            }
+
+            .nav-links li {
+                display: inline-block;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                color: var(--text-muted);
+            }
+
+            .theme-toggle {
+                flex-shrink: 0; /* Prevents button from being squashed */
+            }
+        }
+
+        /* --- HAMBURGER MENU STYLES --- */
+        .menu-toggle {
+            display: none; /* Hidden on desktop */
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        /* Mobile Adjustments (max-width: 768px) */
+        @media (max-width: 768px) {
+        /* Keep Logo on the left and nav-right group on the right */
+        .nav-content {
+            display: flex;
+            flex-direction: row; /* Ensure they stay side-by-side */
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Group theme toggle and hamburger button together */
+        .nav-right {
+            display: flex;
+            flex-direction: row-reverse; /* Reverses order: Toggle, then Hamburger */
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Adjust the menu-toggle for better vertical alignment */
+        .menu-toggle {
+            display: flex;
+            order: 1; /* Ensures it stays at the far right */
+        }
+
+        .theme-toggle {
+            order: 2; /* Positions it next to the hamburger menu */
+        }
+
+        /* Ensure nav links still overlay correctly when active */
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%; /* Full screen overlay for mobile */
+            height: 100vh;
+            background-color: var(--bg-color);
+            flex-direction: column;
+            justify-content: center;
+            z-index: 1000;
+        }
+    }
+
+    /* --- CONSOLIDATED NAVIGATION STYLES --- */
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--bg-color);
+        border-bottom: 1px solid var(--border);
+        padding: 0.75rem 0;
+        width: 100%;
+    }
+
+    .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 1001;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background-color: var(--text-main);
+        transition: 0.3s;
+    }
+
+    /* Mobile Responsiveness (max-width: 768px) */
+    @media (max-width: 768px) {
+        .menu-toggle { display: flex; }
+        
+        .nav-right { gap: 0.5rem; }
+
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Hidden off-screen */
+            width: 80%;
+            height: 100vh;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-links.active { right: 0; } /* Slides in */
+
+        .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    }
+
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            const links = document.querySelectorAll('.nav-links a');
+
+            // Toggle menu
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close menu when a link is clicked
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
 </head>
 
 <body data-theme="light">
@@ -403,17 +744,28 @@
     <nav class="navbar">
         <div class="container nav-content">
             <span class="logo">G.MASAND</span>
+            
             <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Work</a></li>
-                    <li><a href="#awards">Honors</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#skills">Stack</a></li>
-                </ul>
                 <button class="theme-toggle" id="themeToggle">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
+                
+                <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#experience">Work</a></li>
+                    <li><a href="#awards">Honors</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#skills">Stack</a></li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -423,14 +775,53 @@
         <section id="hero" class="hero fade-in">
             <span class="badge">Open for Roles • 2026</span>
             <h1>Software Engineer with Applied AI.</h1>
-            <p class="headline">Final year B.E. AI & Data Science student at D.Y. Patil Institute of Technology.</p>
-            <p class="value-prop">Specializing in <span class="highlight">distributed systems</span> and drone autonomy. Optimized production workflows by up to 70% at Sunway University.</p>
+            
+            <p class="headline">Final Year Bachelor of Engineering AI & Data Science Student.</p>
+            
+            <p class="value-prop">
+                <span class="highlight">Full-Stack Developer</span> skilled in building scalable web applications using the <strong>MERN</strong> stack. 
+                Key projects include a real-time <span class="highlight">Indian Sign Language translator</span>, an industrial web app with 
+                <span class="highlight">5,000+ users</span>, and <span class="highlight">five research papers</span> on AI innovation. 
+                <span class="highlight">Smart India Hackathon 2024 Finalist</span> and winner of multiple national tech competitions. 
+                Active contributor as <span class="highlight">Lead of GDG on Campus</span>, mentoring 100+ peers and leading developer events. 
+                Strong foundation in <span class="highlight">full-stack scalable product engineering</span>.
+            </p>
             
             <div class="hero-actions">
                 <a href="#projects" class="btn primary">View Projects</a>
                 <a href="#experience" class="btn secondary" id="resumeBtn">Resume ↓</a>
             </div>
+        </section>
 
+        <!--EDUCATION -->
+        <section id="education" class="section fade-in">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div class="exp-role">
+                        <h3>Bachelor of Engineering in Artificial Intelligence & Data Science</h3>
+                        <span class="exp-company">Dr. D.Y. Patil Institute of Technology, Pune, India</span>
+                    </div>
+                    <div class="exp-meta">Sept 2023 – June 2026</div>
+                </div>
+                <ul class="exp-bullets">
+                    <li>Current CGPA: <span class="highlight">8.6 / 10.0</span></li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div class="exp-role">
+                        <h3>Diploma in Computer Science and Engineering</h3>
+                        <span class="exp-company">Dr. Panjabrao Deshmukh Polytechnic, Amravati, India</span>
+                    </div>
+                    <div class="exp-meta">Aug 2020 – June 2023</div>
+                </div>
+                <ul class="exp-bullets">
+                    <li>Final Percentage: <span class="highlight">86.06%</span></li>
+                </ul>
+            </div>
         </section>
 
         <!-- EXPERIENCE -->
@@ -441,7 +832,7 @@
                 <div class="exp-header">
                     <div class="exp-role">
                         <h3>Software Engineer Intern (Applied AI)</h3>
-                        <span class="exp-company">Sunway University | Kuala Lumpur, Malaysia</span>
+                        <span class="exp-company">Sunway University (Kuala Lumpur, Malaysia)</span>
                     </div>
                     <div class="exp-meta">June 2025 – July 2025</div>
                 </div>
@@ -456,7 +847,7 @@
                 <div class="exp-header">
                     <div class="exp-role">
                         <h3>Software Engineer Intern (Applied Research)</h3>
-                        <span class="exp-company">DIAT – DRDO (Gov. of India) | Pune, India</span>
+                        <span class="exp-company">DIAT – DRDO (Gov. of India) (Pune, India)</span>
                     </div>
                     <div class="exp-meta">Dec 2024 – Feb 2025</div>
                 </div>
@@ -471,7 +862,7 @@
                 <div class="exp-header">
                     <div class="exp-role">
                         <h3>Full Stack Developer Intern</h3>
-                        <span class="exp-company">Mymegaminds | Pune, India</span>
+                        <span class="exp-company">Mymegaminds (Pune, India)</span>
                     </div>
                     <div class="exp-meta">Feb 2024 – June 2024</div>
                 </div>
@@ -524,7 +915,6 @@
                         <div class="award-meta-ux">Tietoevry Hackathon, MindSpark - COEP Tech University & Krafton • Nov 2024</div>
                         <h3 class="award-title-ux">NeuralBytes – Emergency Health Assistance App</h3>
                         <p class="award-details-ux">1st place among 240+ teams. Developed a mobile app for senior citizens' emergency health assistance with SOS alerts, heartbeat monitoring, and real-time nurse tracking using Flutter and Firebase.</p>
-                        <a href="#" class="award-repo-ux">GitHub ↗</a>
                     </div>
 
                     <div class="award-card-ux" data-cat="hackathon">
@@ -539,7 +929,6 @@
                         <div class="award-meta-ux">VCET Hackathon 2024 • Oct 2024</div>
                         <h3 class="award-title-ux">Custom Authentication Service</h3>
                         <p class="award-details-ux">3rd place among 200+ teams. Built a secure authentication service with 3-factor authentication (Email, OTP, Fingerprint), DDoS defense, and admin dashboard for session tracking.</p>
-                        <a href="#" class="award-repo-ux">GitHub ↗</a>
                     </div>
 
                     <div class="award-card-ux" data-cat="hackathon">
@@ -547,7 +936,6 @@
                         <div class="award-meta-ux">MIT-WPU Codethon 2024 • May 2024</div>
                         <h3 class="award-title-ux">Dazel – Innovative Dating Platform</h3>
                         <p class="award-details-ux">1st place among 80+ teams. Created a dating app with robust matching algorithm using 30+ parameters, geolocation-based matching, and real-time chat with advanced data encryption.</p>
-                        <a href="#" class="award-repo-ux">GitHub ↗</a>
                     </div>
 
                     <div class="award-card-ux" data-cat="hackathon">
@@ -555,7 +943,6 @@
                         <div class="award-meta-ux">Hash It Out Hackathon, ZION Event - Dr. D. Y. Patil Institute of Technology • Apr 2024</div>
                         <h3 class="award-title-ux">HealthEase – Comprehensive Healthcare App</h3>
                         <p class="award-details-ux">1st place among 70+ teams. Developed a healthcare mobile app in Flutter integrating doctor consultations, ambulance tracking, and medicine ordering in a 6-hour hackathon.</p>
-                        <a href="#" class="award-repo-ux">GitHub ↗</a>
                     </div>
 
                     <!-- Coding -->
@@ -593,6 +980,45 @@
                     <p class="project-desc">High-scale matching engine using Redis caching to maintain sub-200ms response times.</p>
                     <a href="#" class="project-link">GitHub ↗</a>
                 </div>
+            </div>
+        </section>
+
+        <!-- Extracurricular Activities -->
+        <section id="activities" class="section fade-in">
+            <h2 class="section-title">Extracurricular Activities</h2>
+            
+            <div class="experience-item">
+                <div class="exp-header">
+                    <div class="exp-role">
+                        <h3>Lead, Google Developer Group on Campus</h3>
+                        <span class="exp-company">Google Developers</span>
+                    </div>
+                    <div class="exp-meta">2024 – Present</div>
+                </div>
+                <ul class="exp-bullets">
+                    <li>Directed a core team of <span class="highlight">50+ members</span> to foster a developer culture on campus.</li>
+                    <li>Mentored <span class="highlight">100+ students</span> in technical workshops and project development.</li>
+                    <li>Organized large-scale technical events and hackathons to bridge the gap between academia and industry.</li>
+                </ul>
+                <a target="_blank" href="https://gdg.community.dev/gdg-on-campus-dr-d-y-patil-institute-of-technology-pune-india/" class="project-link" style="margin-top: 1rem; display: inline-block;">Community Page ↗</a>
+            </div>
+        </section>
+
+        <!-- RESEARCH -->
+        <section id="research" class="section fade-in">
+            <h2 class="section-title">Research & AI Publications</h2>
+            <div class="project-card" style="display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <span class="stack">Applied AI • Predictive Modelling • System Optimization</span>
+                    <h3 style="margin-top: 0.5rem;">AI Research & Publications</h3>
+                    <p class="project-desc">
+                        Authored <span class="highlight">5 research papers</span> on AI innovation, focusing on predictive modelling and performance optimization for complex systems. 
+                        These publications demonstrate technical depth in bridging advanced AI research with scalable software engineering solutions.
+                    </p>
+                </div>
+                <a target="_blank" href="https://scholar.google.com/citations?user=Hjdvr88AAAAJ&hl=en" class="btn secondary" style="white-space: nowrap; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                    Google Scholar ↗
+                </a>
             </div>
         </section>
 
@@ -677,7 +1103,7 @@
         <section id="contact" class="section fade-in">
             <div class="contact-box">
                 <h2>Hire for engineering depth.</h2>
-                <p style="margin-top: 1.5rem;">Contact: <span class="email-copy" id="emailCopy">masandgaurav231@gmail.com</span></p>
+                <p style="margin-top: 1.5rem;">Contact: <a class="email-copy" id="emailCopy" href="mailto:masandgaurav231@gmail.com" target="_blank" rel="noopener noreferrer">masandgaurav231@gmail.com</a></p>
             </div>
         </section>
     </main>
@@ -773,17 +1199,8 @@
 
 
 
-            // Email Copy
-            document.getElementById('emailCopy').addEventListener('click', () => {
-                const email = "masandgaurav231@gmail.com";
-                const el = document.createElement('textarea');
-                el.value = email;
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-                alert("Email copied to clipboard!");
-            });
+            // Email link — opens the user's mail client via mailto (no JS needed)
+            // (Copy-to-clipboard behavior removed to avoid interfering with default mailto navigation.)
             
             // Progress Bar
             window.addEventListener('scroll', () => {
