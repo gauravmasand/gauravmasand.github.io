@@ -14,15 +14,15 @@ export const meta = {
   name: 'Gaurav Masand',
   shortName: 'Gaurav Masand',
   role: 'Software Engineer',
-  secondRole: 'AI & Data Science Researcher',
+  secondRole: 'AI/ML Researcher',
   location: 'Pune, Maharashtra, India',
   email: 'gauravsmasand@gmail.com',
   siteUrl: 'https://gauravmasand.github.io',
-  title: 'Gaurav Masand — Software Engineer & AI/Data Science Researcher',
+  title: 'Gaurav Masand — Software Engineer & AI/ML Researcher',
   description:
-    'Gaurav Masand builds production backend systems and publishes computational research. Six peer-reviewed journal articles on interpretable machine learning, architect of PyChem-Pro, and Spring Boot / BigQuery microservices serving 1M+ users.',
+    'Gaurav Masand builds production backend systems and publishes machine-learning research. Six peer-reviewed journal articles on interpretable machine learning, architect of PyChem-Pro, and Spring Boot / BigQuery microservices serving 1M+ users.',
   ogDescription:
-    'Software engineer and AI/data-science researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.',
+    'Software engineer and AI/ML researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.',
   keywords: [
     'Gaurav Masand', 'software engineer', 'AI researcher', 'machine learning',
     'explainable AI', 'QSAR', 'PyChem-Pro', 'backend engineering', 'Spring Boot',

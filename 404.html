@@ -1036,7 +1036,12 @@ transition-delay: var(--d, 0ms);
 }
 .js .reveal.is-in { opacity: 1; translate: 0 0; }
 .js .lines { display: block; }
-.js .line-mask { display: block; overflow: hidden; }
+.js .line-mask {
+display: block;
+overflow: hidden;
+padding-top: 0.18em;
+margin-top: -0.18em;
+}
 .js .line-inner {
 display: block;
 translate: 0 105%;

@@ -1,7 +1,7 @@
 {
   "name": "Gaurav Masand",
   "short_name": "G. Masand",
-  "description": "Software engineer and AI/data-science researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.",
+  "description": "Software engineer and AI/ML researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

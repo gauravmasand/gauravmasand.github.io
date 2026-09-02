@@ -11,9 +11,19 @@
 }
 .js .reveal.is-in { opacity: 1; translate: 0 0; }
 
-/* Line-by-line display reveal for the hero and section headings */
+/* Line-by-line display reveal for the hero and section headings.
+   The mask clips at its padding box, and a tight display line-height (0.92)
+   puts the serif ascenders above the line box — so the cap of a "G" was being
+   shaved off. Open the box upward and pull it back with a matching negative
+   margin: the glyph clears, the layout position is unchanged, and because only
+   the top grows the line still hides completely at translate 105%. */
 .js .lines { display: block; }
-.js .line-mask { display: block; overflow: hidden; }
+.js .line-mask {
+  display: block;
+  overflow: hidden;
+  padding-top: 0.18em;
+  margin-top: -0.18em;
+}
 .js .line-inner {
   display: block;
   translate: 0 105%;

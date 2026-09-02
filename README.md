@@ -1,6 +1,6 @@
 # gauravmasand.github.io
 
-Personal site of **Gaurav Masand** — software engineer and AI/data-science researcher.
+Personal site of **Gaurav Masand** — software engineer and AI/ML researcher.
 Live at <https://gauravmasand.github.io>.
 
 A static, single-page site: hand-written HTML, CSS and JavaScript with no framework

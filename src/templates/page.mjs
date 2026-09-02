@@ -76,9 +76,9 @@ const hero = () => `
     <h1 data-reveal="lines">${lines(['Gaurav', 'Masand'])}</h1>
 
     <p class="hero-roles" data-reveal style="--d:260ms">
-      <span class="r-eng">Software Engineer</span>
+      <span class="r-eng">${esc(P.meta.role)}</span>
       <span class="sep" aria-hidden="true"></span>
-      <span class="r-res">AI &amp; Data Science Researcher</span>
+      <span class="r-res">${esc(P.meta.secondRole)}</span>
     </p>
 
     <p class="hero-lede" data-reveal style="--d:340ms">${esc(P.hero.lede)}</p>
@@ -579,7 +579,7 @@ export function renderPage({ cssHref, jsHref, cssInline }) {
 <meta property="og:image" content="${esc(P.meta.siteUrl)}/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Gaurav Masand — Software Engineer and AI/Data Science Researcher">
+<meta property="og:image:alt" content="${esc(P.meta.name)} — ${esc(P.meta.role)} and ${esc(P.meta.secondRole)}">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
