@@ -1,0 +1,23 @@
+{
+  "name": "Gaurav Masand",
+  "short_name": "G. Masand",
+  "description": "Software engineer and AI/data-science researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08090c",
+  "theme_color": "#08090c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

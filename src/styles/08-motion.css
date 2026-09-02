@@ -1,0 +1,52 @@
+/* ── Motion ───────────────────────────────────────────────────────────────
+   Every animated element is fully visible and usable with JavaScript off and
+   with prefers-reduced-motion set. Reveals are opt-in: the .reveal class is
+   only applied by script once IntersectionObserver is confirmed available. */
+
+.js .reveal {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity 0.7s var(--ease), translate 0.7s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.js .reveal.is-in { opacity: 1; translate: 0 0; }
+
+/* Line-by-line display reveal for the hero and section headings */
+.js .lines { display: block; }
+.js .line-mask { display: block; overflow: hidden; }
+.js .line-inner {
+  display: block;
+  translate: 0 105%;
+  transition: translate 0.95s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.js .lines.is-in .line-inner { translate: 0 0; }
+
+/* Magnetic buttons — displacement written by script, easing owned by CSS */
+.magnetic { transition: transform 0.45s var(--ease); }
+
+/* Count-up numerals hold their final width to avoid layout shift */
+.counter { display: inline-block; font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js .reveal { opacity: 1 !important; translate: none !important; }
+  .js .line-inner { translate: none !important; }
+  .magnetic { transform: none !important; }
+  .hero-canvas { display: none; }
+  /* Disclosure panels still need to open/close, just instantly. */
+  .project-body, .paper-body { transition: none; }
+}
+
+@media print {
+  .nav, .nav-sheet, .progress, .hero-canvas, .hero-scroll, .project-toggle, .paper-toggle, .filters { display: none !important; }
+  body { background: #fff; color: #111; }
+  .project-body, .paper-body { grid-template-rows: 1fr !important; }
+  .section { padding-block: 1.5rem; }
+}

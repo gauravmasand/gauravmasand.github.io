@@ -1,1215 +1,2087 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaurav Masand | Software Engineer & AI Specialist</title>
-    <meta name="description" content="Portfolio of Gaurav Masand, a Software Engineer and AI/ML Specialist focusing on high-performance systems and scalable backend architectures.">
-    <!-- Premium Typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Background: A soft, warm gray instead of pure white */
-            --bg-color: #f8f9fa; 
-            --secondary-bg: #ffffff; /* Use pure white only for "lifting" cards */
-            
-            /* Typography: Deep slate instead of harsh black */
-            --text-main: #2d3436;
-            --text-muted: #636e72;
-            
-            /* Accent: A more mature Indigo-Blue */
-            --accent: #4834d4;
-            --accent-soft: #f0f3ff;
-            
-            /* Borders: Almost invisible, very soft */
-            --border: rgba(0, 0, 0, 0.05);
-            
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="dark"] {
-            --bg-color: #0a0a0a;
-            --text-main: #ededed;
-            --text-muted: #a0a0a0;
-            --accent: #3291ff;
-            --accent-soft: #00254d;
-            --border: #333333;
-            --secondary-bg: #111111;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--accent);
-            width: 0%;
-            z-index: 1001;
-            transition: width 0.1s ease;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Navbar */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: var(--bg-color);
-            border-bottom: 1px solid var(--border);
-            padding: 0.75rem 0;
-            width: 100%;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: -1px;
-        }
-
-        /* --- Desktop Navigation Layout --- */
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            /* This ensures children are placed in a standard row on desktop */
-            flex-direction: row; 
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 1.5rem;
-            /* Ensures the links come before the theme icon in the DOM flow */
-            order: 1; 
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--text-main);
-        }
-
-        .theme-toggle {
-            background: none;
-            border: 1px solid var(--border);
-            padding: 0.4rem;
-            border-radius: 8px;
-            cursor: pointer;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-            /* Ensures the icon is the rightmost element in the nav-right container */
-            order: 2; 
-        }
-
-        .theme-toggle:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Hero */
-        .hero {
-            padding: 5.5rem 0 2.5rem;
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--accent-soft);
-            border: 1px solid var(--accent);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            width: fit-content;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.2rem);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            white-space: nowrap;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                white-space: normal;
-                font-size: 2.5rem;
-            }
-        }
-
-        .headline {
-            font-size: 1.4rem;
-            color: var(--text-main);
-            max-width: 750px;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        .value-prop {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.85rem 1.8rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .btn.primary {
-            background: var(--text-main);
-            color: var(--bg-color);
-        }
-
-        .btn.secondary {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border);
-        }
-
-        /* Sections */
-        .section { padding: 5rem 0 2rem; }
-
-        .section-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .section-title::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .highlight {
-            color: var(--text-main);
-            font-weight: 700;
-            background: var(--accent-soft);
-            padding: 0 4px;
-            border-radius: 4px;
-        }
-
-        /* Experience */
-        .experience-item { margin-bottom: 3rem; }
-        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
-        .exp-role h3 { font-size: 1.25rem; font-weight: 700; }
-        .exp-company { font-size: 0.95rem; color: var(--accent); font-weight: 600; }
-        .exp-meta { text-align: right; font-size: 0.85rem; color: var(--text-muted); }
-        .exp-bullets { list-style: none; }
-        .exp-bullets li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; color: var(--text-muted); font-size: 0.95rem; }
-        .exp-bullets li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
-
-        /* Projects */
-        .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .project-card { border: 1px solid var(--border); padding: 2rem; border-radius: 12px; background: var(--bg-color); transition: var(--transition); }
-        .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-        .project-header h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .stack { font-size: 0.7rem; color: var(--accent); font-weight: 700; text-transform: uppercase; }
-        .project-desc { font-size: 0.9rem; color: var(--text-muted); margin: 1rem 0; }
-
-        /* AWARDS RESTRUCTURED UX */
-        .awards-ux-container {
-            margin-top: 1rem;
-        }
-        
-        .awards-tabs {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1rem;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            background: none;
-            border: 1px solid var(--border);
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-
-        .tab-btn.active {
-            background: var(--text-main);
-            color: var(--bg-color);
-            border-color: var(--text-main);
-        }
-
-        .awards-grid-ux {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .award-card-ux {
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 12px;
-            background: var(--bg-color);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .award-card-ux:hover {
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        .award-badge-ux {
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--accent);
-            background: var(--accent-soft);
-            width: fit-content;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-        }
-
-        .award-title-ux {
-            font-size: 1.1rem;
-            font-weight: 800;
-            line-height: 1.2;
-            color: var(--text-main);
-        }
-
-        .award-meta-ux {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .award-details-ux {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .award-repo-ux {
-            margin-top: auto;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--text-main);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-
-
-        /* Skills */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
-        .skill-category h4 { font-size: 0.9rem; margin-bottom: 0.8rem; font-weight: 700; }
-        .skill-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-        .skill-tag { font-size: 0.8rem; color: var(--text-muted); background: var(--secondary-bg); padding: 0.25rem 0.6rem; border-radius: 5px; border: 1px solid var(--border); }
-
-        /* Footer */
-        .contact-box { background: var(--secondary-bg); padding: 3rem; border-radius: 20px; text-align: center; border: 1px solid var(--border); margin-top: 4rem; }
-        .email-copy { cursor: pointer; color: var(--accent); font-weight: 700; border-bottom: 2px solid var(--accent); text-decoration: none; transition: var(--transition); }
-        .email-copy:hover,
-        .email-copy:focus { background: var(--accent-soft); border-radius: 6px; padding: 0.1rem 0.3rem; color: var(--accent); outline: none; }
-        .footer-note { font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 3rem 0; }
-
-        /* Utilities */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 4rem 0 1.5rem;
-                min-height: 45vh;
-            }
-            .hero h1 { font-size: 2.5rem; }
-            .awards-grid-ux { grid-template-columns: 1fr; }
-
-        }
-
-        /* Extracurricular actiities */
-        #activities .project-link {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        #activities .project-link:hover {
-            text-decoration: underline;
-        }
-
-        .value-prop {
-            line-height: 1.8;
-            color: var(--text-muted);
-            font-size: 1.05rem;
-            max-width: 800px;
-        }
-
-        .highlight {
-            color: var(--text-main);
-            font-weight: 600;
-            background: var(--accent-soft);
-            padding: 0 2px;
-        }
-
-        /* Responsiveness */
-        .skills-grid { 
-            display: grid; 
-            /* Force exactly 3 columns on desktop */
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 2.5rem; 
-        }
-
-        /* Tablet Responsiveness */
-        @media (max-width: 900px) {
-            .skills-grid { 
-                /* Switch to 2 columns for tablets */
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 2rem;
-            }
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 600px) {
-            .skills-grid { 
-                /* Stack to 1 column for phones */
-                grid-template-columns: 1fr; 
-                gap: 1.5rem;
-            }
-            
-            .skill-category h4 {
-                font-size: 1rem;
-                border-bottom: 1px solid var(--border);
-                padding-bottom: 0.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container { padding: 0 1.25rem; }
-            
-            /* Navbar Mobile Fix */
-            .nav-links { gap: 0.8rem; }
-            .nav-links a { font-size: 0.75rem; }
-            .logo { font-size: 1.1rem; }
-
-            /* Hero adjustments */
-            .hero { padding: 4rem 0 2rem; min-height: auto; }
-            .hero h1 { font-size: 2.2rem; white-space: normal; line-height: 1.2; }
-            .value-prop { font-size: 0.95rem; line-height: 1.6; }
-            .hero-actions { flex-direction: column; width: 100%; }
-            .btn { justify-content: center; width: 100%; }
-
-            /* Experience & Education */
-            .exp-header { flex-direction: column; gap: 0.25rem; }
-            .exp-meta { text-align: left; font-size: 0.8rem; margin-top: 0.2rem; }
-            .exp-role h3 { font-size: 1.1rem; }
-
-            /* Project Grid - Stack to 1 column */
-            .projects-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .project-card { padding: 1.5rem; }
-
-            /* Awards Grid - Stack to 1 column */
-            .awards-grid-ux { grid-template-columns: 1fr; }
-            .award-card-ux { padding: 1.25rem; }
-
-            /* Research Section Mobile Fix */
-            #research .project-card {
-                flex-direction: column;
-                align-items: flex-start !important;
-                gap: 1.25rem !important;
-            }
-            #research .btn { width: auto; align-self: flex-start; }
-
-            /* Section Spacing */
-            .section { padding: 3.5rem 0 1.5rem; }
-            .section-title { margin-bottom: 1.5rem; font-size: 0.7rem; }
-        }
-
-        /* Extra small devices (Phones < 400px) */
-        @media (max-width: 400px) {
-            .nav-right { gap: 0.75rem; }
-            .nav-links { display: none; } /* Consider a burger menu if links are many, or keep simple */
-            .hero h1 { font-size: 1.8rem; }
-            .skills-grid { grid-template-columns: 1fr 1fr; } /* Force 2 columns on tiny screens */
-        }
-
-        /* NAV BAR */
-
-        /* --- Optimized Navbar Base --- */
-        /* --- Optimized Navbar & Mobile Fix --- */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background-color: var(--bg-color); /* Prevents background text bleed */
-            border-bottom: 1px solid var(--border);
-            padding: 0.75rem 0;
-            width: 100%;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* Mobile Fix for Hidden Links (Research & Stack) */
-        @media (max-width: 768px) {
-            .nav-content {
-                flex-direction: column; 
-                align-items: flex-start; /* Aligns logo to the left */
-                gap: 1rem;
-                padding: 0.5rem 1rem;
-            }
-
-            .nav-right {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                overflow: hidden; /* Contains the scroll */
-            }
-
-            .nav-links {
-                display: flex;
-                overflow-x: auto; /* ENABLES SWIPING */
-                -webkit-overflow-scrolling: touch; 
-                white-space: nowrap; /* PREVENTS OVERLAP/WRAPPING */
-                gap: 1.25rem;
-                padding: 0.5rem 0;
-                flex: 1; /* Takes available space */
-                scrollbar-width: none; /* Hides scrollbar Firefox */
-            }
-
-            .nav-links::-webkit-scrollbar {
-                display: none; /* Hides scrollbar Chrome/Android/Safari */
-            }
-
-            .nav-links li {
-                display: inline-block;
-            }
-
-            .nav-links a {
-                font-size: 0.85rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                color: var(--text-muted);
-            }
-
-            .theme-toggle {
-                flex-shrink: 0; /* Prevents button from being squashed */
-            }
-        }
-
-        /* --- HAMBURGER MENU STYLES --- */
-        .menu-toggle {
-            display: none; /* Hidden on desktop */
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 2px;
-            background-color: var(--text-main);
-            transition: 0.3s;
-        }
-
-        /* Mobile Adjustments (max-width: 768px) */
-        @media (max-width: 768px) {
-        /* Keep Logo on the left and nav-right group on the right */
-        .nav-content {
-            display: flex;
-            flex-direction: row; /* Ensure they stay side-by-side */
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* Group theme toggle and hamburger button together */
-        .nav-right {
-            display: flex;
-            flex-direction: row-reverse; /* Reverses order: Toggle, then Hamburger */
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Adjust the menu-toggle for better vertical alignment */
-        .menu-toggle {
-            display: flex;
-            order: 1; /* Ensures it stays at the far right */
-        }
-
-        .theme-toggle {
-            order: 2; /* Positions it next to the hamburger menu */
-        }
-
-        /* Ensure nav links still overlay correctly when active */
-        .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 100%; /* Full screen overlay for mobile */
-            height: 100vh;
-            background-color: var(--bg-color);
-            flex-direction: column;
-            justify-content: center;
-            z-index: 1000;
-        }
-    }
-
-    /* --- CONSOLIDATED NAVIGATION STYLES --- */
-    .navbar {
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        background-color: var(--bg-color);
-        border-bottom: 1px solid var(--border);
-        padding: 0.75rem 0;
-        width: 100%;
-    }
-
-    .nav-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .nav-right {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-    }
-
-    .menu-toggle {
-        display: none;
-        flex-direction: column;
-        gap: 5px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        z-index: 1001;
-    }
-
-    .menu-toggle span {
-        display: block;
-        width: 25px;
-        height: 2px;
-        background-color: var(--text-main);
-        transition: 0.3s;
-    }
-
-    /* Mobile Responsiveness (max-width: 768px) */
-    @media (max-width: 768px) {
-        .menu-toggle { display: flex; }
-        
-        .nav-right { gap: 0.5rem; }
-
-        .nav-links {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Hidden off-screen */
-            width: 80%;
-            height: 100vh;
-            background-color: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .nav-links.active { right: 0; } /* Slides in */
-
-        .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    }
-
-    </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('menuToggle');
-            const navLinks = document.getElementById('navLinks');
-            const links = document.querySelectorAll('.nav-links a');
-
-            // Toggle menu
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-
-            // Close menu when a link is clicked
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
-        });
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gaurav Masand — Software Engineer &amp; AI/Data Science Researcher</title>
+<meta name="description" content="Gaurav Masand builds production backend systems and publishes computational research. Six peer-reviewed journal articles on interpretable machine learning, architect of PyChem-Pro, and Spring Boot / BigQuery microservices serving 1M+ users.">
+<meta name="author" content="Gaurav Masand">
+<meta name="keywords" content="Gaurav Masand, software engineer, AI researcher, machine learning, explainable AI, QSAR, PyChem-Pro, backend engineering, Spring Boot, computational research, interpretable machine learning, Pune">
+<meta name="theme-color" content="#08090c">
+<link rel="canonical" href="https://gauravmasand.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gauravmasand.github.io/">
+<meta property="og:site_name" content="Gaurav Masand">
+<meta property="og:title" content="Gaurav Masand — Software Engineer &amp; AI/Data Science Researcher">
+<meta property="og:description" content="Software engineer and AI/data-science researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.">
+<meta property="og:image" content="https://gauravmasand.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gaurav Masand — Software Engineer and AI/Data Science Researcher">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gaurav Masand — Software Engineer &amp; AI/Data Science Researcher">
+<meta name="twitter:description" content="Software engineer and AI/data-science researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.">
+<meta name="twitter:image" content="https://gauravmasand.github.io/og.png">
+
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preload" href="assets/fonts/inter-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
+<!-- Set before first paint so enhanced styles never flash their fallback state. -->
+<script>document.documentElement.classList.add('js')</script>
+<style>@font-face {
+font-family: 'Inter';
+font-style: normal;
+font-weight: 300 800;
+font-display: swap;
+src: url('assets/fonts/inter-latin-normal.woff2') format('woff2');
+unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+font-family: 'Newsreader';
+font-style: normal;
+font-weight: 300 600;
+font-display: swap;
+src: url('assets/fonts/newsreader-latin-normal.woff2') format('woff2');
+unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+:root {
+color-scheme: dark;
+--ink:        #08090c;
+--ink-2:      #0b0d11;
+--surface:    #0f1218;
+--surface-2:  #141821;
+--surface-3:  #1a1f2a;
+--line:        rgba(255, 255, 255, 0.075);
+--line-mid:    rgba(255, 255, 255, 0.12);
+--line-strong: rgba(255, 255, 255, 0.2);
+--fg:   #e9ebef;
+--fg-2: #a3abb8;
+--fg-3: #868f9d;
+--fg-4: #767f8d;
+--fg-5: #4d545f;
+--eng:      #7ba3ff;
+--eng-soft: rgba(123, 163, 255, 0.12);
+--eng-line: rgba(123, 163, 255, 0.32);
+--res:      #e7b45a;
+--res-soft: rgba(231, 180, 90, 0.12);
+--res-line: rgba(231, 180, 90, 0.32);
+--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+--font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+--font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+--t-mono:  clamp(0.66rem, 0.62rem + 0.16vw, 0.74rem);
+--t-sm:    clamp(0.82rem, 0.79rem + 0.13vw, 0.89rem);
+--t-body:  clamp(0.94rem, 0.9rem + 0.19vw, 1.05rem);
+--t-lead:  clamp(1.06rem, 0.98rem + 0.38vw, 1.28rem);
+--t-h4:    clamp(1.05rem, 0.99rem + 0.28vw, 1.22rem);
+--t-h3:    clamp(1.28rem, 1.14rem + 0.6vw, 1.65rem);
+--t-h2:    clamp(1.95rem, 1.5rem + 1.95vw, 3.2rem);
+--t-h1:    clamp(2.7rem, 1.6rem + 4.9vw, 6rem);
+--measure: 62ch;
+--shell: 1200px;
+--gutter: clamp(1.25rem, 0.7rem + 2.4vw, 3.5rem);
+--sec-y: clamp(4.75rem, 2.6rem + 8.4vw, 9rem);
+--r-sm: 8px;
+--r-md: 14px;
+--r-lg: 20px;
+--ease: cubic-bezier(0.22, 1, 0.36, 1);
+--ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+--dur: 0.5s;
+--nav-h: 64px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html {
+-webkit-text-size-adjust: 100%;
+scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+}
+html:not(.js-lenis) { scroll-behavior: smooth; }
+body {
+background: var(--ink);
+color: var(--fg);
+font-family: var(--font-sans);
+font-size: var(--t-body);
+line-height: 1.65;
+font-synthesis-weight: none;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-rendering: optimizeLegibility;
+overflow-x: hidden;
+}
+img, canvas { display: block; }
+img, svg, canvas { max-width: 100%; }
+img { height: auto; }
+svg { vertical-align: middle; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+ul, ol { list-style: none; padding: 0; }
+:where(h1, h2, h3, h4) { font-weight: 500; line-height: 1.06; letter-spacing: -0.022em; }
+::selection { background: var(--eng); color: #06070a; }
+:focus-visible {
+outline: 2px solid var(--eng);
+outline-offset: 3px;
+border-radius: 3px;
+}
+.skip-link {
+position: absolute;
+left: 50%;
+top: 0;
+translate: -50% -150%;
+z-index: 200;
+padding: 0.7rem 1.2rem;
+background: var(--fg);
+color: var(--ink);
+border-radius: 0 0 var(--r-sm) var(--r-sm);
+font-size: var(--t-sm);
+font-weight: 600;
+transition: translate 0.2s var(--ease);
+}
+.skip-link:focus-visible { translate: -50% 0; }
+.vh {
+position: absolute !important;
+width: 1px; height: 1px;
+padding: 0; margin: -1px;
+overflow: hidden;
+clip-path: inset(50%);
+white-space: nowrap;
+}
+.shell {
+width: min(100% - var(--gutter) * 2, var(--shell));
+margin-inline: auto;
+}
+.mono {
+font-family: var(--font-mono);
+font-size: var(--t-mono);
+letter-spacing: 0.09em;
+text-transform: uppercase;
+font-weight: 500;
+}
+.serif { font-family: var(--font-serif); letter-spacing: -0.012em; }
+.section { padding-block: var(--sec-y); position: relative; }
+.section + .section { border-top: 1px solid var(--line); }
+.sec-head { max-width: var(--measure); margin-bottom: clamp(2.75rem, 1.5rem + 4vw, 4.75rem); }
+.sec-kicker {
+display: inline-flex; align-items: center; gap: 0.6rem;
+color: var(--fg-3); margin-bottom: 1.35rem;
+}
+.sec-kicker::before {
+content: ''; width: 26px; height: 1px; background: var(--line-strong);
+}
+.sec-title {
+font-family: var(--font-serif);
+font-size: var(--t-h2);
+font-weight: 400;
+letter-spacing: -0.028em;
+line-height: 1.03;
+text-wrap: balance;
+}
+.sec-summary {
+margin-top: 1.5rem;
+color: var(--fg-2);
+font-size: var(--t-lead);
+line-height: 1.6;
+max-width: 58ch;
+text-wrap: pretty;
+}
+.rule { height: 1px; background: var(--line); border: 0; }
+.btn {
+--btn-fg: var(--ink);
+--btn-bg: var(--fg);
+display: inline-flex; align-items: center; gap: 0.6rem;
+padding: 0.78rem 1.35rem;
+border-radius: 100px;
+font-size: var(--t-sm);
+font-weight: 600;
+letter-spacing: -0.005em;
+background: var(--btn-bg);
+color: var(--btn-fg);
+border: 1px solid transparent;
+transition: background 0.25s var(--ease), color 0.25s var(--ease),
+border-color 0.25s var(--ease), transform 0.35s var(--ease);
+will-change: transform;
+}
+.btn:hover { background: #fff; }
+.btn--ghost {
+--btn-bg: transparent;
+--btn-fg: var(--fg);
+border-color: var(--line-mid);
+}
+.btn--ghost:hover { background: var(--surface-2); border-color: var(--line-strong); }
+.btn .arr { transition: translate 0.3s var(--ease); }
+.btn:hover .arr { translate: 3px 0; }
+.xlink {
+display: inline-flex; align-items: center; gap: 0.42rem;
+color: var(--fg-2);
+font-size: var(--t-sm);
+font-weight: 500;
+border-bottom: 1px solid var(--line-mid);
+padding-bottom: 1px;
+transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.xlink:hover { color: var(--fg); border-color: var(--fg-3); }
+.xlink svg { width: 11px; height: 11px; opacity: 0.7; }
+.tone {
+--tone-fg: var(--fg-2);
+--tone-bg: rgba(255, 255, 255, 0.05);
+--tone-line: var(--line-mid);
+}
+.tone-eng { --tone-fg: var(--eng); --tone-bg: var(--eng-soft); --tone-line: var(--eng-line); }
+.tone-res { --tone-fg: var(--res); --tone-bg: var(--res-soft); --tone-line: var(--res-line); }
+.chip {
+display: inline-flex; align-items: center; gap: 0.45rem;
+padding: 0.28rem 0.68rem;
+border-radius: 100px;
+border: 1px solid var(--tone-line);
+background: var(--tone-bg);
+color: var(--tone-fg);
+font-family: var(--font-mono);
+font-size: var(--t-mono);
+letter-spacing: 0.07em;
+text-transform: uppercase;
+font-weight: 500;
+white-space: nowrap;
+}
+.tag {
+padding: 0.3rem 0.62rem;
+border-radius: var(--r-sm);
+background: rgba(255, 255, 255, 0.035);
+border: 1px solid var(--line);
+color: var(--fg-2);
+font-size: 0.78rem;
+line-height: 1.35;
+white-space: nowrap;
+}
+.nav {
+position: fixed;
+inset: 0 0 auto;
+z-index: 100;
+height: var(--nav-h);
+display: flex;
+align-items: center;
+transition: background 0.35s var(--ease), border-color 0.35s var(--ease),
+backdrop-filter 0.35s var(--ease);
+border-bottom: 1px solid transparent;
+}
+.nav[data-stuck='true'] {
+background: color-mix(in srgb, var(--ink) 78%, transparent);
+backdrop-filter: saturate(160%) blur(14px);
+-webkit-backdrop-filter: saturate(160%) blur(14px);
+border-bottom-color: var(--line);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.brand {
+display: inline-flex; align-items: baseline; gap: 0.55rem;
+font-weight: 600; letter-spacing: -0.03em; font-size: 0.98rem;
+}
+.brand-dot {
+width: 7px; height: 7px; border-radius: 50%;
+background: var(--eng);
+translate: 0 -1px;
+box-shadow: 0 0 0 3px var(--eng-soft);
+}
+.brand-sub { color: var(--fg-3); font-weight: 400; font-size: 0.82rem; letter-spacing: 0; }
+.nav-links { display: flex; align-items: center; gap: 0.15rem; }
+.nav-links a {
+position: relative;
+padding: 0.45rem 0.7rem;
+border-radius: var(--r-sm);
+font-size: 0.845rem;
+color: var(--fg-3);
+transition: color 0.2s var(--ease);
+}
+.nav-links a:hover { color: var(--fg); }
+.nav-links a[aria-current='true'] { color: var(--fg); }
+.nav-links a[aria-current='true']::after {
+content: '';
+position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.16rem;
+height: 1px; background: var(--fg-3);
+}
+.nav-cta { display: flex; align-items: center; gap: 0.6rem; }
+.nav-cta .btn { padding: 0.52rem 1rem; font-size: 0.82rem; }
+.nav-toggle {
+display: none;
+width: 40px; height: 40px;
+flex-direction: column;
+align-items: center; justify-content: center;
+border: 1px solid var(--line-mid);
+border-radius: 100px;
+}
+.nav-toggle span {
+display: block; width: 15px; height: 1.5px; background: var(--fg);
+transition: translate 0.3s var(--ease), rotate 0.3s var(--ease), opacity 0.2s;
+}
+.nav-toggle span + span { margin-top: 4px; }
+.nav-toggle[aria-expanded='true'] span:nth-child(1) { translate: 0 5.5px; rotate: 45deg; }
+.nav-toggle[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded='true'] span:nth-child(3) { translate: 0 -5.5px; rotate: -45deg; }
+.progress {
+position: fixed; inset: 0 auto auto 0;
+height: 1.5px; width: 100%;
+transform-origin: 0 50%;
+scale: 0 1;
+background: linear-gradient(90deg, var(--eng), var(--res));
+z-index: 101;
+}
+@media (max-width: 900px) {
+.nav-links, .nav-cta .btn { display: none; }
+.nav-toggle { display: flex; }
+.nav-sheet {
+position: fixed; inset: var(--nav-h) 0 auto;
+background: color-mix(in srgb, var(--ink) 96%, transparent);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+border-bottom: 1px solid var(--line);
+padding: 1.25rem var(--gutter) 2rem;
+display: grid; gap: 0.1rem;
+z-index: 99;
+clip-path: inset(0 0 100% 0);
+transition: clip-path 0.45s var(--ease);
+max-height: calc(100dvh - var(--nav-h));
+overflow-y: auto;
+}
+.nav-sheet[data-open='true'] { clip-path: inset(0 0 0 0); }
+.nav-sheet a {
+display: flex; align-items: baseline; gap: 0.9rem;
+padding: 0.82rem 0.25rem;
+font-family: var(--font-serif);
+font-size: 1.5rem;
+border-bottom: 1px solid var(--line);
+color: var(--fg-2);
+}
+.nav-sheet a .idx { font-family: var(--font-mono); font-size: 0.66rem; color: var(--fg-5); }
+.nav-sheet .sheet-foot { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1.5rem; }
+}
+@media (min-width: 901px) { .nav-sheet { display: none; } }
+.footer { border-top: 1px solid var(--line); padding-block: 3rem 2.5rem; }
+.footer-inner {
+display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem;
+align-items: baseline; justify-content: space-between;
+color: var(--fg-3); font-size: var(--t-sm);
+}
+.footer-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+.footer-links a { transition: color 0.2s var(--ease); }
+.footer-links a:hover { color: var(--fg); }
+.footer-note { color: var(--fg-4); font-size: 0.78rem; max-width: 46ch; }
+.hero {
+position: relative;
+min-height: clamp(660px, 100svh, 1000px);
+display: flex;
+align-items: center;
+padding-top: calc(var(--nav-h) + 3rem);
+padding-bottom: 4rem;
+isolation: isolate;
+overflow: hidden;
+}
+.hero-canvas {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+z-index: -2;
+opacity: 0;
+transition: opacity 1.6s var(--ease);
+pointer-events: none;
+}
+.hero-canvas[data-ready='true'] { opacity: 1; }
+.hero::after {
+content: '';
+position: absolute; inset: 0; z-index: -1;
+background:
+linear-gradient(to right, var(--ink) 2%, color-mix(in srgb, var(--ink) 62%, transparent) 34%, transparent 55%),
+radial-gradient(58% 62% at 73.5% 46%, transparent 12%, var(--ink) 86%),
+linear-gradient(to bottom, transparent 58%, var(--ink) 100%);
+pointer-events: none;
+}
+.hero-inner { position: relative; }
+.hero-eyebrow {
+display: flex; align-items: center; gap: 0.7rem;
+color: var(--fg-3); margin-bottom: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
+}
+.hero-eyebrow .dot {
+width: 6px; height: 6px; border-radius: 50%; background: var(--eng);
+box-shadow: 0 0 0 4px var(--eng-soft);
+}
+.hero h1 {
+font-family: var(--font-serif);
+font-size: var(--t-h1);
+font-weight: 400;
+letter-spacing: -0.038em;
+line-height: 0.92;
+margin-bottom: clamp(1.1rem, 0.7rem + 1.4vw, 1.8rem);
+}
+.hero-roles {
+display: flex; flex-wrap: wrap; align-items: center;
+gap: 0.55rem 0.9rem;
+margin-bottom: clamp(1.8rem, 1.2rem + 2vw, 2.75rem);
+font-size: clamp(0.95rem, 0.88rem + 0.32vw, 1.15rem);
+color: var(--fg-2);
+letter-spacing: -0.01em;
+}
+.hero-roles .r-eng { color: var(--eng); }
+.hero-roles .r-res { color: var(--res); }
+.hero-roles .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--fg-4); }
+.hero-lede {
+font-size: var(--t-lead);
+line-height: 1.55;
+color: var(--fg);
+max-width: 40ch;
+text-wrap: pretty;
+letter-spacing: -0.012em;
+}
+.hero-sub {
+margin-top: 1.15rem;
+color: var(--fg-3);
+max-width: 52ch;
+font-size: var(--t-sm);
+line-height: 1.7;
+text-wrap: pretty;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: clamp(2rem, 1.4rem + 2vw, 2.9rem); }
+.hero-stats {
+margin-top: clamp(3rem, 2rem + 4vw, 5rem);
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 1px;
+background: var(--line);
+border-block: 1px solid var(--line);
+}
+.hero-stat { background: var(--ink); padding: 1.25rem 1.35rem 1.35rem; }
+.hero-stat dd {
+font-family: var(--font-serif);
+font-size: clamp(1.85rem, 1.3rem + 2.2vw, 2.9rem);
+font-weight: 400;
+letter-spacing: -0.03em;
+line-height: 1;
+font-variant-numeric: tabular-nums;
+margin: 0 0 0.55rem;
+}
+.hero-stat dt { color: var(--fg-3); font-size: 0.775rem; line-height: 1.42; }
+.hero-scroll {
+position: absolute;
+left: 50%; bottom: 1.6rem;
+translate: -50% 0;
+color: var(--fg-4);
+display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
+}
+.hero-scroll .line {
+width: 1px; height: 34px;
+background: linear-gradient(to bottom, var(--fg-4), transparent);
+}
+@media (max-width: 860px) {
+.hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.hero-scroll { display: none; }
+}
+@media (max-width: 760px) {
+.hero-canvas { display: none; }
+.hero::after { background: none; }
+.hero { min-height: auto; padding-bottom: 3rem; }
+}
+@media (max-width: 520px) {
+.hero-roles { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+.hero-roles .sep { display: none; }
+}
+@media (max-width: 420px) {
+.hero-stat { padding: 1rem 0.9rem 1.1rem; }
+}
+.identity-split {
+display: grid;
+grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+gap: clamp(2rem, 1rem + 4vw, 5rem);
+align-items: start;
+}
+.now {
+display: grid;
+gap: 1px;
+background: var(--line);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+overflow: hidden;
+margin: 0;
+}
+.now-row {
+background: var(--ink-2);
+padding: 1.05rem 1.35rem 1.2rem;
+display: grid;
+gap: 0.42rem;
+transition: background 0.3s var(--ease);
+}
+.now-row:hover { background: var(--surface); }
+.now-row dt { color: var(--fg-4); }
+.now-row dd { margin: 0; display: grid; gap: 0.22rem; }
+.now-row dd b { font-weight: 500; font-size: 0.94rem; color: var(--fg); letter-spacing: -0.012em; }
+.now-row dd span { color: var(--fg-3); font-size: 0.795rem; line-height: 1.45; }
+@media (max-width: 880px) {
+.identity-split { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+}
+.statement {
+font-family: var(--font-serif);
+font-size: clamp(1.35rem, 1rem + 1.55vw, 2.15rem);
+font-weight: 300;
+line-height: 1.34;
+letter-spacing: -0.024em;
+color: var(--fg);
+max-width: 34ch;
+text-wrap: pretty;
+}
+.statement-src { margin-top: 1.4rem; color: var(--fg-4); }
+.disciplines {
+margin-top: clamp(3.5rem, 2rem + 5vw, 6rem);
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 1px;
+background: var(--line);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+overflow: hidden;
+}
+.discipline {
+background: var(--ink-2);
+padding: clamp(1.75rem, 1.2rem + 2vw, 2.9rem);
+position: relative;
+transition: background 0.4s var(--ease);
+}
+.discipline::before {
+content: '';
+position: absolute; inset: 0 0 auto 0; height: 2px;
+background: var(--tone-fg);
+scale: 0 1;
+transform-origin: 0 50%;
+transition: scale 0.7s var(--ease);
+}
+.discipline.is-in::before { scale: 1 1; }
+.discipline:hover { background: var(--surface); }
+.discipline h3 {
+font-family: var(--font-serif);
+font-size: var(--t-h3);
+font-weight: 400;
+margin: 1.35rem 0 1rem;
+letter-spacing: -0.025em;
+}
+.discipline p { color: var(--fg-2); font-size: var(--t-sm); line-height: 1.72; text-wrap: pretty; }
+.discipline ul { margin-top: 1.6rem; display: grid; gap: 0.72rem; }
+.discipline li {
+display: grid; grid-template-columns: 14px 1fr; gap: 0.75rem;
+color: var(--fg-3); font-size: 0.845rem; line-height: 1.5;
+}
+.discipline li::before {
+content: ''; width: 5px; height: 5px; border-radius: 1px;
+background: var(--tone-fg); opacity: 0.7; margin-top: 0.5em; translate: 4px 0;
+}
+.projects { display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+.project {
+background: var(--ink);
+transition: background 0.35s var(--ease);
+}
+.project:hover { background: var(--ink-2); }
+.project[data-open='true'] { background: var(--ink-2); }
+.project-head {
+width: 100%;
+display: grid;
+grid-template-columns: 2.6rem minmax(0, 1fr) auto;
+align-items: start;
+gap: clamp(1rem, 0.5rem + 1.6vw, 2rem);
+padding: clamp(1.6rem, 1.1rem + 1.8vw, 2.4rem) 0;
+text-align: left;
+}
+.project-idx {
+font-family: var(--font-mono);
+font-size: var(--t-mono);
+color: var(--fg-5);
+padding-top: 0.55rem;
+font-variant-numeric: tabular-nums;
+}
+.project-title {
+display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.65rem 0.95rem;
+}
+.project-title h3 {
+font-family: var(--font-serif);
+font-size: var(--t-h3);
+font-weight: 400;
+letter-spacing: -0.025em;
+}
+.project-meta { display: block; color: var(--fg-3); font-size: var(--t-sm); margin-top: 0.55rem; }
+.project-meta .sep { color: var(--fg-4); margin-inline: 0.5rem; }
+.project-tagline {
+display: block;
+margin-top: 0.85rem;
+color: var(--fg-2);
+font-size: var(--t-sm);
+line-height: 1.6;
+max-width: 56ch;
+text-wrap: pretty;
+}
+.project-toggle {
+display: grid; place-items: center;
+width: 38px; height: 38px;
+border: 1px solid var(--line-mid);
+border-radius: 100px;
+color: var(--fg-2);
+margin-top: 0.3rem;
+transition: border-color 0.25s var(--ease), background 0.25s var(--ease), rotate 0.4s var(--ease);
+flex: none;
+}
+.project-head:hover .project-toggle { border-color: var(--line-strong); background: var(--surface-2); }
+.project[data-open='true'] .project-toggle { rotate: 45deg; border-color: var(--tone-line); color: var(--tone-fg); }
+.project-body {
+display: grid;
+grid-template-rows: 1fr;
+}
+.js .project-body {
+grid-template-rows: 0fr;
+transition: grid-template-rows 0.55s var(--ease);
+}
+.js .project[data-open='true'] .project-body { grid-template-rows: 1fr; }
+.project-body > div { overflow: hidden; }
+.project-detail {
+display: grid;
+grid-template-columns: 2.6rem minmax(0, 1fr);
+gap: clamp(1rem, 0.5rem + 1.6vw, 2rem);
+padding-bottom: clamp(2rem, 1.4rem + 2vw, 3rem);
+}
+.project-detail > .spacer { display: block; }
+.project-summary { color: var(--fg-2); max-width: 62ch; line-height: 1.72; text-wrap: pretty; }
+.project-metrics {
+display: flex; flex-wrap: wrap;
+gap: 1px;
+margin: 1.85rem 0;
+background: var(--line);
+border: 1px solid var(--line);
+border-radius: var(--r-md);
+overflow: hidden;
+}
+.project-metric { background: var(--ink); padding: 0.95rem 1.25rem; flex: 1 1 150px; }
+.project-metric b {
+display: block;
+font-family: var(--font-serif);
+font-size: 1.5rem; font-weight: 400; letter-spacing: -0.025em;
+color: var(--tone-fg);
+line-height: 1.1;
+}
+.project-metric span { display: block; color: var(--fg-3); font-size: 0.775rem; margin-top: 0.3rem; }
+.project-highlights { display: grid; gap: 1.35rem; margin-top: 0.5rem; }
+.project-highlights > li {
+display: grid;
+grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+gap: 0.4rem 2rem;
+padding-top: 1.35rem;
+border-top: 1px solid var(--line);
+}
+.project-highlights h4 {
+font-size: 0.86rem; font-weight: 600; color: var(--fg);
+letter-spacing: -0.005em;
+}
+.project-highlights p { color: var(--fg-3); font-size: 0.865rem; line-height: 1.7; text-wrap: pretty; }
+.project-foot {
+margin-top: 2rem; padding-top: 1.4rem;
+border-top: 1px solid var(--line);
+display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; justify-content: space-between;
+}
+.stack-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-links { display: flex; flex-wrap: wrap; gap: 1.2rem; }
+.project-note { color: var(--fg-4); font-size: 0.78rem; margin-top: 1rem; }
+@media (max-width: 760px) {
+.project-head { grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; }
+.project-idx { display: none; }
+.project-detail { grid-template-columns: minmax(0, 1fr); }
+.project-detail > .spacer { display: none; }
+.project-highlights > li { grid-template-columns: minmax(0, 1fr); gap: 0.55rem; }
+}
+.research { background: var(--ink-2); }
+.research-head {
+display: grid;
+grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+gap: clamp(2rem, 1rem + 4vw, 5rem);
+align-items: end;
+margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+.research-metrics {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 1px;
+background: var(--line);
+border: 1px solid var(--line);
+border-radius: var(--r-md);
+overflow: hidden;
+}
+.research-metric { background: var(--ink-2); padding: 1.05rem 1rem; text-align: center; }
+.research-metric b {
+display: block;
+font-family: var(--font-serif);
+font-size: 1.75rem; font-weight: 400; color: var(--res);
+letter-spacing: -0.03em; line-height: 1;
+font-variant-numeric: tabular-nums;
+}
+.research-metric > span { display: block; color: var(--fg-3); font-size: 0.72rem; margin-top: 0.42rem; }
+.filters { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2.25rem; }
+.filter {
+padding: 0.42rem 0.95rem;
+border-radius: 100px;
+border: 1px solid var(--line-mid);
+color: var(--fg-3);
+font-size: 0.8rem;
+transition: color 0.22s var(--ease), border-color 0.22s var(--ease), background 0.22s var(--ease);
+}
+.filter:hover { color: var(--fg); border-color: var(--line-strong); }
+.filter[aria-pressed='true'] { background: var(--fg); color: var(--ink); border-color: var(--fg); font-weight: 600; }
+.filter .n { opacity: 0.55; margin-left: 0.35rem; font-variant-numeric: tabular-nums; }
+.papers { display: grid; gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+.paper {
+background: var(--ink-2);
+transition: background 0.35s var(--ease), opacity 0.3s var(--ease);
+}
+.paper:hover, .paper[data-open='true'] { background: var(--surface); }
+.paper[hidden] { display: none; }
+.paper-head {
+width: 100%; text-align: left;
+display: grid;
+grid-template-columns: 4.25rem minmax(0, 1fr) auto;
+gap: clamp(0.9rem, 0.5rem + 1.4vw, 1.85rem);
+align-items: start;
+padding: clamp(1.5rem, 1.1rem + 1.4vw, 2.1rem) 0;
+}
+.paper-year {
+font-family: var(--font-mono);
+font-size: var(--t-mono);
+color: var(--res);
+padding-top: 0.42rem;
+font-variant-numeric: tabular-nums;
+letter-spacing: 0.08em;
+}
+.paper-title {
+display: block;
+font-family: var(--font-serif);
+font-size: clamp(1.06rem, 0.98rem + 0.42vw, 1.34rem);
+font-weight: 400;
+line-height: 1.28;
+letter-spacing: -0.018em;
+color: var(--fg);
+text-wrap: pretty;
+}
+.paper-venue {
+display: block;
+margin-top: 0.7rem;
+font-family: var(--font-serif);
+font-size: 0.94rem;
+color: var(--res);
+letter-spacing: -0.005em;
+}
+.paper-venue .vol { color: var(--fg-4); font-family: var(--font-mono); font-size: var(--t-mono); margin-left: 0.6rem; }
+.paper-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 0.85rem; margin-top: 0.9rem; }
+.paper-facts { display: flex; flex-wrap: wrap; gap: 0.45rem 0.85rem; color: var(--fg-4); }
+.paper-facts > span + span::before { content: '·'; margin-right: 0.85rem; color: var(--fg-5); }
+.paper-toggle {
+display: grid; place-items: center;
+width: 34px; height: 34px; flex: none;
+border: 1px solid var(--line-mid);
+border-radius: 100px;
+color: var(--fg-3);
+margin-top: 0.3rem;
+transition: rotate 0.4s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.paper[data-open='true'] .paper-toggle { rotate: 45deg; color: var(--res); border-color: var(--res-line); }
+.paper-body { display: grid; grid-template-rows: 1fr; }
+.js .paper-body { grid-template-rows: 0fr; transition: grid-template-rows 0.5s var(--ease); }
+.js .paper[data-open='true'] .paper-body { grid-template-rows: 1fr; }
+.paper-body > div { overflow: hidden; }
+.paper-detail {
+display: grid;
+grid-template-columns: 4.25rem minmax(0, 1fr);
+gap: clamp(0.9rem, 0.5rem + 1.4vw, 1.85rem);
+padding-bottom: clamp(1.75rem, 1.2rem + 1.8vw, 2.6rem);
+}
+.paper-rows { display: grid; gap: 1.15rem; }
+.paper-row {
+display: grid;
+grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr);
+gap: 0.35rem 1.75rem;
+padding-top: 1.15rem;
+border-top: 1px solid var(--line);
+}
+.paper-row > dt { color: var(--fg-4); font-family: var(--font-mono); font-size: var(--t-mono); padding-top: 0.22em; }
+.paper-row > dd { color: var(--fg-2); font-size: 0.885rem; line-height: 1.72; margin: 0; text-wrap: pretty; }
+.authors { display: flex; flex-wrap: wrap; gap: 0.3rem 0.15rem; align-items: baseline; }
+.authors li { color: var(--fg-3); font-size: 0.865rem; }
+.authors li::after { content: ','; color: var(--fg-4); margin-right: 0.3rem; }
+.authors li:last-child::after { content: ''; }
+.authors li.me {
+color: var(--fg);
+font-weight: 600;
+border-bottom: 1.5px solid var(--res);
+padding-bottom: 1px;
+}
+.methods { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.paper-doi { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1.4rem; }
+.doi-code { font-family: var(--font-mono); font-size: 0.72rem; color: var(--fg-4); letter-spacing: 0; text-transform: none; }
+.research-foot {
+margin-top: 2.5rem;
+display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between;
+}
+.research-note { color: var(--fg-4); font-size: 0.8rem; max-width: 52ch; }
+@media (max-width: 860px) {
+.research-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+}
+@media (max-width: 640px) {
+.paper-head { grid-template-columns: minmax(0, 1fr) auto; }
+.paper-year { display: none; }
+.paper-detail { grid-template-columns: minmax(0, 1fr); }
+.paper-detail > .spacer { display: none; }
+.paper-row { grid-template-columns: minmax(0, 1fr); gap: 0.45rem; }
+}
+.timeline { position: relative; display: grid; gap: 0; }
+.timeline::before {
+content: '';
+position: absolute;
+left: 6px; top: 0.75rem; bottom: 0.75rem;
+width: 1px;
+background: var(--line);
+}
+.timeline-progress {
+position: absolute;
+left: 6px; top: 0.75rem;
+width: 1px;
+background: linear-gradient(to bottom, var(--eng), var(--res));
+height: 0;
+transition: height 0.15s linear;
+}
+.tl-item {
+position: relative;
+padding: clamp(1.6rem, 1.1rem + 1.6vw, 2.3rem) 0 clamp(1.6rem, 1.1rem + 1.6vw, 2.3rem) clamp(2rem, 1.4rem + 2vw, 3.2rem);
+border-bottom: 1px solid var(--line);
+}
+.tl-item:last-child { border-bottom: 0; }
+.tl-item::before {
+content: '';
+position: absolute;
+left: 0; top: clamp(2rem, 1.5rem + 1.6vw, 2.7rem);
+width: 13px; height: 13px;
+border-radius: 50%;
+background: var(--ink);
+border: 1px solid var(--line-strong);
+transition: border-color 0.4s var(--ease), background 0.4s var(--ease), scale 0.4s var(--ease);
+}
+.tl-item.is-in::before { border-color: var(--tone-fg); background: var(--tone-fg); scale: 1.05; }
+.tl-top { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: baseline; justify-content: space-between; }
+.tl-role { font-size: var(--t-h4); font-weight: 600; letter-spacing: -0.018em; color: var(--fg); }
+.tl-period { font-family: var(--font-mono); font-size: var(--t-mono); color: var(--fg-3); white-space: nowrap; }
+.tl-org { margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: baseline; }
+.tl-org b { font-family: var(--font-serif); font-size: 1.06rem; font-weight: 400; color: var(--tone-fg); }
+.tl-org span { color: var(--fg-4); font-size: 0.82rem; }
+.tl-advisor { margin-top: 0.65rem; color: var(--fg-3); font-size: 0.82rem; font-style: italic; }
+.tl-points { margin-top: 1.15rem; display: grid; gap: 0.7rem; max-width: 68ch; }
+.tl-points li {
+display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 0.75rem;
+color: var(--fg-2); font-size: 0.875rem; line-height: 1.68; text-wrap: pretty;
+}
+.tl-points li::before {
+content: ''; width: 4px; height: 4px; border-radius: 50%;
+background: var(--fg-5); margin-top: 0.62em; translate: 4px 0;
+}
+.honours-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+gap: 1rem;
+}
+.honour {
+position: relative;
+display: flex; flex-direction: column;
+gap: 0.8rem;
+padding: 1.5rem 1.5rem 1.65rem;
+border: 1px solid var(--line);
+border-radius: var(--r-md);
+background: var(--ink-2);
+overflow: hidden;
+transition: border-color 0.3s var(--ease), background 0.3s var(--ease), transform 0.4s var(--ease);
+}
+.honour::before {
+content: '';
+position: absolute; inset: 0;
+background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%),
+color-mix(in srgb, var(--rank-c) 9%, transparent), transparent 62%);
+opacity: 0;
+transition: opacity 0.35s var(--ease);
+pointer-events: none;
+}
+.honour:hover { border-color: var(--line-mid); background: var(--surface); transform: translateY(-3px); }
+.honour:hover::before { opacity: 1; }
+.honour[hidden] { display: none; }
+.honour { --rank-c: var(--fg-2); }
+.honour[data-tier='gold'] { --rank-c: var(--res); }
+.honour[data-tier='silver'] { --rank-c: #b9c2cf; }
+.honour[data-tier='bronze'] { --rank-c: #c78b5c; }
+.honour-rank {
+display: inline-flex; align-items: center; gap: 0.45rem;
+color: var(--rank-c);
+font-family: var(--font-mono);
+font-size: var(--t-mono);
+letter-spacing: 0.08em;
+text-transform: uppercase;
+font-weight: 600;
+width: fit-content;
+}
+.honour-rank::before {
+content: ''; width: 6px; height: 6px; rotate: 45deg;
+background: var(--rank-c);
+}
+.honour h3 {
+font-family: var(--font-serif);
+font-size: 1.16rem; font-weight: 400; line-height: 1.24; letter-spacing: -0.018em;
+text-wrap: balance;
+}
+.honour-meta { color: var(--fg-3); font-size: 0.795rem; line-height: 1.5; }
+.honour-meta .scale { color: var(--fg); font-weight: 500; }
+.honour p { color: var(--fg-3); font-size: 0.835rem; line-height: 1.65; margin-top: auto; padding-top: 0.35rem; text-wrap: pretty; }
+.edu-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+gap: 1px;
+background: var(--line);
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+overflow: hidden;
+}
+.edu { background: var(--ink-2); padding: clamp(1.5rem, 1.1rem + 1.4vw, 2.2rem); }
+.edu-period { font-family: var(--font-mono); font-size: var(--t-mono); color: var(--fg-3); }
+.edu h3 {
+font-family: var(--font-serif);
+font-size: 1.32rem; font-weight: 400; letter-spacing: -0.022em; line-height: 1.24;
+margin: 0.9rem 0 0.65rem;
+text-wrap: balance;
+}
+.edu-school { color: var(--fg-2); font-size: 0.885rem; }
+.edu-loc { color: var(--fg-4); font-size: 0.8rem; margin-top: 0.2rem; }
+.edu-result {
+margin-top: 1.35rem; padding-top: 1.15rem; border-top: 1px solid var(--line);
+display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap;
+}
+.edu-result b {
+font-family: var(--font-serif); font-size: 1.5rem; font-weight: 400;
+color: var(--eng); letter-spacing: -0.025em; font-variant-numeric: tabular-nums;
+}
+.edu-result span { color: var(--fg-4); font-size: 0.78rem; }
+.service {
+margin-top: 1.5rem;
+border: 1px solid var(--line);
+border-radius: var(--r-lg);
+padding: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
+background: var(--ink-2);
+display: grid;
+grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+gap: clamp(1.75rem, 1rem + 3vw, 3.5rem);
+align-items: start;
+}
+.service h3 {
+font-family: var(--font-serif); font-size: var(--t-h3); font-weight: 400;
+letter-spacing: -0.025em; margin: 0.9rem 0 0.5rem;
+}
+.service-org { color: var(--eng); font-size: 0.9rem; }
+.service p { color: var(--fg-2); font-size: 0.885rem; line-height: 1.72; margin-top: 1.1rem; text-wrap: pretty; }
+.service-stats { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+.service-stat { background: var(--ink-2); padding: 0.9rem 1.1rem; display: flex; align-items: baseline; gap: 0.85rem; }
+.service-stat b {
+font-family: var(--font-serif); font-size: 1.35rem; font-weight: 400; color: var(--eng);
+letter-spacing: -0.02em; min-width: 3.4rem;
+}
+.service-stat span { color: var(--fg-3); font-size: 0.79rem; line-height: 1.4; }
+.certs { margin-top: 1.5rem; display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.cert {
+background: var(--ink-2);
+padding: 1.15rem clamp(1.2rem, 1rem + 1vw, 1.8rem);
+display: flex; flex-wrap: wrap; gap: 0.6rem 1.25rem; align-items: baseline; justify-content: space-between;
+transition: background 0.25s var(--ease);
+}
+.cert:hover { background: var(--surface); }
+.cert-name { font-size: 0.9rem; color: var(--fg); display: inline-flex; align-items: center; gap: 0.5rem; }
+.cert-name svg { opacity: 0.55; }
+.cert-score { font-family: var(--font-mono); font-size: var(--t-mono); color: var(--res); }
+@media (max-width: 820px) { .service { grid-template-columns: minmax(0, 1fr); } }
+.skills { display: grid; gap: 0; }
+.skill-group {
+display: grid;
+grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+gap: 0.85rem 2.5rem;
+padding: clamp(1.4rem, 1.1rem + 1.2vw, 2rem) 0;
+border-top: 1px solid var(--line);
+align-items: start;
+}
+.skill-group:last-child { border-bottom: 1px solid var(--line); }
+.skill-group h3 {
+font-size: 0.94rem; font-weight: 600; letter-spacing: -0.01em;
+display: flex; align-items: center; gap: 0.65rem;
+}
+.skill-group h3::before {
+content: ''; width: 6px; height: 6px; border-radius: 50%;
+background: var(--tone-fg); flex: none;
+}
+.skill-items { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+@media (max-width: 700px) { .skill-group { grid-template-columns: minmax(0, 1fr); } }
+.contact { text-align: left; }
+.contact-title {
+font-family: var(--font-serif);
+font-size: clamp(2.1rem, 1.35rem + 3.3vw, 4.4rem);
+font-weight: 400; letter-spacing: -0.034em; line-height: 1.02;
+max-width: 20ch;
+text-wrap: balance;
+}
+.contact-body { margin-top: 1.75rem; color: var(--fg-2); font-size: var(--t-lead); line-height: 1.6; max-width: 54ch; text-wrap: pretty; }
+.contact-actions { margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.7rem; }
+.contact-links {
+margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+gap: 1px;
+background: var(--line);
+border-block: 1px solid var(--line);
+}
+.contact-link {
+background: var(--ink);
+padding: 1.35rem 1.5rem 1.5rem;
+display: grid; gap: 0.4rem;
+transition: background 0.3s var(--ease);
+}
+.contact-link:hover { background: var(--surface); }
+.contact-link .k { color: var(--fg-4); font-family: var(--font-mono); font-size: var(--t-mono); }
+.contact-link .v {
+display: flex; align-items: center; gap: 0.5rem;
+font-size: 0.95rem; color: var(--fg); letter-spacing: -0.01em;
+overflow-wrap: anywhere;
+}
+.contact-link .v svg { flex: none; }
+.contact-link .v .arr { opacity: 0; translate: -4px 0; transition: opacity 0.25s var(--ease), translate 0.25s var(--ease); }
+.contact-link:hover .v .arr { opacity: 0.6; translate: 0 0; }
+.js .reveal {
+opacity: 0;
+translate: 0 18px;
+transition: opacity 0.7s var(--ease), translate 0.7s var(--ease);
+transition-delay: var(--d, 0ms);
+}
+.js .reveal.is-in { opacity: 1; translate: 0 0; }
+.js .lines { display: block; }
+.js .line-mask { display: block; overflow: hidden; }
+.js .line-inner {
+display: block;
+translate: 0 105%;
+transition: translate 0.95s var(--ease);
+transition-delay: var(--d, 0ms);
+}
+.js .lines.is-in .line-inner { translate: 0 0; }
+.magnetic { transition: transform 0.45s var(--ease); }
+.counter { display: inline-block; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) {
+html { scroll-behavior: auto !important; }
+*, *::before, *::after {
+animation-duration: 0.001ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.001ms !important;
+scroll-behavior: auto !important;
+}
+.js .reveal { opacity: 1 !important; translate: none !important; }
+.js .line-inner { translate: none !important; }
+.magnetic { transform: none !important; }
+.hero-canvas { display: none; }
+.project-body, .paper-body { transition: none; }
+}
+@media print {
+.nav, .nav-sheet, .progress, .hero-canvas, .hero-scroll, .project-toggle, .paper-toggle, .filters { display: none !important; }
+body { background: #fff; color: #111; }
+.project-body, .paper-body { grid-template-rows: 1fr !important; }
+.section { padding-block: 1.5rem; }
+}
+html:not(.js) .project-toggle,
+html:not(.js) .paper-toggle,
+html:not(.js) .filters,
+html:not(.js) .nav-toggle,
+html:not(.js) .nav-sheet,
+html:not(.js) .hero-scroll,
+html:not(.js) .progress { display: none; }
+html:not(.js) .project-head,
+html:not(.js) .paper-head { cursor: default; grid-template-columns: 4.25rem minmax(0, 1fr); }
+html:not(.js) .project-head { grid-template-columns: 2.6rem minmax(0, 1fr); }
+@media (max-width: 900px) {
+html:not(.js) .nav { position: static; height: auto; padding-block: 0.85rem 0.6rem; }
+html:not(.js) .nav-inner { flex-wrap: wrap; row-gap: 0.6rem; }
+html:not(.js) .nav-links { display: flex; flex-wrap: wrap; gap: 0.1rem; }
+html:not(.js) .hero { padding-top: 2rem; }
+}</style>
+<script type="module" src="assets/js/main.js"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Gaurav Masand","url":"https://gauravmasand.github.io","email":"mailto:gauravsmasand@gmail.com","jobTitle":["Software Engineer","AI & Data Science Researcher"],"description":"Software engineer and AI/data-science researcher. Six peer-reviewed publications in interpretable ML, architect of the open-source PyChem-Pro molecular platform, backend microservices at 1M+ user scale.","address":{"@type":"PostalAddress","addressLocality":"Pune","addressRegion":"Maharashtra","addressCountry":"IN"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"Dr. D. Y. Patil Institute of Technology (SPPU)"},{"@type":"CollegeOrUniversity","name":"Dr. Punjabrao Deshmukh Polytechnic (MSBTE)"}],"knowsAbout":["Interpretable machine learning","Explainable AI","Backend engineering","Distributed systems","Numerical optimization","Cheminformatics","QSAR modelling"],"sameAs":["https://github.com/gauravmasand","https://www.linkedin.com/in/gaurav-masand/","https://scholar.google.com/citations?user=Hjdvr88AAAAJ&hl=en"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Machine learning modeling of acute inhalation toxicity using an RFA-RFR framework, supported by explainable AI and SALI-based activity cliff analysis","name":"Machine learning modeling of acute inhalation toxicity using an RFA-RFR framework, supported by explainable AI and SALI-based activity cliff analysis","datePublished":"2026","isPartOf":{"@type":"Periodical","name":"Journal of Pharmacological and Toxicological Methods"},"author":[{"@type":"Person","name":"V. H. Masand"},{"@type":"Person","name":"M. M. Rathore"},{"@type":"Person","name":"J. R. Bansod"},{"@type":"Person","name":"M. K. Patil"},{"@type":"Person","name":"G. S. Masand"},{"@type":"Person","name":"A. Samad"}],"identifier":"https://doi.org/10.1016/j.vascn.2026.108426","url":"https://doi.org/10.1016/j.vascn.2026.108426"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"PyDescriptorC*: a descriptor calculation tool for decoding chirality cliffs and revealing hidden patterns in drug discovery","name":"PyDescriptorC*: a descriptor calculation tool for decoding chirality cliffs and revealing hidden patterns in drug discovery","datePublished":"2025","isPartOf":{"@type":"Periodical","name":"RHAZES: Green and Applied Chemistry"},"author":[{"@type":"Person","name":"V. Masand"},{"@type":"Person","name":"G. Masand"},{"@type":"Person","name":"S. A. Al-Hussain"},{"@type":"Person","name":"R. Jawarkar"},{"@type":"Person","name":"V. Rastija"},{"@type":"Person","name":"M. E. A. Zaki"}],"identifier":"https://doi.org/10.48419/IMIST.PRSM/rhazes-v21.55913","url":"https://doi.org/10.48419/IMIST.PRSM/rhazes-v21.55913"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"e-QSAR (Explainable AI-QSAR), molecular docking, and ADMET analysis of structurally diverse GSK3-beta modulators","name":"e-QSAR (Explainable AI-QSAR), molecular docking, and ADMET analysis of structurally diverse GSK3-beta modulators","datePublished":"2025","isPartOf":{"@type":"Periodical","name":"Computational Biology and Chemistry"},"author":[{"@type":"Person","name":"V. H. Masand"},{"@type":"Person","name":"S. Al-Hussain"},{"@type":"Person","name":"G. S. Masand"},{"@type":"Person","name":"A. Samad"},{"@type":"Person","name":"R. Gawali"},{"@type":"Person","name":"S. Jadhav"},{"@type":"Person","name":"M. E. A. Zaki"}],"identifier":"https://doi.org/10.1016/j.compbiolchem.2024.108324","url":"https://doi.org/10.1016/j.compbiolchem.2024.108324"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Analyzing oxygen atom distribution in FDA-approved drugs to enhance drug discovery strategies","name":"Analyzing oxygen atom distribution in FDA-approved drugs to enhance drug discovery strategies","datePublished":"2025","isPartOf":{"@type":"Periodical","name":"Chemical Biology & Drug Design"},"author":[{"@type":"Person","name":"V. H. Masand"},{"@type":"Person","name":"M. K. Patil"},{"@type":"Person","name":"S. A. Al-Hussain"},{"@type":"Person","name":"A. Samad"},{"@type":"Person","name":"V. Rastija"},{"@type":"Person","name":"R. D. Jawarkar"},{"@type":"Person","name":"G. S. Masand"},{"@type":"Person","name":"R. G. Gawali"}],"identifier":"https://doi.org/10.1111/cbdd.70060","url":"https://doi.org/10.1111/cbdd.70060"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Identification of pharmacophore synergism for optimization of estrogen receptor beta binders","name":"Identification of pharmacophore synergism for optimization of estrogen receptor beta binders","datePublished":"2025","isPartOf":{"@type":"Periodical","name":"Chemical Physics Impact"},"author":[{"@type":"Person","name":"R. A. Hussien"},{"@type":"Person","name":"F. A. S. Alasmary"},{"@type":"Person","name":"V. H. Masand"},{"@type":"Person","name":"A. Samad"},{"@type":"Person","name":"R. D. Jawarkar"},{"@type":"Person","name":"G. S. Masand"},{"@type":"Person","name":"S. A. Al-Hussain"},{"@type":"Person","name":"M. E. A. Zaki"}],"identifier":"https://doi.org/10.1016/j.chphi.2025.100872","url":"https://doi.org/10.1016/j.chphi.2025.100872"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"GA-XGBoost, an explainable AI technique, for analysis of thrombin inhibitory activity of a diverse pool of molecules","name":"GA-XGBoost, an explainable AI technique, for analysis of thrombin inhibitory activity of a diverse pool of molecules","datePublished":"2024","isPartOf":{"@type":"Periodical","name":"Chemometrics and Intelligent Laboratory Systems"},"author":[{"@type":"Person","name":"V. H. Masand"},{"@type":"Person","name":"S. Al-Hussain"},{"@type":"Person","name":"A. Y. Alzahrani"},{"@type":"Person","name":"A. A. Al-Mutairi"},{"@type":"Person","name":"A. S. Alqahtani"},{"@type":"Person","name":"A. Samad"},{"@type":"Person","name":"G. S. Masand"},{"@type":"Person","name":"M. E. A. Zaki"}],"identifier":"https://doi.org/10.1016/j.chemolab.2024.105197","url":"https://doi.org/10.1016/j.chemolab.2024.105197"}</script>
 </head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<body data-theme="light">
-    <div class="progress-bar" id="progressBar"></div>
-
-    <nav class="navbar">
-        <div class="container nav-content">
-            <span class="logo">G.MASAND</span>
-            
-            <div class="nav-right">
-                <button class="theme-toggle" id="themeToggle">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </button>
-                
-                <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#">About</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#experience">Work</a></li>
-                    <li><a href="#awards">Honors</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#activities">Activities</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="#skills">Stack</a></li>
-                </ul>
-            </div>
-        </div>
+<div class="progress" data-progress aria-hidden="true"></div>
+<header class="nav" data-nav>
+  <div class="shell nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <span>Gaurav Masand</span>
+      <span class="brand-sub" aria-hidden="true">SWE / Research</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#about" data-nav-link>About</a><a href="#engineering" data-nav-link>Engineering</a><a href="#research" data-nav-link>Research</a><a href="#honours" data-nav-link>Honours</a><a href="#journey" data-nav-link>Journey</a><a href="#skills" data-nav-link>Skills</a>
     </nav>
+    <div class="nav-cta">
+      <a class="btn" href="#contact">Get in touch <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-sheet">
+        <span></span><span></span><span></span>
+        <span class="vh">Menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="nav-sheet" id="nav-sheet" data-nav-sheet aria-hidden="true">
+  <a href="#about"><span class="idx">01</span>About</a><a href="#engineering"><span class="idx">02</span>Engineering</a><a href="#research"><span class="idx">03</span>Research</a><a href="#honours"><span class="idx">04</span>Honours</a><a href="#journey"><span class="idx">05</span>Journey</a><a href="#skills"><span class="idx">06</span>Skills</a>
+  <a href="#contact"><span class="idx">07</span>Contact</a>
+  <div class="sheet-foot">
+    <a class="xlink" href="https://github.com/gauravmasand" target="_blank" rel="noopener noreferrer">GitHub<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a>
+    <a class="xlink" href="https://scholar.google.com/citations?user=Hjdvr88AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Scholar<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a>
+    <a class="xlink" href="https://www.linkedin.com/in/gaurav-masand/" target="_blank" rel="noopener noreferrer">LinkedIn<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a>
+  </div>
+</div>
+<main id="main">
 
-    <main class="container">
-        <!-- HERO SECTION -->
-        <section id="hero" class="hero fade-in">
-            <span class="badge">Open for Roles • 2026</span>
-            <h1>Software Engineer with Applied AI.</h1>
+<section class="hero" id="top">
+  <canvas class="hero-canvas" data-molecule aria-hidden="true"></canvas>
+  <div class="shell hero-inner">
+    <p class="hero-eyebrow mono" data-reveal><span class="dot" aria-hidden="true"></span>Pune, India</p>
+
+    <h1 data-reveal="lines"><span class="line-mask"><span class="line-inner" style="--d:0ms">Gaurav</span></span><span class="line-mask"><span class="line-inner" style="--d:90ms">Masand</span></span></h1>
+
+    <p class="hero-roles" data-reveal style="--d:260ms">
+      <span class="r-eng">Software Engineer</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="r-res">AI &amp; Data Science Researcher</span>
+    </p>
+
+    <p class="hero-lede" data-reveal style="--d:340ms">I build systems that have to be both fast and explainable — production backends measured in P95 latency, and research code measured in whether another scientist can reproduce it.</p>
+    <p class="hero-sub" data-reveal style="--d:420ms">Six peer-reviewed journal articles on interpretable machine learning. Architect of PyChem-Pro, a molecular simulation platform written from first principles in pure Python and NumPy. Backend microservices ingesting events for over a million users.</p>
+
+    <div class="hero-actions" data-reveal style="--d:500ms">
+      <a class="btn magnetic" data-magnetic href="#research">Read the research <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <a class="btn btn--ghost magnetic" data-magnetic href="#engineering">See the engineering <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+
+    <dl class="hero-stats" data-reveal style="--d:580ms">
+      <div class="hero-stat">
+        <dd><span class="counter" data-count="6">6</span></dd>
+        <dt>Peer-reviewed<br>journal articles</dt>
+      </div><div class="hero-stat">
+        <dd><span class="counter" data-count="30">30</span></dd>
+        <dt>Citations,<br>h-index 3</dt>
+      </div><div class="hero-stat">
+        <dd><span class="counter" data-count="350">350</span>+</dd>
+        <dt>GitHub stars on<br>PyChem-Pro</dt>
+      </div><div class="hero-stat">
+        <dd><span class="counter" data-count="1">1</span>M+</dd>
+        <dt>Users served by<br>ingestion layer</dt>
+      </div>
+    </dl>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span class="mono">Scroll</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="sec-kicker mono" data-reveal>Identity</p>
+      <h2 class="sec-title" id="about-title" data-reveal style="--d:80ms">Two disciplines, one method.</h2>
+    </div>
+
+    <div class="identity-split">
+      <div>
+        <p class="statement" data-reveal>I work at the intersection of numerical computing, systems engineering and interpretable machine learning. My contribution across six journal publications has been methodological rather than domain-specific: feature-selection and model-explanation pipelines for problems where the feature space is large, the sample count is small, and a black-box predictor is not acceptable.</p>
+        <p class="statement-src mono" data-reveal style="--d:120ms">Research statement, academic CV</p>
+      </div>
+      <dl class="now" data-reveal style="--d:180ms">
+        <div class="now-row">
+          <dt class="mono">Degree</dt>
+          <dd><b>B.E. Artificial Intelligence &amp; Data Science, 2026</b><span>Dr. D. Y. Patil Institute of Technology (SPPU), Pune · CGPA 8.94/10</span></dd>
+        </div><div class="now-row">
+          <dt class="mono">Most recent</dt>
+          <dd><b>Software Engineer Intern, Airoclip</b><span>Bengaluru · Aug 2025 — Jun 2026</span></dd>
+        </div><div class="now-row">
+          <dt class="mono">Building</dt>
+          <dd><b>PyChem-Pro</b><span>Architect and lead developer · 350+ GitHub stars</span></dd>
+        </div><div class="now-row">
+          <dt class="mono">Based in</dt>
+          <dd><b>Pune, Maharashtra, India</b><span>Research internship at Sunway University, Malaysia, 2025</span></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="disciplines">
+      <article class="discipline tone tone-eng" data-inview style="--d:0ms">
+        <p class="chip">Engineering</p>
+        <h3>Systems that hold up under load.</h3>
+        <p>Java Spring Boot microservices over a partitioned BigQuery backend. A Redis write-behind buffer that absorbs high-frequency user events in memory and flushes hourly, cutting write amplification. Distributed tracing and query profiling that took P95 latency down 30%. The work is unglamorous and it is the part that decides whether a product survives its own traffic.</p>
+        <ul><li><span>Backend &amp; distributed systems — Spring Boot, Kafka, GraphQL, FastAPI</span></li><li><span>Data infrastructure — BigQuery, PostgreSQL, MongoDB, Redis</span></li><li><span>Cloud &amp; delivery — GCP, AWS, Docker, Kubernetes, CI/CD</span></li><li><span>Production incident response and root-cause analysis</span></li></ul>
+      </article><article class="discipline tone tone-res" data-inview style="--d:120ms">
+        <p class="chip">Research</p>
+        <h3>Models you are allowed to interrogate.</h3>
+        <p>Small samples, thousands of candidate features, and a domain where nobody will accept &quot;the model said so.&quot; That constraint is the whole problem. Genetic-algorithm feature selection wrapped around gradient-boosted trees; recursive feature addition with random-forest regression; SHAP attribution carried all the way through to a claim a chemist can check against an X-ray structure.</p>
+        <ul><li><span>Interpretability &amp; feature attribution on high-dimensional, low-n data</span></li><li><span>Representation learning over graph-structured molecular inputs</span></li><li><span>Numerical optimization — force fields, analytical gradients, L-BFGS</span></li><li><span>Reproducible research software and computational pipelines</span></li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="engineering" aria-labelledby="eng-title">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="sec-kicker mono" data-reveal>Engineering</p>
+      <h2 class="sec-title" id="eng-title" data-reveal style="--d:80ms">Things I built, and what was hard about them.</h2>
+      <p class="sec-summary" data-reveal style="--d:160ms">Not a list of repositories. Each of these had one genuinely difficult constraint — a numerical method with no library to lean on, a grammar that does not map onto English, a write path that could not survive its own volume — and that constraint is what the work is.</p>
+    </div>
+  </div>
+  <div class="projects">
+<article class="project tone tone-res" data-disclosure data-open="true">
+  <h3 class="vh">PyChem-Pro</h3>
+  <div class="shell">
+    <button class="project-head" type="button" data-disclosure-btn
+            aria-expanded="true" aria-controls="proj-pychem-pro">
+      <span class="project-idx" aria-hidden="true">01</span>
+      <span>
+        <span class="project-title">
+          <h3>PyChem-Pro</h3>
+          <span class="chip">Research software</span>
+        </span>
+        <span class="project-meta">Architect &amp; Lead Developer<span class="sep" aria-hidden="true">—</span>Mar 2026 — Present</span>
+        <span class="project-tagline">A molecular simulation, analysis and visualization platform written from first principles.</span>
+      </span>
+      <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="project-body" id="proj-pychem-pro" data-disclosure-panel>
+      <div>
+        <div class="project-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <p class="project-summary">Cross-platform desktop application and Python library — no C/C++ extensions, no external cheminformatics dependency. The force field, the optimizer, the parser and the renderer are all implemented from the published specifications in pure Python and NumPy. I am the only computer scientist on a team of domain chemists and wrote roughly 70% of the codebase.</p>
+
+            <div class="project-metrics"><div class="project-metric"><b>350+</b><span>GitHub stars</span></div><div class="project-metric"><b>~600</b><span>users in five months</span></div><div class="project-metric"><b>~70%</b><span>of codebase authored</span></div></div>
+
+            <ul class="project-highlights"><li><h4>Numerical optimization</h4><p>Implemented MMFF94 from the published specification in pure NumPy — bond stretching, cubic-corrected angle bending, Fourier torsions, Lennard-Jones 12-6 with 1-2/1-3 exclusions, bond-charge-increment partial charges. Derived analytical gradients by hand for the angle and torsion terms and validated them against finite differences to 1e-4 and 1e-3. Minimization by L-BFGS with Armijo backtracking line search.</p></li><li><h4>Computer graphics</h4><p>Wrote the full 3D rendering pipeline: a software rasterizer with projection, depth sorting, view-frustum culling and level-of-detail substitution; a keyed gradient cache that amortizes per-atom shading arithmetic; an offline tiled ray-tracer; Catmull–Rom ribbon geometry and a DSSP-style secondary-structure classifier. ~60 FPS at 100 atoms.</p></li><li><h4>Systems architecture</h4><p>Dependency-ordered layering — core domain to infrastructure to services to features to public API — with every subsystem behind a typing.Protocol interface (IForceField, IRenderer, ILoader) so implementations are swappable by structural subtyping. An event bus for decoupled pub/sub, and a plugin API with lifecycle hooks.</p></li><li><h4>Parallelism &amp; performance</h4><p>One shared ProcessPoolExecutor pinned to a forced spawn start method for cross-platform safety — Qt plus fork() deadlocks on macOS, and fork() does not exist on Windows. It is used across parsing, force-field evaluation, descriptor computation, rendering and ray-trace tiling, and it is what lets a pure-Python implementation reach throughput competitive with compiled alternatives.</p></li><li><h4>Algorithms</h4><p>SMILES parser with Hückel aromaticity perception. PDB/mmCIF/MOL2/SDF readers with automatic bond perception. Kabsch superposition with outlier rejection and Needleman–Wunsch C-alpha correspondence. Shrake–Rupley SASA. Seven KS-test-evaluated partitioning algorithms.</p></li></ul>
+
+            <p class="project-note">Sponsored by AcuroRx, USA.</p>
+
+            <div class="project-foot">
+              <ul class="stack-list"><li class="tag">Python</li><li class="tag">NumPy</li><li class="tag">Qt</li><li class="tag">Multiprocessing</li><li class="tag">Computational geometry</li></ul>
+              <div class="project-links"><a class="xlink" href="https://github.com/vijaymasand/PyChem-Pro" target="_blank" rel="noopener noreferrer">Source<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="project tone tone-eng" data-disclosure data-open="false">
+  <h3 class="vh">Tap Hexa — data ingestion layer</h3>
+  <div class="shell">
+    <button class="project-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="proj-tap-hexa">
+      <span class="project-idx" aria-hidden="true">02</span>
+      <span>
+        <span class="project-title">
+          <h3>Tap Hexa — data ingestion layer</h3>
+          <span class="chip">Backend &amp; distributed systems</span>
+        </span>
+        <span class="project-meta">Software Engineer Intern, Airoclip<span class="sep" aria-hidden="true">—</span>Aug 2025 — Jun 2026</span>
+        <span class="project-tagline">The write path for a product with more than a million users.</span>
+      </span>
+      <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="project-body" id="proj-tap-hexa" data-disclosure-panel>
+      <div>
+        <div class="project-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <p class="project-summary">High-throughput Java Spring Boot microservices forming the core data-ingestion layer, orchestrating low-latency inter-service calls over a partitioned BigQuery backend.</p>
+
+            <div class="project-metrics"><div class="project-metric"><b>1M+</b><span>users served</span></div><div class="project-metric"><b>30%</b><span>P95 query latency cut</span></div><div class="project-metric"><b>95%</b><span>less manual analysis time</span></div></div>
+
+            <ul class="project-highlights"><li><h4>Redis write-behind buffer</h4><p>High-frequency user events — clicks, swipes, state snapshots — are held in memory and flushed to BigQuery on an hourly batch rather than written through. That cut write amplification and raised ingestion throughput, which is the difference between a warehouse that keeps up and one that does not.</p></li><li><h4>Production incident response</h4><p>Led root-cause analysis across GCP microservices and built the automated diagnostics — distributed tracing, query profiling — that took P95 query latency down 30%.</p></li><li><h4>LLM analytics pipeline</h4><p>A LangChain-over-BigQuery pipeline that took a recurring analysis from four-plus hours of manual work to under three minutes.</p></li></ul>
+
             
-            <p class="headline">Final Year Bachelor of Engineering AI & Data Science Student.</p>
+
+            <div class="project-foot">
+              <ul class="stack-list"><li class="tag">Java</li><li class="tag">Spring Boot</li><li class="tag">BigQuery</li><li class="tag">Redis</li><li class="tag">GCP</li><li class="tag">LangChain</li></ul>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="project tone" data-disclosure data-open="false">
+  <h3 class="vh">Mudra</h3>
+  <div class="shell">
+    <button class="project-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="proj-mudra">
+      <span class="project-idx" aria-hidden="true">03</span>
+      <span>
+        <span class="project-title">
+          <h3>Mudra</h3>
+          <span class="chip">Applied ML</span>
+        </span>
+        <span class="project-meta">Project Lead<span class="sep" aria-hidden="true">—</span>Nov 2024 — Mar 2025</span>
+        <span class="project-tagline">Bidirectional Indian Sign Language translation — and the corpus it needed.</span>
+      </span>
+      <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="project-body" id="proj-mudra" data-disclosure-panel>
+      <div>
+        <div class="project-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <p class="project-summary">A translation system in both directions, advised by Dr. Mithra Venkatesan, Head of the Department of AI &amp; Data Science at Dr. D. Y. Patil Institute of Technology. The recognition half was a modelling problem. The generation half was a linguistics problem. The dataset was neither, and it was the part nobody else had solved.</p>
+
+            <div class="project-metrics"><div class="project-metric"><b>~5,000</b><span>sign classes collected</span></div><div class="project-metric"><b>~2.5M</b><span>labelled frames</span></div><div class="project-metric"><b>~200ms</b><span>end-to-end latency</span></div></div>
+
+            <ul class="project-highlights"><li><h4>Recognition — sign to text</h4><p>MediaPipe hand and pose landmark extraction feeding a CNN spatial encoder and an LSTM temporal model for continuous sign classification.</p></li><li><h4>Generation — text to sign</h4><p>ISL grammar differs structurally from English, so this is syntactic reordering rather than lookup. The NLP layer transduces English into Indian Sign Language word order and drives a SiGML avatar renderer to articulate the sequence.</p></li><li><h4>The corpus</h4><p>Led construction of an original ISL corpus — roughly 5,000 sign classes at about 500 frames each, near 2.5M labelled frames — collected with volunteer native signers through a purpose-built capture tool running at 60–90 frames per second. We are the primary source for this data.</p></li><li><h4>Delivery</h4><p>Deployed as a Flutter and React client over a Dockerized FastAPI backend at roughly 200 ms end to end, with 300+ users. Top 5 finalist among 500+ teams at the Smart India Hackathon 2024 Grand Finale.</p></li></ul>
+
             
-            <p class="value-prop">
-                <span class="highlight">Full-Stack Developer</span> skilled in building scalable web applications using the <strong>MERN</strong> stack. 
-                Key projects include a real-time <span class="highlight">Indian Sign Language translator</span>, an industrial web app with 
-                <span class="highlight">5,000+ users</span>, and <span class="highlight">five research papers</span> on AI innovation. 
-                <span class="highlight">Smart India Hackathon 2024 Finalist</span> and winner of multiple national tech competitions. 
-                Active contributor as <span class="highlight">Lead of GDG on Campus</span>, mentoring 100+ peers and leading developer events. 
-                Strong foundation in <span class="highlight">full-stack scalable product engineering</span>.
-            </p>
+
+            <div class="project-foot">
+              <ul class="stack-list"><li class="tag">Python</li><li class="tag">MediaPipe</li><li class="tag">CNN + LSTM</li><li class="tag">FastAPI</li><li class="tag">Flutter</li><li class="tag">Docker</li></ul>
+              <div class="project-links"><a class="xlink" href="https://github.com/gauravmasand/Indian-Sign-Language-Project" target="_blank" rel="noopener noreferrer">Project repositories<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><a class="xlink" href="https://github.com/gauravmasand/SIH-ISL-to-Text-models" target="_blank" rel="noopener noreferrer">Models<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="project tone tone-res" data-disclosure data-open="false">
+  <h3 class="vh">JDescriptor</h3>
+  <div class="shell">
+    <button class="project-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="proj-jdescriptor">
+      <span class="project-idx" aria-hidden="true">04</span>
+      <span>
+        <span class="project-title">
+          <h3>JDescriptor</h3>
+          <span class="chip">Research software</span>
+        </span>
+        <span class="project-meta">Lead Developer<span class="sep" aria-hidden="true">—</span>2025</span>
+        <span class="project-tagline">A molecular feature-extraction engine at 4× the reference implementation.</span>
+      </span>
+      <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="project-body" id="proj-jdescriptor" data-disclosure-panel>
+      <div>
+        <div class="project-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <p class="project-summary">High-throughput engine computing more than 15,000 molecular descriptors, packaged as an automated containerized modelling pipeline on AWS and integrated into a QSAR workflow using XGBoost.</p>
+
+            <div class="project-metrics"><div class="project-metric"><b>15,000+</b><span>descriptors computed</span></div><div class="project-metric"><b>4×</b><span>speedup over reference</span></div><div class="project-metric"><b>Gold</b><span>e-Inovasi 2025, international</span></div></div>
+
+            <ul class="project-highlights"><li><h4>Where it went</h4><p>Built during a research internship at Sunway University under Prof. Dr. Long Chiau Ming. The work won the International Gold Medal at e-Inovasi 2025 — top 20 of more than 1,000 teams — supported a Sunway–UAEU joint grant proposal, and has been accepted for publication at RPIC 2026.</p></li></ul>
+
             
-            <div class="hero-actions">
-                <a href="#projects" class="btn primary">View Projects</a>
-                <a href="#experience" class="btn secondary" id="resumeBtn">Resume ↓</a>
-            </div>
-        </section>
 
-        <!--EDUCATION -->
-        <section id="education" class="section fade-in">
-            <h2 class="section-title">Education</h2>
+            <div class="project-foot">
+              <ul class="stack-list"><li class="tag">Python</li><li class="tag">XGBoost</li><li class="tag">AWS</li><li class="tag">Docker</li></ul>
+              <div class="project-links"><a class="xlink" href="https://github.com/gauravmasand/JDescriptor-Python-Full-Stack" target="_blank" rel="noopener noreferrer">Source<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="project tone tone-eng" data-disclosure data-open="false">
+  <h3 class="vh">LeleKart</h3>
+  <div class="shell">
+    <button class="project-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="proj-lelekart">
+      <span class="project-idx" aria-hidden="true">05</span>
+      <span>
+        <span class="project-title">
+          <h3>LeleKart</h3>
+          <span class="chip">Product engineering</span>
+        </span>
+        <span class="project-meta">Full Stack Developer Intern, Mymegaminds<span class="sep" aria-hidden="true">—</span>Feb 2024 — Jun 2024</span>
+        <span class="project-tagline">An e-commerce product shipped to web and Android, then made fast.</span>
+      </span>
+      <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="project-body" id="proj-lelekart" data-disclosure-panel>
+      <div>
+        <div class="project-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <p class="project-summary">Built with React on the web and Flutter on Android over a Node.js and Express backend, serving more than 5,000 users.</p>
+
+            <div class="project-metrics"><div class="project-metric"><b>5,000+</b><span>users</span></div><div class="project-metric"><b>5s → 1.3s</b><span>page load time</span></div><div class="project-metric"><b>&gt;98.8%</b><span>uptime</span></div></div>
+
+            <ul class="project-highlights"><li><h4>Performance</h4><p>Refined asset rendering and caching to bring page load from five seconds to 1.3 — a 74% reduction, and the single change users actually noticed.</p></li><li><h4>Delivery</h4><p>Accelerated RESTful API releases with BLoC architecture and automated CI/CD, and shipped production Web and Android builds holding above 98.8% uptime.</p></li></ul>
+
             
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div class="exp-role">
-                        <h3>Bachelor of Engineering in Artificial Intelligence & Data Science</h3>
-                        <span class="exp-company">Dr. D.Y. Patil Institute of Technology, Pune, India</span>
-                    </div>
-                    <div class="exp-meta">Sept 2023 – June 2026</div>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Current CGPA: <span class="highlight">8.6 / 10.0</span></li>
-                </ul>
-            </div>
 
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div class="exp-role">
-                        <h3>Diploma in Computer Science and Engineering</h3>
-                        <span class="exp-company">Dr. Panjabrao Deshmukh Polytechnic, Amravati, India</span>
-                    </div>
-                    <div class="exp-meta">Aug 2020 – June 2023</div>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Final Percentage: <span class="highlight">86.06%</span></li>
-                </ul>
+            <div class="project-foot">
+              <ul class="stack-list"><li class="tag">React</li><li class="tag">Flutter</li><li class="tag">Node.js</li><li class="tag">Express</li><li class="tag">CI/CD</li></ul>
+              
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="project tone tone-eng" data-disclosure data-open="false">
+  <h3 class="vh">Dazel</h3>
+  <div class="shell">
+    <button class="project-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="proj-dazel">
+      <span class="project-idx" aria-hidden="true">06</span>
+      <span>
+        <span class="project-title">
+          <h3>Dazel</h3>
+          <span class="chip">Backend</span>
+        </span>
+        <span class="project-meta">Creator<span class="sep" aria-hidden="true">—</span>2024</span>
+        <span class="project-tagline">A matching engine that had to answer in under 200 ms.</span>
+      </span>
+      <span class="project-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
 
-        <!-- EXPERIENCE -->
-        <section id="experience" class="section fade-in">
-            <h2 class="section-title">Experience</h2>
+    <div class="project-body" id="proj-dazel" data-disclosure-panel>
+      <div>
+        <div class="project-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <p class="project-summary">A matching algorithm scoring across 30+ parameters with geolocation constraints, backed by Redis caching to hold sub-200ms response times, plus real-time chat with data encryption. First place among 80+ teams at the MIT-WPU Codethon 2024.</p>
+
+            <div class="project-metrics"><div class="project-metric"><b>30+</b><span>matching parameters</span></div><div class="project-metric"><b>&lt;200ms</b><span>response time</span></div><div class="project-metric"><b>1st</b><span>of 80+ teams, MIT-WPU</span></div></div>
+
             
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div class="exp-role">
-                        <h3>Software Engineer Intern (Applied AI)</h3>
-                        <span class="exp-company">Sunway University (Kuala Lumpur, Malaysia)</span>
-                    </div>
-                    <div class="exp-meta">June 2025 – July 2025</div>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Built cross-platform <span class="highlight">Python</span> tools for parallel analysis of <span class="highlight">15,000+ parameters</span>, designing modular data workflows that streamlined complex computational tasks.</li>
-                    <li>Optimised the core processing logic to achieve <span class="highlight">4x throughput</span> and reduce execution time by <span class="highlight">70%</span>.</li>
-                    <li>Engineered containerized backend services using Docker on AWS, implementing automated validation that improved system scalability and reliability.</li>
-                </ul>
-            </div>
 
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div class="exp-role">
-                        <h3>Software Engineer Intern (Applied Research)</h3>
-                        <span class="exp-company">DIAT – DRDO (Gov. of India) (Pune, India)</span>
-                    </div>
-                    <div class="exp-meta">Dec 2024 – Feb 2025</div>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Engineered <span class="highlight">Python</span> modules for high-level drone autonomy and mission planning, implementing route generation and safety constraint logic.</li>
-                    <li>Built internal tools to automate mission simulations and data processing, <span class="highlight">reducing testing time by 40%</span>.</li>
-                    <li>Integrated and tested autonomy logic in simulated environments to validate consistent drone behaviour.</li>
-                </ul>
-            </div>
-
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div class="exp-role">
-                        <h3>Full Stack Developer Intern</h3>
-                        <span class="exp-company">Mymegaminds (Pune, India)</span>
-                    </div>
-                    <div class="exp-meta">Feb 2024 – June 2024</div>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Developed the "LeleKart" e-commerce app for <span class="highlight">5,000+ users</span> using React (JavaScript) and Flutter (Dart), supported by a robust Node.js/Express backend.</li>
-                    <li>Optimised application performance by refining asset rendering and caching, reducing page <span class="highlight">load time from 5s to 1.3s (74% improvement)</span>.</li>
-                    <li>Accelerated RESTful API releases by implementing BLoC architecture and automated CI/CD.</li>
-                    <li>Released production-ready Web and Android builds, maintaining <span class="highlight">>98.8% uptime</span> through rigorous testing.</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- HONORS & AWARDS (UX REFRESH) -->
-        <section id="awards" class="section fade-in">
-            <h2 class="section-title">Honors & Achievements</h2>
-            <div class="awards-ux-container">
-                <div class="awards-tabs">
-                    <button class="tab-btn active" data-filter="all">All Wins</button>
-                    <button class="tab-btn" data-filter="international">Global Honors</button>
-                    <button class="tab-btn" data-filter="hackathon">Hackathons</button>
-                    <button class="tab-btn" data-filter="coding">Coding Competitions</button>
-                </div>
-
-                <div class="awards-grid-ux" id="awardsGrid">
-                    <!-- International -->
-                    <div class="award-card-ux" data-cat="international">
-                        <span class="award-badge-ux">Gold Medal</span>
-                        <div class="award-meta-ux">e-Inovasi, IMU University, Malaysia • Sep 2025</div>
-                        <h3 class="award-title-ux">e-Inovasi 2025 Gold Medalist</h3>
-                        <p class="award-details-ux">Secured 1st place among 1000+ teams. Built cross-platform Python tools for parallel analysis of 15,000+ parameters, designing modular data workflows for pharmaceutical chemistry education and research.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="international">
-                        <span class="award-badge-ux">Silver Medal</span>
-                        <div class="award-meta-ux">Malaysia Startup Challenge 2025 • Aug 2025</div>
-                        <h3 class="award-title-ux">Tertiary – Startup Product Category</h3>
-                        <p class="award-details-ux">Competed against 1000+ international startups. Developed a scalable AI-driven e-commerce ecosystem with automated inventory management and real-time personalization, led by Prof. Long Ming.</p>
-                    </div>
-
-                    <!-- Hackathons -->
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">Top 5 Finalist</span>
-                        <div class="award-meta-ux">Smart India Hackathon 2024, Ministry of Education & AICTE • Dec 2024</div>
-                        <h3 class="award-title-ux">Smart India Hackathon 2024</h3>
-                        <p class="award-details-ux">Top 5 finalist among 500+ teams. Developed a full-stack mobile and web app for Indian Sign Language real-time translation using AI/ML technologies.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">Tietoevry Hackathon, MindSpark - COEP Tech University & Krafton • Nov 2024</div>
-                        <h3 class="award-title-ux">NeuralBytes – Emergency Health Assistance App</h3>
-                        <p class="award-details-ux">1st place among 240+ teams. Developed a mobile app for senior citizens' emergency health assistance with SOS alerts, heartbeat monitoring, and real-time nurse tracking using Flutter and Firebase.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">Silicon Fusion, AISSMS College of Engineering • Oct 2024</div>
-                        <h3 class="award-title-ux">DSA Teaching Platform</h3>
-                        <p class="award-details-ux">1st place among 50+ teams. Built a backend-focused DSA teaching platform leveraging advanced algorithms for seamless, scalable education delivery.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">3rd Place</span>
-                        <div class="award-meta-ux">VCET Hackathon 2024 • Oct 2024</div>
-                        <h3 class="award-title-ux">Custom Authentication Service</h3>
-                        <p class="award-details-ux">3rd place among 200+ teams. Built a secure authentication service with 3-factor authentication (Email, OTP, Fingerprint), DDoS defense, and admin dashboard for session tracking.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">MIT-WPU Codethon 2024 • May 2024</div>
-                        <h3 class="award-title-ux">Dazel – Innovative Dating Platform</h3>
-                        <p class="award-details-ux">1st place among 80+ teams. Created a dating app with robust matching algorithm using 30+ parameters, geolocation-based matching, and real-time chat with advanced data encryption.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="hackathon">
-                        <span class="award-badge-ux">1st Place</span>
-                        <div class="award-meta-ux">Hash It Out Hackathon, ZION Event - Dr. D. Y. Patil Institute of Technology • Apr 2024</div>
-                        <h3 class="award-title-ux">HealthEase – Comprehensive Healthcare App</h3>
-                        <p class="award-details-ux">1st place among 70+ teams. Developed a healthcare mobile app in Flutter integrating doctor consultations, ambulance tracking, and medicine ordering in a 6-hour hackathon.</p>
-                    </div>
-
-                    <!-- Coding -->
-                    <div class="award-card-ux" data-cat="coding">
-                        <span class="award-badge-ux">1st Runner Up</span>
-                        <div class="award-meta-ux">Dataverse 2024, Dr. D. Y. Patil Institute of Technology • Mar 2024</div>
-                        <h3 class="award-title-ux">Data Science Competition</h3>
-                        <p class="award-details-ux">2nd place in solo competition. Demonstrated exceptional problem-solving skills in Data Structures and Algorithms by solving complex algorithmic challenges.</p>
-                    </div>
-
-                    <div class="award-card-ux" data-cat="coding">
-                        <span class="award-badge-ux">2nd Place</span>
-                        <div class="award-meta-ux">Blind C Coding Competition, Dr. Panjabrao Deshmukh Polytechnic • Mar 2022</div>
-                        <h3 class="award-title-ux">Algorithmic Coding Challenge</h3>
-                        <p class="award-details-ux">2nd place among 150+ participants in solo competition. Successfully coded in C programming language without visual feedback (monitor turned off), demonstrating high-level syntax mastery.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section id="projects" class="section fade-in">
-            <h2 class="section-title">Key Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <span class="stack">FastAPI • Flutter • Docker</span>
-                    <h3>Mudra</h3>
-                    <p class="project-desc">Cross-platform Indian Sign Language system with Text-to-Sign translation. Latency optimized to 200ms.</p>
-                    <a href="https://github.com/gauravmasand/Indian-Sign-Language-Project" class="project-link">GitHub ↗</a>
-                </div>
-
-                <div class="project-card">
-                    <span class="stack">Node.js • Redis • MongoDB</span>
-                    <h3>Dazel</h3>
-                    <p class="project-desc">High-scale matching engine using Redis caching to maintain sub-200ms response times.</p>
-                    <a href="https://github.com/gauravmasand/dazel-dating-app-flutter" class="project-link">GitHub ↗</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Extracurricular Activities -->
-        <section id="activities" class="section fade-in">
-            <h2 class="section-title">Extracurricular Activities</h2>
             
-            <div class="experience-item">
-                <div class="exp-header">
-                    <div class="exp-role">
-                        <h3>Lead, Google Developer Group on Campus</h3>
-                        <span class="exp-company">Google Developers</span>
-                    </div>
-                    <div class="exp-meta">2024 – Present</div>
-                </div>
-                <ul class="exp-bullets">
-                    <li>Directed a core team of <span class="highlight">50+ members</span> to foster a developer culture on campus.</li>
-                    <li>Mentored <span class="highlight">100+ students</span> in technical workshops and project development.</li>
-                    <li>Organized large-scale technical events and hackathons to bridge the gap between academia and industry.</li>
-                </ul>
-                <a target="_blank" href="https://gdg.community.dev/gdg-on-campus-dr-d-y-patil-institute-of-technology-pune-india/" class="project-link" style="margin-top: 1rem; display: inline-block;">Community Page ↗</a>
+
+            <div class="project-foot">
+              <ul class="stack-list"><li class="tag">Node.js</li><li class="tag">Redis</li><li class="tag">MongoDB</li><li class="tag">Flutter</li></ul>
+              <div class="project-links"><a class="xlink" href="https://github.com/gauravmasand/dazel-dating-app-flutter" target="_blank" rel="noopener noreferrer">Source<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a></div>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article></div>
+</section>
 
-        <!-- RESEARCH -->
-        <section id="research" class="section fade-in">
-            <h2 class="section-title">Research & AI Publications</h2>
-            <div class="project-card" style="display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 300px;">
-                    <span class="stack">Applied AI • Predictive Modelling • System Optimization</span>
-                    <h3 style="margin-top: 0.5rem;">AI Research & Publications</h3>
-                    <p class="project-desc">
-                        Authored <span class="highlight">5 research papers</span> on AI innovation, focusing on predictive modelling and performance optimization for complex systems. 
-                        These publications demonstrate technical depth in bridging advanced AI research with scalable software engineering solutions.
-                    </p>
-                </div>
-                <a target="_blank" href="https://scholar.google.com/citations?user=Hjdvr88AAAAJ&hl=en" class="btn secondary" style="white-space: nowrap; padding: 0.6rem 1.2rem; font-size: 0.85rem;">
-                    Google Scholar ↗
-                </a>
-            </div>
-        </section>
+<section class="section research" id="research" aria-labelledby="res-title">
+  <div class="shell">
+    <div class="research-head">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="sec-kicker mono" data-reveal>Research</p>
+        <h2 class="sec-title" id="res-title" data-reveal style="--d:80ms">Six peer-reviewed journal articles.</h2>
+        <p class="sec-summary" data-reveal style="--d:160ms">30 citations · h-index 3 · i10-index 1 — Google Scholar, July 2026. My contribution is consistently the machine-learning side: feature selection, model construction, validation, and the explainability layer that makes a result arguable rather than asserted.</p>
+      </div>
+      <div class="research-metrics" data-reveal style="--d:220ms">
+        <div class="research-metric"><b><span class="counter" data-count="6">6</span></b><span>Journal articles</span></div>
+        <div class="research-metric"><b><span class="counter" data-count="30">30</span></b><span>Citations</span></div>
+        <div class="research-metric"><b><span class="counter" data-count="3">3</span></b><span>h-index</span></div>
+      </div>
+    </div>
 
-        <!-- SKILLS -->
-        <section id="skills" class="section fade-in">
-            <h2 class="section-title">Stack</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h4>Languages</h4>
-                    <div class="skill-list">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">Dart</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">C</span>
-                        <span class="skill-tag">C++</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">HTML/CSS</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h4>Frameworks & Libraries</h4>
-                    <div class="skill-list">
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express.js</span>
-                        <span class="skill-tag">React.js</span>
-                        <span class="skill-tag">Flutter</span>
-                        <span class="skill-tag">FlutterFlow</span>
-                        <span class="skill-tag">FastAPI</span>
-                        <span class="skill-tag">Flask</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h4>Databases</h4>
-                    <div class="skill-list">
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">Redis</span>
-                        <span class="skill-tag">Firebase</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h4>Cloud & DevOps</h4>
-                    <div class="skill-list">
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">GitHub</span>
-                        <span class="skill-tag">Linux</span>
-                        <span class="skill-tag">Postman</span>
-                        <span class="skill-tag">Swagger</span>
-                        <span class="skill-tag">AWS (EC2, S3, Lambda)</span>
-                        <span class="skill-tag">RESTful APIs</span>
-                        <span class="skill-tag">WebSocket</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h4>Backend & System</h4>
-                    <div class="skill-list">
-                        <span class="skill-tag">Microservices</span>
-                        <span class="skill-tag">Caching</span>
-                        <span class="skill-tag">Concurrency</span>
-                        <span class="skill-tag">API Design</span>
-                        <span class="skill-tag">System Design</span>
-                        <span class="skill-tag">AI/ML Model Integration</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h4>Core CS</h4>
-                    <div class="skill-list">
-                        <span class="skill-tag">DSA</span>
-                        <span class="skill-tag">OOP</span>
-                        <span class="skill-tag">OS (Linux/Unix)</span>
-                        <span class="skill-tag">CN (TCP/IP)</span>
-                        <span class="skill-tag">DBMS</span>
-                        <span class="skill-tag">Multithreading & Concurrency</span>
-                        <span class="skill-tag">Distributed Systems</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="filters" data-filter-group data-filter-target=".paper" data-filter-status="#research-status"
+         role="group" aria-label="Filter publications by research area">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All<span class="n">6</span></button>
+      <button class="filter" type="button" data-filter="interpretable-ml" aria-pressed="false">Interpretable ML<span class="n">2</span></button><button class="filter" type="button" data-filter="research-software" aria-pressed="false">Research software<span class="n">1</span></button><button class="filter" type="button" data-filter="explainable-ai" aria-pressed="false">Explainable AI<span class="n">2</span></button><button class="filter" type="button" data-filter="data-mining" aria-pressed="false">Data mining<span class="n">1</span></button>
+    </div>
+    <p class="vh" id="research-status" role="status" aria-live="polite"></p>
+  </div>
 
-        <section id="contact" class="section fade-in">
-            <div class="contact-box">
-                <h2>Hire for engineering depth.</h2>
-                <p style="margin-top: 1.5rem;">Contact: <a class="email-copy" id="emailCopy" href="mailto:masandgaurav231@gmail.com" target="_blank" rel="noopener noreferrer">masandgaurav231@gmail.com</a></p>
-            </div>
-        </section>
-    </main>
-
-
-
-    <script>
-        // AI CONFIG
-        const apiKey = "";
-        const GAURAV_CONTEXT = `
-            You are Gaurav AI. Gaurav is a high-achieving Software Engineer (Applied AI).
-            LATEST ACHIEVEMENTS:
-            - MindSpark COEP: 1st Place for NeuralBytes (Emergency Health App).
-            - e-Inovasi 2025 (Malaysia): Gold Medalist for JDescriptor (1st among 1000+ teams).
-            - Malaysia Startup Challenge 2025: Silver Medal for AI E-commerce ecosystem.
-            - Silicon Fusion (AISSM Hackathon 2024): 1st Place for DSA Teaching Platform. Developed a backend-focused platform for scalable education.
-            - Hash It Out (DY Patil): 1st Place for HealthEase (6-hour hackathon). Healthcare app integrating consultation, ambulance, and medicine purchase.
-            - MIT WPU Codethon: 1st Place for Dazel (matching algorithm).
-            - VCET 2024: 3rd Place for Custom Auth (3-factor auth, DDoS defense).
-            - Dataverse: 1st Runner Up in DSA coding challenge.
-            - Blind Coding: 2nd Place in National Blind C Coding.
-            WORK: Sunway University (4x throughput), DIAT-DRDO (Drone autonomy), MyMegaMinds (Load time -74%), Suninfotech (Web Intern).
-            BEHAVIOR: Professional, concise, metric-oriented. Highlight the Silicon Fusion win as a backend-heavy DSA achievement.
-        `;
-
-        async function callGemini(prompt, systemInstruction) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: { parts: [{ text: systemInstruction }] }
-            };
-            for (let i = 0; i < 5; i++) {
-                try {
-                    const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble connecting.";
-                } catch (e) {
-                    await new Promise(r => setTimeout(r, Math.pow(2, i) * 1000));
-                }
-            }
-            return "Connection error.";
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // AWARD FILTER LOGIC (UX IMPROVEMENT)
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const awardCards = document.querySelectorAll('.award-card-ux');
-
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const filter = btn.dataset.filter;
-                    awardCards.forEach(card => {
-                        if (filter === 'all' || card.dataset.cat === filter) {
-                            card.style.display = 'flex';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // UI Essentials
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-            // Theme Toggle
-            const themeToggle = document.getElementById('themeToggle');
-            themeToggle.addEventListener('click', () => {
-                const current = document.body.getAttribute('data-theme');
-                document.body.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
-            });
-
-            // AI Pitch
-            const generatePitchBtn = document.getElementById('generatePitchBtn');
-            const pitchResult = document.getElementById('pitchResult');
-            const jobTitleInput = document.getElementById('jobTitle');
-
-            generatePitchBtn.addEventListener('click', async () => {
-                const job = jobTitleInput.value.trim();
-                if (!job) return;
-                generatePitchBtn.disabled = true;
-                pitchResult.style.display = 'block';
-                pitchResult.innerText = "Generating custom pitch...";
-                const prompt = `Generate a 2-sentence career pitch for Gaurav Masand applying for: ${job}. Highlight his 1st place wins like Silicon Fusion and technical depth.`;
-                const pitch = await callGemini(prompt, GAURAV_CONTEXT);
-                pitchResult.innerText = pitch;
-                generatePitchBtn.disabled = false;
-            });
-
-
-
-            // Email link — opens the user's mail client via mailto (no JS needed)
-            // (Copy-to-clipboard behavior removed to avoid interfering with default mailto navigation.)
+  <div class="papers">
+<article class="paper" data-disclosure data-open="false" data-cat="interpretable-ml">
+  <div class="shell">
+    <button class="paper-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="pub-inhalation-toxicity">
+      <span class="paper-year" aria-hidden="true">2026</span>
+      <span>
+        <span class="paper-title">Machine learning modeling of acute inhalation toxicity using an RFA-RFR framework, supported by explainable AI and SALI-based activity cliff analysis</span>
+        <span class="paper-venue">Journal of Pharmacological and Toxicological Methods<span class="vol">Article 108426</span></span>
+        <span class="paper-badges">
+          <span class="chip tone tone-res">Interpretable ML</span>
+          <span class="paper-facts mono">
+            <span>Fifth author of 6</span>
             
-            // Progress Bar
-            window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                document.getElementById("progressBar").style.width = scrolled + "%";
-            });
-        });
-    </script>
+          </span>
+        </span>
+      </span>
+      <span class="paper-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="paper-body" id="pub-inhalation-toxicity" data-disclosure-panel>
+      <div>
+        <div class="paper-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <dl class="paper-rows">
+              <div class="paper-row">
+                <dt>Authors</dt>
+                <dd><ol class="authors"><li>V. H. Masand</li><li>M. M. Rathore</li><li>J. R. Bansod</li><li>M. K. Patil</li><li class="me">G. S. Masand</li><li>A. Samad</li></ol></dd>
+              </div>
+              <div class="paper-row">
+                <dt>My contribution</dt>
+                <dd>Built the ML pipeline — random-forest regression driven by recursive feature addition — and ran the explainable-AI analysis over the selected feature set.</dd>
+              </div>
+              <div class="paper-row">
+                <dt>Methods</dt>
+                <dd><ul class="methods"><li class="tag">Random forest regression</li><li class="tag">Recursive feature addition</li><li class="tag">Explainable AI</li><li class="tag">Activity-cliff (SALI) analysis</li></ul></dd>
+              </div>
+              <div class="paper-row">
+                <dt>Published in</dt>
+                <dd>Journal of Pharmacological and Toxicological Methods · Article 108426 · 2026</dd>
+              </div>
+            </dl>
+            <p class="paper-doi"><a class="xlink" href="https://doi.org/10.1016/j.vascn.2026.108426" target="_blank" rel="noopener noreferrer">View publication<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><span class="doi-code">doi:10.1016/j.vascn.2026.108426</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="paper" data-disclosure data-open="false" data-cat="research-software">
+  <div class="shell">
+    <button class="paper-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="pub-pydescriptor-c">
+      <span class="paper-year" aria-hidden="true">2025</span>
+      <span>
+        <span class="paper-title">PyDescriptorC*: a descriptor calculation tool for decoding chirality cliffs and revealing hidden patterns in drug discovery</span>
+        <span class="paper-venue">RHAZES: Green and Applied Chemistry<span class="vol">Preprint: ChemRxiv 0211</span></span>
+        <span class="paper-badges">
+          <span class="chip tone tone-res">Research software</span>
+          <span class="paper-facts mono">
+            <span>Second author of 6</span>
+            
+          </span>
+        </span>
+      </span>
+      <span class="paper-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="paper-body" id="pub-pydescriptor-c" data-disclosure-panel>
+      <div>
+        <div class="paper-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <dl class="paper-rows">
+              <div class="paper-row">
+                <dt>Authors</dt>
+                <dd><ol class="authors"><li>V. Masand</li><li class="me">G. Masand</li><li>S. A. Al-Hussain</li><li>R. Jawarkar</li><li>V. Rastija</li><li>M. E. A. Zaki</li></ol></dd>
+              </div>
+              <div class="paper-row">
+                <dt>My contribution</dt>
+                <dd>Designed, implemented and tested the core descriptor algorithm; co-wrote the manuscript. This is the paper where the software itself is the contribution.</dd>
+              </div>
+              <div class="paper-row">
+                <dt>Methods</dt>
+                <dd><ul class="methods"><li class="tag">Descriptor algorithm design</li><li class="tag">Stereochemistry / chirality cliffs</li><li class="tag">Python</li><li class="tag">Manuscript writing</li></ul></dd>
+              </div>
+              <div class="paper-row">
+                <dt>Published in</dt>
+                <dd>RHAZES: Green and Applied Chemistry · Preprint: ChemRxiv 0211 · 2025</dd>
+              </div>
+            </dl>
+            <p class="paper-doi"><a class="xlink" href="https://doi.org/10.48419/IMIST.PRSM/rhazes-v21.55913" target="_blank" rel="noopener noreferrer">View publication<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><span class="doi-code">doi:10.48419/IMIST.PRSM/rhazes-v21.55913</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="paper" data-disclosure data-open="false" data-cat="explainable-ai">
+  <div class="shell">
+    <button class="paper-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="pub-e-qsar-gsk3">
+      <span class="paper-year" aria-hidden="true">2025</span>
+      <span>
+        <span class="paper-title">e-QSAR (Explainable AI-QSAR), molecular docking, and ADMET analysis of structurally diverse GSK3-beta modulators</span>
+        <span class="paper-venue">Computational Biology and Chemistry<span class="vol">115:108324</span></span>
+        <span class="paper-badges">
+          <span class="chip tone tone-res">Explainable AI</span>
+          <span class="paper-facts mono">
+            <span>Third author of 7</span>
+            <span>9 citations</span>
+          </span>
+        </span>
+      </span>
+      <span class="paper-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="paper-body" id="pub-e-qsar-gsk3" data-disclosure-panel>
+      <div>
+        <div class="paper-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <dl class="paper-rows">
+              <div class="paper-row">
+                <dt>Authors</dt>
+                <dd><ol class="authors"><li>V. H. Masand</li><li>S. Al-Hussain</li><li class="me">G. S. Masand</li><li>A. Samad</li><li>R. Gawali</li><li>S. Jadhav</li><li>M. E. A. Zaki</li></ol></dd>
+              </div>
+              <div class="paper-row">
+                <dt>My contribution</dt>
+                <dd>Data curation, molecular docking, and the SHAP-based explainability layer used to surface the modulatory features the model was actually relying on.</dd>
+              </div>
+              <div class="paper-row">
+                <dt>Methods</dt>
+                <dd><ul class="methods"><li class="tag">SHAP</li><li class="tag">QSAR</li><li class="tag">Molecular docking</li><li class="tag">ADMET analysis</li></ul></dd>
+              </div>
+              <div class="paper-row">
+                <dt>Published in</dt>
+                <dd>Computational Biology and Chemistry · 115:108324 · 2025</dd>
+              </div>
+            </dl>
+            <p class="paper-doi"><a class="xlink" href="https://doi.org/10.1016/j.compbiolchem.2024.108324" target="_blank" rel="noopener noreferrer">View publication<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><span class="doi-code">doi:10.1016/j.compbiolchem.2024.108324</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="paper" data-disclosure data-open="false" data-cat="data-mining">
+  <div class="shell">
+    <button class="paper-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="pub-oxygen-distribution">
+      <span class="paper-year" aria-hidden="true">2025</span>
+      <span>
+        <span class="paper-title">Analyzing oxygen atom distribution in FDA-approved drugs to enhance drug discovery strategies</span>
+        <span class="paper-venue">Chemical Biology &amp; Drug Design<span class="vol">105(2):e70060</span></span>
+        <span class="paper-badges">
+          <span class="chip tone tone-res">Data mining</span>
+          <span class="paper-facts mono">
+            <span>Co-author of 8</span>
+            <span>11 citations</span>
+          </span>
+        </span>
+      </span>
+      <span class="paper-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="paper-body" id="pub-oxygen-distribution" data-disclosure-panel>
+      <div>
+        <div class="paper-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <dl class="paper-rows">
+              <div class="paper-row">
+                <dt>Authors</dt>
+                <dd><ol class="authors"><li>V. H. Masand</li><li>M. K. Patil</li><li>S. A. Al-Hussain</li><li>A. Samad</li><li>V. Rastija</li><li>R. D. Jawarkar</li><li class="me">G. S. Masand</li><li>R. G. Gawali</li></ol></dd>
+              </div>
+              <div class="paper-row">
+                <dt>My contribution</dt>
+                <dd>Data mining across the FDA-approved compound set, formal analysis, and identification of the distributional patterns the paper reports.</dd>
+              </div>
+              <div class="paper-row">
+                <dt>Methods</dt>
+                <dd><ul class="methods"><li class="tag">Large-scale data mining</li><li class="tag">Statistical analysis</li><li class="tag">Pattern identification</li></ul></dd>
+              </div>
+              <div class="paper-row">
+                <dt>Published in</dt>
+                <dd>Chemical Biology &amp; Drug Design · 105(2):e70060 · 2025</dd>
+              </div>
+            </dl>
+            <p class="paper-doi"><a class="xlink" href="https://doi.org/10.1111/cbdd.70060" target="_blank" rel="noopener noreferrer">View publication<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><span class="doi-code">doi:10.1111/cbdd.70060</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="paper" data-disclosure data-open="false" data-cat="explainable-ai">
+  <div class="shell">
+    <button class="paper-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="pub-estrogen-beta">
+      <span class="paper-year" aria-hidden="true">2025</span>
+      <span>
+        <span class="paper-title">Identification of pharmacophore synergism for optimization of estrogen receptor beta binders</span>
+        <span class="paper-venue">Chemical Physics Impact<span class="vol">10:100872</span></span>
+        <span class="paper-badges">
+          <span class="chip tone tone-res">Explainable AI</span>
+          <span class="paper-facts mono">
+            <span>Co-author of 8</span>
+            <span>2 citations</span>
+          </span>
+        </span>
+      </span>
+      <span class="paper-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="paper-body" id="pub-estrogen-beta" data-disclosure-panel>
+      <div>
+        <div class="paper-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <dl class="paper-rows">
+              <div class="paper-row">
+                <dt>Authors</dt>
+                <dd><ol class="authors"><li>R. A. Hussien</li><li>F. A. S. Alasmary</li><li>V. H. Masand</li><li>A. Samad</li><li>R. D. Jawarkar</li><li class="me">G. S. Masand</li><li>S. A. Al-Hussain</li><li>M. E. A. Zaki</li></ol></dd>
+              </div>
+              <div class="paper-row">
+                <dt>My contribution</dt>
+                <dd>Explainable-QSAR modelling, computational analysis and model optimization.</dd>
+              </div>
+              <div class="paper-row">
+                <dt>Methods</dt>
+                <dd><ul class="methods"><li class="tag">Explainable QSAR</li><li class="tag">Pharmacophore modelling</li><li class="tag">Model optimization</li></ul></dd>
+              </div>
+              <div class="paper-row">
+                <dt>Published in</dt>
+                <dd>Chemical Physics Impact · 10:100872 · 2025</dd>
+              </div>
+            </dl>
+            <p class="paper-doi"><a class="xlink" href="https://doi.org/10.1016/j.chphi.2025.100872" target="_blank" rel="noopener noreferrer">View publication<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><span class="doi-code">doi:10.1016/j.chphi.2025.100872</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+<article class="paper" data-disclosure data-open="false" data-cat="interpretable-ml">
+  <div class="shell">
+    <button class="paper-head" type="button" data-disclosure-btn
+            aria-expanded="false" aria-controls="pub-ga-xgboost">
+      <span class="paper-year" aria-hidden="true">2024</span>
+      <span>
+        <span class="paper-title">GA-XGBoost, an explainable AI technique, for analysis of thrombin inhibitory activity of a diverse pool of molecules</span>
+        <span class="paper-venue">Chemometrics and Intelligent Laboratory Systems<span class="vol">253:105197</span></span>
+        <span class="paper-badges">
+          <span class="chip tone tone-res">Interpretable ML</span>
+          <span class="paper-facts mono">
+            <span>Co-author of 8</span>
+            <span>6 citations</span>
+          </span>
+        </span>
+      </span>
+      <span class="paper-toggle" aria-hidden="true"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></span>
+    </button>
+
+    <div class="paper-body" id="pub-ga-xgboost" data-disclosure-panel>
+      <div>
+        <div class="paper-detail">
+          <div class="spacer" aria-hidden="true"></div>
+          <div>
+            <dl class="paper-rows">
+              <div class="paper-row">
+                <dt>Authors</dt>
+                <dd><ol class="authors"><li>V. H. Masand</li><li>S. Al-Hussain</li><li>A. Y. Alzahrani</li><li>A. A. Al-Mutairi</li><li>A. S. Alqahtani</li><li>A. Samad</li><li class="me">G. S. Masand</li><li>M. E. A. Zaki</li></ol></dd>
+              </div>
+              <div class="paper-row">
+                <dt>My contribution</dt>
+                <dd>Implemented the GA-XGBoost hybrid — genetic-algorithm feature selection wrapped around gradient-boosted trees — plus model validation and manuscript writing.</dd>
+              </div>
+              <div class="paper-row">
+                <dt>Methods</dt>
+                <dd><ul class="methods"><li class="tag">Genetic algorithms</li><li class="tag">XGBoost</li><li class="tag">Feature selection</li><li class="tag">Model validation</li></ul></dd>
+              </div>
+              <div class="paper-row">
+                <dt>Published in</dt>
+                <dd>Chemometrics and Intelligent Laboratory Systems · 253:105197 · 2024</dd>
+              </div>
+            </dl>
+            <p class="paper-doi"><a class="xlink" href="https://doi.org/10.1016/j.chemolab.2024.105197" target="_blank" rel="noopener noreferrer">View publication<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a><span class="doi-code">doi:10.1016/j.chemolab.2024.105197</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article></div>
+
+  <div class="shell research-foot">
+    <p class="research-note">Author position and venue as published. Every DOI below resolves to the article of record.</p>
+    <a class="btn btn--ghost magnetic" data-magnetic href="https://scholar.google.com/citations?user=Hjdvr88AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 1 0 5.6l8 4.6 8-4.6L8 1Z"/><path d="M3.4 8.3v3.1c0 1.4 2.06 2.5 4.6 2.5s4.6-1.1 4.6-2.5V8.3L8 11 3.4 8.3Z"/></svg><span>Google Scholar profile</span><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a>
+  </div>
+</section>
+
+<section class="section" id="honours" aria-labelledby="hon-title">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="sec-kicker mono" data-reveal>Honours</p>
+      <h2 class="sec-title" id="hon-title" data-reveal style="--d:80ms">Eleven competitions. Two continents.</h2>
+      <p class="sec-summary" data-reveal style="--d:160ms">Hackathons and competitive programming are where I learned to ship under a deadline that does not move. The international medals came out of research work; the rest came out of forty-eight hour sprints.</p>
+    </div>
+
+    <div class="filters" data-filter-group data-filter-target=".honour" data-filter-status="#honour-status"
+         role="group" aria-label="Filter honours by type">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">All<span class="n">11</span></button><button class="filter" type="button" data-filter="international" aria-pressed="false">International<span class="n">2</span></button><button class="filter" type="button" data-filter="hackathon" aria-pressed="false">Hackathons<span class="n">6</span></button><button class="filter" type="button" data-filter="coding" aria-pressed="false">Competitive coding<span class="n">3</span></button>
+    </div>
+    <p class="vh" id="honour-status" role="status" aria-live="polite"></p>
+
+    <div class="honours-grid">
+      <article class="honour" data-cat="international" data-tier="gold" data-track
+                 data-reveal style="--d:0ms">
+        <p class="honour-rank">Gold Medal</p>
+        <h3>e-Inovasi 2025</h3>
+        <p class="honour-meta">IMU University, Malaysia · Sep 2025<br><span class="scale">Top 20 of 1,000+ teams</span></p>
+        <p>International gold for JDescriptor — a molecular feature-extraction engine computing 15,000+ descriptors at a 4× speedup, packaged as a containerized modelling pipeline on AWS.</p>
+      </article><article class="honour" data-cat="international" data-tier="silver" data-track
+                 data-reveal style="--d:60ms">
+        <p class="honour-rank">Silver Medal</p>
+        <h3>Malaysia Startup Challenge 2025</h3>
+        <p class="honour-meta">Tertiary — Startup Product Category · Aug 2025<br><span class="scale">Against 1,000+ teams</span></p>
+        <p>A scalable AI-driven e-commerce ecosystem with automated inventory management and real-time personalization. Led by Prof. Long Ming.</p>
+      </article><article class="honour" data-cat="coding" data-tier="gold" data-track
+                 data-reveal style="--d:120ms">
+        <p class="honour-rank">Top 300</p>
+        <h3>Amazon ML Challenge 2025</h3>
+        <p class="honour-meta">Amazon · 2025<br><span class="scale">Of 80,000+ teams</span></p>
+        <p>National machine-learning competition, placed in the top 300 of a field above eighty thousand teams.</p>
+      </article><article class="honour" data-cat="hackathon" data-tier="gold" data-track
+                 data-reveal style="--d:180ms">
+        <p class="honour-rank">Top 5 Finalist</p>
+        <h3>Smart India Hackathon 2024 — Grand Finale</h3>
+        <p class="honour-meta">Ministry of Education &amp; AICTE, Government of India · Dec 2024<br><span class="scale">Of 500+ teams</span></p>
+        <p>Mudra — a full-stack mobile and web system for real-time Indian Sign Language translation, built on a CNN + LSTM recognition stack and an ISL grammar transduction layer.</p>
+      </article><article class="honour" data-cat="hackathon" data-tier="gold" data-track
+                 data-reveal style="--d:240ms">
+        <p class="honour-rank">1st Place</p>
+        <h3>Tietoevry Hackathon, MindSpark ’24</h3>
+        <p class="honour-meta">COEP Technological University &amp; Krafton · Nov 2024<br><span class="scale">Of 240+ teams</span></p>
+        <p>NeuralBytes — an emergency health assistance app for senior citizens with SOS alerts, heartbeat monitoring and real-time nurse tracking, in Flutter and Firebase.</p>
+      </article><article class="honour" data-cat="hackathon" data-tier="gold" data-track
+                 data-reveal style="--d:300ms">
+        <p class="honour-rank">1st Place</p>
+        <h3>Silicon Fusion 2024</h3>
+        <p class="honour-meta">AISSMS College of Engineering · Oct 2024<br><span class="scale">Of 50+ teams</span></p>
+        <p>A backend-focused DSA teaching platform, built around the algorithmic work needed to deliver scalable, structured practice.</p>
+      </article><article class="honour" data-cat="hackathon" data-tier="bronze" data-track
+                 data-reveal style="--d:300ms">
+        <p class="honour-rank">3rd Place</p>
+        <h3>VCET Hackathon 2024</h3>
+        <p class="honour-meta">VCET · Oct 2024<br><span class="scale">Of 200+ teams</span></p>
+        <p>A secure authentication service with three-factor authentication (email, OTP, fingerprint), DDoS defence, and an admin dashboard for session tracking.</p>
+      </article><article class="honour" data-cat="hackathon" data-tier="gold" data-track
+                 data-reveal style="--d:300ms">
+        <p class="honour-rank">1st Place</p>
+        <h3>MIT-WPU Codethon 2024</h3>
+        <p class="honour-meta">MIT-WPU · May 2024<br><span class="scale">Of 80+ teams</span></p>
+        <p>Dazel — a matching engine scoring 30+ parameters with geolocation constraints, Redis-cached to hold sub-200ms responses, plus encrypted real-time chat.</p>
+      </article><article class="honour" data-cat="hackathon" data-tier="gold" data-track
+                 data-reveal style="--d:300ms">
+        <p class="honour-rank">1st Place</p>
+        <h3>Hash It Out, ZION 2024</h3>
+        <p class="honour-meta">Dr. D. Y. Patil Institute of Technology · Apr 2024<br><span class="scale">Of 70+ teams</span></p>
+        <p>HealthEase — a Flutter healthcare app integrating doctor consultations, ambulance tracking and medicine ordering, built inside a six-hour window.</p>
+      </article><article class="honour" data-cat="coding" data-tier="silver" data-track
+                 data-reveal style="--d:300ms">
+        <p class="honour-rank">1st Runner Up</p>
+        <h3>Dataverse 2024</h3>
+        <p class="honour-meta">Dr. D. Y. Patil Institute of Technology · Mar 2024<br><span class="scale">Solo competition</span></p>
+        <p>Second place in a solo data-science and algorithms contest.</p>
+      </article><article class="honour" data-cat="coding" data-tier="silver" data-track
+                 data-reveal style="--d:300ms">
+        <p class="honour-rank">2nd Place</p>
+        <h3>Blind C Coding Competition</h3>
+        <p class="honour-meta">Dr. Punjabrao Deshmukh Polytechnic · Mar 2022<br><span class="scale">Of 150+ participants</span></p>
+        <p>Wrote C with the monitor switched off — no visual feedback at any point. It is a syntax-recall exercise disguised as a contest.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="journey" aria-labelledby="jou-title">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="sec-kicker mono" data-reveal>Journey</p>
+      <h2 class="sec-title" id="jou-title" data-reveal style="--d:80ms">Where the work happened.</h2>
+    </div>
+
+    <ol class="timeline">
+      <span class="timeline-progress" data-timeline-progress aria-hidden="true"></span>
+      <li class="tl-item tone tone-eng" data-inview>
+        <div class="tl-top">
+          <h3 class="tl-role">Software Engineer Intern</h3>
+          <span class="tl-period">Aug 2025 — Jun 2026</span>
+        </div>
+        <p class="tl-org"><b>Airoclip</b><span>Bengaluru, India</span><span class="chip">Industry</span></p>
+        
+        <ul class="tl-points"><li><span>Engineered high-throughput Java Spring Boot microservices for the core data-ingestion layer of Tap Hexa, orchestrating low-latency inter-service calls over a partitioned BigQuery backend serving 1M+ users.</span></li><li><span>Designed a Redis write-behind buffer holding high-frequency user events in memory with an hourly batch flush to BigQuery, cutting write amplification and raising ingestion throughput.</span></li><li><span>Led root-cause analysis and production incident response across GCP microservices, building automated diagnostics that cut P95 query latency by 30%.</span></li><li><span>Built an LLM-powered analytics pipeline with LangChain and BigQuery, cutting manual analysis time by 95%.</span></li></ul>
+      </li><li class="tl-item tone tone-res" data-inview>
+        <div class="tl-top">
+          <h3 class="tl-role">Research Intern — Cheminformatics, AI &amp; Cloud Engineering</h3>
+          <span class="tl-period">Jun — Jul 2025</span>
+        </div>
+        <p class="tl-org"><b>Sunway University</b><span>Kuala Lumpur, Malaysia</span><span class="chip">Research</span></p>
+        <p class="tl-advisor">Advisor: Prof. Dr. Long Chiau Ming, Deputy Dean (Research &amp; Sustainability)</p>
+        <ul class="tl-points"><li><span>Engineered the JDescriptor computation engine and integrated it into an automated QSAR modelling pipeline on AWS using XGBoost.</span></li><li><span>The work won the International Gold Medal at e-Inovasi 2025 — top 20 of 1,000+ teams — and supported a Sunway–UAEU joint grant proposal.</span></li><li><span>Authored a systematic review on generative AI in the clinical setting and built an associated clinical risk calculator.</span></li></ul>
+      </li><li class="tl-item tone tone-res" data-inview>
+        <div class="tl-top">
+          <h3 class="tl-role">Research Intern — R&amp;D Management &amp; AI Analytics Group</h3>
+          <span class="tl-period">Dec 2024 — Feb 2025</span>
+        </div>
+        <p class="tl-org"><b>Defence Institute of Advanced Technology (DRDO)</b><span>Pune, India — Government of India</span><span class="chip">Research</span></p>
+        <p class="tl-advisor">Advisor: Dr. Amrita Nighojkar, Dept. of Technology Management</p>
+        <ul class="tl-points"><li><span>Built a drone obstacle-detection system with real-time perception, cutting simulation testing cycles by 40% through an optimized Python validation harness.</span></li><li><span>Engineered Python modules for high-level drone autonomy and mission planning, implementing route generation and safety-constraint logic.</span></li><li><span>Conducted semantic and bibliometric analysis of blockchain applications in aviation using Python, R and VOSviewer, synthesizing 100+ manuscripts into a co-authored review of emerging defence technologies.</span></li></ul>
+      </li><li class="tl-item tone tone-res" data-inview>
+        <div class="tl-top">
+          <h3 class="tl-role">Project Lead — Mudra, Indian Sign Language translation</h3>
+          <span class="tl-period">Nov 2024 — Mar 2025</span>
+        </div>
+        <p class="tl-org"><b>Dr. D. Y. Patil Institute of Technology</b><span>Pune, India</span><span class="chip">Research</span></p>
+        <p class="tl-advisor">Advisor: Dr. Mithra Venkatesan, Head, Dept. of AI &amp; Data Science</p>
+        <ul class="tl-points"><li><span>Led a bidirectional ISL translation system: MediaPipe landmarks into a CNN + LSTM stack for recognition, and an NLP layer transducing English into ISL word order to drive a SiGML avatar for generation.</span></li><li><span>Led construction of an original ISL corpus of ~5,000 sign classes and ~2.5M labelled frames with volunteer native signers — we are the primary source for this data.</span></li><li><span>Deployed to 300+ users as a Flutter/React client over a Dockerized FastAPI backend at ~200 ms.</span></li></ul>
+      </li><li class="tl-item tone tone-eng" data-inview>
+        <div class="tl-top">
+          <h3 class="tl-role">Full Stack Developer Intern</h3>
+          <span class="tl-period">Feb 2024 — Jun 2024</span>
+        </div>
+        <p class="tl-org"><b>Mymegaminds</b><span>Pune, India</span><span class="chip">Industry</span></p>
+        
+        <ul class="tl-points"><li><span>Developed the LeleKart e-commerce application for 5,000+ users using React and Flutter over a Node.js/Express backend.</span></li><li><span>Optimised performance by refining asset rendering and caching, reducing page load time from 5s to 1.3s — a 74% improvement.</span></li><li><span>Accelerated RESTful API releases with BLoC architecture and automated CI/CD, shipping production Web and Android builds at &gt;98.8% uptime.</span></li></ul>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="education" aria-labelledby="edu-title">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="sec-kicker mono" data-reveal>Education &amp; service</p>
+      <h2 class="sec-title" id="edu-title" data-reveal style="--d:80ms">The academic record.</h2>
+    </div>
+
+    <div class="edu-grid" data-reveal>
+      <article class="edu">
+        <p class="edu-period">Sep 2023 — Jul 2026</p>
+        <h3>B.E., Artificial Intelligence &amp; Data Science</h3>
+        <p class="edu-school">Dr. D. Y. Patil Institute of Technology (SPPU)</p>
+        <p class="edu-loc">Pune, India</p>
+        <p class="edu-result"><b>CGPA 8.94 / 10</b><span>equivalent GPA 3.58 / 4.0</span></p>
+      </article><article class="edu">
+        <p class="edu-period">Aug 2020 — Jun 2023</p>
+        <h3>Diploma, Computer Engineering</h3>
+        <p class="edu-school">Dr. Punjabrao Deshmukh Polytechnic (MSBTE)</p>
+        <p class="edu-loc">Amravati, India</p>
+        <p class="edu-result"><b>86.06%</b><span>equivalent GPA 3.44 / 4.0</span></p>
+      </article>
+    </div>
+
+    <div class="service tone tone-eng" data-reveal style="--d:100ms">
+      <div>
+        <p class="chip">Leadership &amp; service</p>
+        <h3>Chapter Lead, Google Developer Group on Campus</h3>
+        <p class="service-org">Dr. D. Y. Patil Institute of Technology · Oct 2024 — Jun 2026</p>
+        <p>Rose from Flutter Lead to Chapter Lead of a 50+ member team. Organized Hack-A-Bit Chapter 2.0, the largest technical event the campus has run, with 340+ teams. Mentored 100+ students in AI and ML. Also volunteered with GDG Pune on DevFest Pune 2024, which drew over 1,200 attendees.</p>
+        <p style="margin-top:1.4rem"><a class="xlink" href="https://gdg.community.dev/gdg-on-campus-dr-d-y-patil-institute-of-technology-pune-india/" target="_blank" rel="noopener noreferrer">GDG on Campus chapter<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></a></p>
+      </div>
+      <div class="service-stats">
+        <div class="service-stat"><b>340+</b><span>teams at Hack-A-Bit 2.0</span></div><div class="service-stat"><b>100+</b><span>students mentored</span></div><div class="service-stat"><b>50+</b><span>member core team</span></div>
+      </div>
+    </div>
+
+    <div class="certs" data-reveal style="--d:160ms">
+      <a class="cert" href="https://www.coursera.org/account/accomplishments/verify/7DKLASSWCUXZ" target="_blank" rel="noopener noreferrer">
+        <span class="cert-name">Machine Learning — Stanford University via Coursera <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></span>
+        <span class="cert-score">100%</span>
+      </a><a class="cert" href="https://coursera.org/verify/professional-cert/Z7AL50KQ9Y1W" target="_blank" rel="noopener noreferrer">
+        <span class="cert-name">IBM Data Science Professional Certificate <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h7v7"/><path d="M13 3 6.5 9.5"/><path d="M11 10.5V13H3V5h2.5"/></svg></span>
+        <span class="cert-score">91.95%</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills" aria-labelledby="skl-title">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="sec-kicker mono" data-reveal>Toolkit</p>
+      <h2 class="sec-title" id="skl-title" data-reveal style="--d:80ms">What I reach for.</h2>
+      <p class="sec-summary" data-reveal style="--d:160ms">Grouped by the problem it solves, not by how many logos fit on a row.</p>
+    </div>
+
+    <div class="skills">
+      <section class="skill-group tone tone-eng" data-reveal>
+        <h3>Languages</h3>
+        <ul class="skill-items"><li class="tag">Java</li><li class="tag">Python</li><li class="tag">C++</li><li class="tag">JavaScript</li><li class="tag">SQL</li></ul>
+      </section><section class="skill-group tone tone-eng" data-reveal>
+        <h3>Core computer science</h3>
+        <ul class="skill-items"><li class="tag">Data structures &amp; algorithms</li><li class="tag">Object-oriented programming</li><li class="tag">DBMS</li><li class="tag">Operating systems (Linux/Unix)</li><li class="tag">Computer networks (TCP/IP)</li><li class="tag">Distributed systems</li><li class="tag">System design</li></ul>
+      </section><section class="skill-group tone tone-res" data-reveal>
+        <h3>Machine learning &amp; numerics</h3>
+        <ul class="skill-items"><li class="tag">PyTorch</li><li class="tag">TensorFlow</li><li class="tag">scikit-learn</li><li class="tag">NumPy</li><li class="tag">SciPy</li><li class="tag">XGBoost</li><li class="tag">SHAP</li><li class="tag">CNN / LSTM / GRU</li><li class="tag">Ensembles</li><li class="tag">Genetic algorithms</li><li class="tag">PCA · t-SNE · UMAP</li><li class="tag">Model interpretability</li></ul>
+      </section><section class="skill-group tone tone-res" data-reveal>
+        <h3>AI systems</h3>
+        <ul class="skill-items"><li class="tag">RAG pipelines</li><li class="tag">LLM orchestration (LangChain, Llama)</li><li class="tag">Prompt engineering</li><li class="tag">Agentic workflows</li></ul>
+      </section><section class="skill-group tone tone-eng" data-reveal>
+        <h3>Backend, data &amp; cloud</h3>
+        <ul class="skill-items"><li class="tag">Spring Boot</li><li class="tag">Apache Kafka</li><li class="tag">GraphQL</li><li class="tag">FastAPI</li><li class="tag">Node.js</li><li class="tag">Express.js</li><li class="tag">REST APIs</li><li class="tag">Microservices</li><li class="tag">PostgreSQL</li><li class="tag">MongoDB</li><li class="tag">Redis</li><li class="tag">GCP (BigQuery, Vertex AI)</li><li class="tag">AWS (EC2, S3, Lambda)</li><li class="tag">Docker</li><li class="tag">Kubernetes</li><li class="tag">CI/CD</li></ul>
+      </section><section class="skill-group tone tone-eng" data-reveal>
+        <h3>Tools &amp; practice</h3>
+        <ul class="skill-items"><li class="tag">Git / GitHub</li><li class="tag">Agile / Scrum</li><li class="tag">Unit testing</li><li class="tag">API design</li><li class="tag">Postman</li><li class="tag">Maven / Gradle</li><li class="tag">PyMOL</li><li class="tag">VOSviewer</li></ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact" aria-labelledby="con-title">
+  <div class="shell">
+    <p class="sec-kicker mono" data-reveal>Contact</p>
+    <h2 class="contact-title" id="con-title" data-reveal style="--d:80ms">Open to research collaboration and engineering roles.</h2>
+    <p class="contact-body" data-reveal style="--d:160ms">I am most useful on problems that sit between the two — a model that has to run in production, a pipeline that has to be reproducible, a system where somebody will eventually ask why it gave that answer. If that is the problem, write to me.</p>
+
+    <div class="contact-actions" data-reveal style="--d:220ms">
+      <a class="btn magnetic" data-magnetic href="mailto:gauravsmasand@gmail.com"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.75" y="3.25" width="12.5" height="9.5" rx="1.5"/><path d="m2.5 4.5 5.5 4 5.5-4"/></svg><span>Email me</span></a>
+      <button class="btn btn--ghost magnetic" type="button" data-magnetic data-copy="gauravsmasand@gmail.com">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3.5H3.5a1 1 0 0 0-1 1v7"/></svg><span data-copy-label>Copy address</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="shell">
+    <div class="contact-links" data-reveal style="--d:280ms">
+      <a class="contact-link" href="mailto:gauravsmasand@gmail.com">
+        <span class="k">Email</span><span class="v">gauravsmasand@gmail.com <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <a class="contact-link" href="https://github.com/gauravmasand" target="_blank" rel="noopener noreferrer">
+        <span class="k">GitHub</span><span class="v"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38l-.01-1.34c-2.22.48-2.69-1.07-2.69-1.07-.36-.93-.89-1.17-.89-1.17-.73-.5.05-.49.05-.49.8.06 1.23.83 1.23.83.71 1.23 1.87.87 2.33.67.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48l-.01 2.19c0 .21.14.46.55.38A8 8 0 0 0 8 0Z"/></svg> github.com/gauravmasand <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/gaurav-masand/" target="_blank" rel="noopener noreferrer">
+        <span class="k">LinkedIn</span><span class="v"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M3.4 1.6a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM1.9 6.3h3V14.4h-3V6.3Zm5 0h2.87v1.11h.04c.4-.72 1.38-1.48 2.83-1.48 3.03 0 3.59 1.9 3.59 4.38v4.09h-3v-3.63c0-.86-.02-1.98-1.26-1.98-1.26 0-1.45.93-1.45 1.91v3.7h-3V6.3Z"/></svg> in/gaurav-masand <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+      <a class="contact-link" href="https://scholar.google.com/citations?user=Hjdvr88AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">
+        <span class="k">Google Scholar</span><span class="v"><svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 1 0 5.6l8 4.6 8-4.6L8 1Z"/><path d="M3.4 8.3v3.1c0 1.4 2.06 2.5 4.6 2.5s4.6-1.1 4.6-2.5V8.3L8 11 3.4 8.3Z"/></svg> Publications <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="arr"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="shell footer-inner">
+    <div>
+      <p>© <span data-year>2026</span> Gaurav Masand · Pune, Maharashtra, India</p>
+      <p class="footer-note">Built as a static site — hand-written HTML, CSS and JavaScript, no framework runtime. Every figure on this page is drawn from a published record.</p>
+    </div>
+    <nav class="footer-links" aria-label="Elsewhere">
+      <a href="https://github.com/gauravmasand" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=Hjdvr88AAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/gaurav-masand/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:gauravsmasand@gmail.com">Email</a>
+    </nav>
+  </div>
+</footer>
 </body>
 </html>
