@@ -9,7 +9,6 @@ html:not(.js) .paper-toggle,
 html:not(.js) .filters,
 html:not(.js) .nav-toggle,
 html:not(.js) .nav-sheet,
-html:not(.js) .hero-scroll,
 html:not(.js) .progress { display: none; }
 
 /* Disclosure headers stop pretending to be buttons. */

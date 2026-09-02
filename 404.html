@@ -436,20 +436,8 @@ font-variant-numeric: tabular-nums;
 margin: 0 0 0.55rem;
 }
 .hero-stat dt { color: var(--fg-3); font-size: 0.775rem; line-height: 1.42; }
-.hero-scroll {
-position: absolute;
-left: 50%; bottom: 1.6rem;
-translate: -50% 0;
-color: var(--fg-4);
-display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
-}
-.hero-scroll .line {
-width: 1px; height: 34px;
-background: linear-gradient(to bottom, var(--fg-4), transparent);
-}
 @media (max-width: 860px) {
 .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.hero-scroll { display: none; }
 }
 @media (max-width: 760px) {
 .hero-canvas { display: none; }
@@ -1066,7 +1054,7 @@ scroll-behavior: auto !important;
 .project-body, .paper-body { transition: none; }
 }
 @media print {
-.nav, .nav-sheet, .progress, .hero-canvas, .hero-scroll, .project-toggle, .paper-toggle, .filters { display: none !important; }
+.nav, .nav-sheet, .progress, .hero-canvas, .project-toggle, .paper-toggle, .filters { display: none !important; }
 body { background: #fff; color: #111; }
 .project-body, .paper-body { grid-template-rows: 1fr !important; }
 .section { padding-block: 1.5rem; }
@@ -1076,7 +1064,6 @@ html:not(.js) .paper-toggle,
 html:not(.js) .filters,
 html:not(.js) .nav-toggle,
 html:not(.js) .nav-sheet,
-html:not(.js) .hero-scroll,
 html:not(.js) .progress { display: none; }
 html:not(.js) .project-head,
 html:not(.js) .paper-head { cursor: default; grid-template-columns: 4.25rem minmax(0, 1fr); }

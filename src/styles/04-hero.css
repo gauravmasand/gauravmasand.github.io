@@ -109,21 +109,9 @@
 }
 .hero-stat dt { color: var(--fg-3); font-size: 0.775rem; line-height: 1.42; }
 
-.hero-scroll {
-  position: absolute;
-  left: 50%; bottom: 1.6rem;
-  translate: -50% 0;
-  color: var(--fg-4);
-  display: flex; flex-direction: column; align-items: center; gap: 0.55rem;
-}
-.hero-scroll .line {
-  width: 1px; height: 34px;
-  background: linear-gradient(to bottom, var(--fg-4), transparent);
-}
 
 @media (max-width: 860px) {
   .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero-scroll { display: none; }
 }
 /* Below tablet the copy occupies the full column, so the structure would sit
    underneath the text rather than beside it. Dropping it also saves the

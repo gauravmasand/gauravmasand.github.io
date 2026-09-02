@@ -55,7 +55,7 @@
 }
 
 @media print {
-  .nav, .nav-sheet, .progress, .hero-canvas, .hero-scroll, .project-toggle, .paper-toggle, .filters { display: none !important; }
+  .nav, .nav-sheet, .progress, .hero-canvas, .project-toggle, .paper-toggle, .filters { display: none !important; }
   body { background: #fff; color: #111; }
   .project-body, .paper-body { grid-template-rows: 1fr !important; }
   .section { padding-block: 1.5rem; }

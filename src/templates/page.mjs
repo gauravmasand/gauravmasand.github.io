@@ -100,10 +100,6 @@ const hero = () => `
         .join('')}
     </dl>
   </div>
-  <div class="hero-scroll" aria-hidden="true">
-    <span class="mono">Scroll</span>
-    <span class="line"></span>
-  </div>
 </section>`;
 
 /* ── identity ─────────────────────────────────────────────────────────── */
