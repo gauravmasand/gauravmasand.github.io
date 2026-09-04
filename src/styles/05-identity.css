@@ -15,6 +15,7 @@
   border-radius: var(--r-lg);
   overflow: hidden;
   margin: 0;
+  box-shadow: var(--shadow-card);
 }
 .now-row {
   background: var(--ink-2);
@@ -29,8 +30,21 @@
 .now-row dd b { font-weight: 500; font-size: 0.94rem; color: var(--fg); letter-spacing: -0.012em; }
 .now-row dd span { color: var(--fg-3); font-size: 0.795rem; line-height: 1.45; }
 
+.identity-side { display: grid; gap: 1rem; align-content: start; }
+
 @media (max-width: 880px) {
   .identity-split { grid-template-columns: minmax(0, 1fr); gap: 2.75rem; }
+  /* Stacked, the rail has the full column: set the portrait beside it rather
+     than letting a 1200px-wide headshot open the section. */
+  .identity-side {
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;  /* the portrait keeps its own height, not the rail's */
+  }
+}
+@media (max-width: 620px) {
+  .identity-side { grid-template-columns: minmax(0, 1fr); }
+  .identity-side .portrait { max-width: 21rem; }
 }
 
 .statement {
@@ -54,6 +68,7 @@
   border: 1px solid var(--line);
   border-radius: var(--r-lg);
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 
 .discipline {
@@ -183,6 +198,7 @@
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 .project-metric { background: var(--ink); padding: 0.95rem 1.25rem; flex: 1 1 150px; }
 .project-metric b {

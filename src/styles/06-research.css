@@ -18,6 +18,7 @@
   border: 1px solid var(--line);
   border-radius: var(--r-md);
   overflow: hidden;
+  box-shadow: var(--shadow-card);
 }
 .research-metric { background: var(--ink-2); padding: 1.05rem 1rem; text-align: center; }
 .research-metric b {

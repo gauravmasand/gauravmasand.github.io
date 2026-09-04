@@ -9,7 +9,11 @@ html:not(.js) .paper-toggle,
 html:not(.js) .filters,
 html:not(.js) .nav-toggle,
 html:not(.js) .nav-sheet,
+html:not(.js) .theme-toggle,
 html:not(.js) .progress { display: none; }
+
+/* Without the toggle the palette still follows the OS: the light rules in
+   01-tokens.css are a plain prefers-color-scheme media query, not scripted. */
 
 /* Disclosure headers stop pretending to be buttons. */
 html:not(.js) .project-head,

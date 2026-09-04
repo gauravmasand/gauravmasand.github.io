@@ -11,4 +11,8 @@ export const icons = {
   linkedin: `<svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M3.4 1.6a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM1.9 6.3h3V14.4h-3V6.3Zm5 0h2.87v1.11h.04c.4-.72 1.38-1.48 2.83-1.48 3.03 0 3.59 1.9 3.59 4.38v4.09h-3v-3.63c0-.86-.02-1.98-1.26-1.98-1.26 0-1.45.93-1.45 1.91v3.7h-3V6.3Z"/></svg>`,
   scholar: `<svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 1 0 5.6l8 4.6 8-4.6L8 1Z"/><path d="M3.4 8.3v3.1c0 1.4 2.06 2.5 4.6 2.5s4.6-1.1 4.6-2.5V8.3L8 11 3.4 8.3Z"/></svg>`,
   mail: svg('<rect x="1.75" y="3.25" width="12.5" height="9.5" rx="1.5"/><path d="m2.5 4.5 5.5 4 5.5-4"/>'),
+  /* Both theme glyphs ship in the button; CSS shows whichever the active
+     palette does not currently apply, so the icon reads as the action. */
+  sun: svg('<circle cx="8" cy="8" r="3.1"/><path d="M8 1.4v1.5M8 13.1v1.5M14.6 8h-1.5M2.9 8H1.4M12.67 3.33l-1.06 1.06M4.39 11.61l-1.06 1.06M12.67 12.67l-1.06-1.06M4.39 4.39 3.33 3.33"/>', ' class="i-sun"'),
+  moon: svg('<path d="M13.4 9.42A5.7 5.7 0 0 1 6.58 2.6a5.75 5.75 0 1 0 6.82 6.82Z"/>', ' class="i-moon"'),
 };

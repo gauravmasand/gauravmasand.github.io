@@ -34,7 +34,7 @@ ul, ol { list-style: none; padding: 0; }
 
 :where(h1, h2, h3, h4) { font-weight: 500; line-height: 1.06; letter-spacing: -0.022em; }
 
-::selection { background: var(--eng); color: #06070a; }
+::selection { background: var(--eng); color: var(--sel-fg); }
 
 :focus-visible {
   outline: 2px solid var(--eng);
@@ -131,7 +131,7 @@ ul, ol { list-style: none; padding: 0; }
               border-color 0.25s var(--ease), transform 0.35s var(--ease);
   will-change: transform;
 }
-.btn:hover { background: #fff; }
+.btn:hover { background: var(--btn-hover); }
 .btn--ghost {
   --btn-bg: transparent;
   --btn-fg: var(--fg);
@@ -157,7 +157,7 @@ ul, ol { list-style: none; padding: 0; }
 /* Tone chips */
 .tone {
   --tone-fg: var(--fg-2);
-  --tone-bg: rgba(255, 255, 255, 0.05);
+  --tone-bg: var(--chip-bg);
   --tone-line: var(--line-mid);
 }
 .tone-eng { --tone-fg: var(--eng); --tone-bg: var(--eng-soft); --tone-line: var(--eng-line); }
@@ -178,10 +178,42 @@ ul, ol { list-style: none; padding: 0; }
   white-space: nowrap;
 }
 
+/* ── Portrait cut-outs ────────────────────────────────────────────────────
+   The images carry no background of their own, so the panel behind them is
+   drawn here from palette tokens and follows the theme for free. The plinth
+   is darkest — or, on paper, most tinted — at the bottom, which is where the
+   subject's dark jacket sits: on ink it would otherwise dissolve into the
+   page and take the shoulder line with it. */
+
+.portrait {
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding-top: clamp(1.4rem, 1rem + 1.6vw, 2.2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
+  background:
+    radial-gradient(85% 65% at 90% 2%, var(--res-soft), transparent 62%),
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--eng) 7%, var(--surface)),
+      var(--surface-3));
+}
+/* A hairline along the top edge, so the panel reads as lit from above. */
+.portrait::after {
+  content: '';
+  position: absolute; inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-mid) 30%, var(--line-mid) 70%, transparent);
+}
+.portrait img { width: 100%; height: auto; }
+
 .tag {
   padding: 0.3rem 0.62rem;
   border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.035);
+  background: var(--tag-bg);
   border: 1px solid var(--line);
   color: var(--fg-2);
   font-size: 0.78rem;

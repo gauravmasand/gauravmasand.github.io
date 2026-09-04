@@ -37,6 +37,35 @@ export const links = {
   email: 'mailto:gauravsmasand@gmail.com',
 };
 
+/* ── Portraits ────────────────────────────────────────────────────────────
+   Generated from src/photos/ by scripts/make-portraits.mjs, which lifts the
+   subject onto transparency. Dimensions are the intrinsic size of the
+   generated file and must be updated with it — they reserve the layout box so
+   nothing shifts as the image arrives. */
+
+export const portraits = {
+  studio: {
+    variant: 'studio',
+    file: 'portrait-studio.webp',
+    w: 900,
+    h: 771,
+    alt: 'Gaurav Masand, studio portrait',
+    /* Sits just below the fold, so lazy loading risks a visible late pop-in.
+       Low priority keeps it behind the fonts in the queue all the same. */
+    loading: 'eager',
+    priority: 'low',
+  },
+  candid: {
+    variant: 'candid',
+    file: 'portrait-candid.webp',
+    w: 760,
+    h: 705,
+    alt: 'Gaurav Masand',
+    loading: 'lazy',
+    priority: 'low',
+  },
+};
+
 /* ── Hero ─────────────────────────────────────────────────────────────── */
 
 export const hero = {

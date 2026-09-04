@@ -299,6 +299,73 @@ async function initHero() {
   }
 }
 
+/* ── Theme ────────────────────────────────────────────────────────────────
+   Three states, two of them written down. With no stored choice the page has
+   no data-theme attribute and the stylesheet's prefers-color-scheme query
+   decides — which is why the OS preference keeps working here, and keeps
+   working live, without this file doing anything. Clicking the toggle writes
+   an explicit choice; from then on the attribute wins until it is cleared.
+
+   The inline script in <head> has already applied any stored choice, so this
+   runs after first paint and never causes a flash. */
+
+const THEME_KEY = 'theme';
+
+function readStoredTheme() {
+  try {
+    const v = localStorage.getItem(THEME_KEY);
+    return v === 'light' || v === 'dark' ? v : null;
+  } catch {
+    return null;  /* Storage can be disabled outright; the site still works. */
+  }
+}
+
+function initTheme() {
+  const toggle = document.querySelector('[data-theme-toggle]');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+  const root = document.documentElement;
+
+  /* What the reader is actually looking at, whatever the reason. */
+  const active = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+
+  const paint = () => {
+    const now = active();
+    if (toggle) {
+      toggle.setAttribute('aria-label', `Switch to the ${now === 'dark' ? 'light' : 'dark'} theme`);
+    }
+    /* Address-bar tint. The two tags ship media-scoped for the no-choice case;
+       once a choice exists it applies at every system setting, so both match. */
+    document.querySelectorAll('[data-theme-color]').forEach((m) => {
+      m.setAttribute('content', now === 'dark' ? '#08090c' : '#f7f6f3');
+    });
+    window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: now } }));
+  };
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const next = active() === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try { localStorage.setItem(THEME_KEY, next); } catch { /* nothing to do */ }
+      paint();
+    });
+  }
+
+  /* Only meaningful while no explicit choice is stored, but harmless after:
+     `active()` prefers the attribute. */
+  systemDark.addEventListener('change', () => { if (!readStoredTheme()) paint(); });
+
+  /* Another tab changed the choice. */
+  window.addEventListener('storage', (e) => {
+    if (e.key !== THEME_KEY) return;
+    const stored = readStoredTheme();
+    if (stored) root.dataset.theme = stored;
+    else delete root.dataset.theme;
+    paint();
+  });
+
+  paint();
+}
+
 /* ── Year stamp ───────────────────────────────────────────────────────── */
 
 function initYear() {
@@ -308,6 +375,7 @@ function initYear() {
 }
 
 function boot() {
+  initTheme();
   initNav();
   initReveals();
   initInView();

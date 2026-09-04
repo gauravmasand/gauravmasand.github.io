@@ -26,6 +26,7 @@ const required = [
   'favicon.svg', 'favicon.ico', 'apple-touch-icon.png', 'og.png', 'site.webmanifest',
   'assets/js/main.js', 'assets/js/molecule.js',
   'assets/fonts/inter-latin-normal.woff2', 'assets/fonts/newsreader-latin-normal.woff2',
+  'assets/img/portrait-studio.webp', 'assets/img/portrait-candid.webp',
 ];
 for (const f of required) {
   existsSync(path.join(ROOT, f)) ? pass(`present  ${f}`) : fail(`missing  ${f}`);
@@ -95,6 +96,36 @@ for (const [re, label] of must) (re.test(html) ? pass : fail)(`${re.test(html) ?
 const h1s = [...html.matchAll(/<h1[\s>]/g)].length;
 h1s === 1 ? pass('exactly one h1') : fail(`expected 1 h1, found ${h1s}`);
 
+/* ── both palettes are present, and only in the token layer ───────────── */
+
+const style = (html.match(/<style>([\s\S]*?)<\/style>/) || [, ''])[1];
+const themeChecks = [
+  [style, /:root\[data-theme='light'\]/, 'explicit light palette'],
+  [style, /@media \(prefers-color-scheme: light\) \{\s*:root:not\(\[data-theme='dark'\]\)/, 'system light palette'],
+  [html, /data-theme-toggle/, 'theme toggle control'],
+  [html, /localStorage\.getItem\('theme'\)/, 'pre-paint theme script'],
+];
+for (const [hay, re, label] of themeChecks) {
+  re.test(hay) ? pass(`has  ${label}`) : fail(`missing  ${label}`);
+}
+
+/* Every colour lives in 01-tokens.css, which is what makes a second palette
+   a change to one file rather than a sweep of the stylesheet. The print
+   palette in 08-motion.css is the one sanctioned exception. */
+const styleDir = path.join(ROOT, 'src', 'styles');
+const strays = [];
+for (const f of (await readdir(styleDir)).sort()) {
+  if (!f.endsWith('.css') || f === '01-tokens.css') continue;
+  let css = await readFile(path.join(styleDir, f), 'utf8');
+  css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const print = css.indexOf('@media print');
+  if (print >= 0) css = css.slice(0, print);
+  for (const m of css.matchAll(/(#[0-9a-fA-F]{3,8}\b|\brgba?\([\d.\s,%]+\))/g)) strays.push(`${f}: ${m[1]}`);
+}
+strays.length
+  ? fail(`literal colours outside the token layer — ${strays.join(', ')}`)
+  : pass('every colour outside 01-tokens.css comes from a token');
+
 /* ── external links must be safe and absolute ─────────────────────────── */
 
 const externals = [...html.matchAll(/<a\b[^>]*href="(https?:[^"]+)"[^>]*>/g)];
@@ -120,10 +151,15 @@ let fontBytes = 0;
 for (const f of await readdir(fontDir)) fontBytes += (await stat(path.join(fontDir, f))).size;
 
 const kb = (n) => `${(n / 1024).toFixed(1)} kB`;
+const imgDir = path.join(ROOT, 'assets', 'img');
+let imgBytes = 0;
+for (const f of await readdir(imgDir)) imgBytes += (await stat(path.join(imgDir, f))).size;
+
 const budget = [
   ['index.html (gzipped)', htmlGz, 60 * 1024],
   ['JavaScript (raw)', jsRaw, 40 * 1024],
   ['fonts', fontBytes, 260 * 1024],
+  ['portraits', imgBytes, 120 * 1024],
 ];
 for (const [label, size, max] of budget) {
   size <= max ? pass(`${label.padEnd(22)} ${kb(size)}  (budget ${kb(max)})`)

@@ -88,11 +88,32 @@ export function mountMolecule(canvas) {
   const proj = atoms.map(() => ({ x: 0, y: 0, z: 0, s: 0 }));
   const order = atoms.map((_, i) => i);
 
-  const palette = [
-    [168, 180, 200],   // structural
-    [123, 163, 255],   // engineering blue
-    [231, 180, 90],    // research gold
-  ];
+  /* The canvas is transparent and composited over the page, so it has to be
+     told which palette is in force. Reading the tokens rather than hard-coding
+     them keeps 01-tokens.css the only place a colour is defined — and the same
+     ink weights that read as "faint" on a near-black page read as "invisible"
+     on paper, hence the gain multiplier. */
+  const cssVar = (name, fallback) => {
+    const v = getComputedStyle(canvas).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+  const rgb = (name, fallback) => {
+    const parts = cssVar(name, fallback).split(/[\s,]+/).map(Number);
+    return parts.length === 3 && parts.every((n) => Number.isFinite(n)) ? parts : fallback.split(' ').map(Number);
+  };
+
+  let palette, bondColor, gain;
+  function readPalette() {
+    palette = [
+      rgb('--mol-core', '168 180 200'),   // structural
+      rgb('--mol-eng', '123 163 255'),    // engineering blue
+      rgb('--mol-res', '231 180 90'),     // research gold
+    ];
+    const b = rgb('--mol-bond', '142 163 196');
+    bondColor = `rgb(${b[0]},${b[1]},${b[2]})`;
+    gain = Number(cssVar('--mol-gain', '1')) || 1;
+  }
+  readPalette();
 
   let w = 0, h = 0, dpr = 1;
   let rx = -0.32, ry = 0.5;
@@ -150,8 +171,8 @@ export function mountMolecule(canvas) {
       const pa = proj[a], pb = proj[b];
       const dz = (pa.z + pb.z) * 0.5;
       const fade = Math.max(0, Math.min(1, (5.5 - dz) / 10));
-      ctx.globalAlpha = 0.06 + fade * 0.26;
-      ctx.strokeStyle = '#8ea3c4';
+      ctx.globalAlpha = Math.min(1, (0.06 + fade * 0.26) * gain);
+      ctx.strokeStyle = bondColor;
       ctx.lineWidth = Math.max(0.5, 0.95 * ((pa.s + pb.s) * 0.5));
       ctx.beginPath();
       ctx.moveTo(pa.x, pa.y);
@@ -169,14 +190,14 @@ export function mountMolecule(canvas) {
       const [r, g, bl] = palette[a.kind];
       const rad = Math.max(0.7, a.r * scale * p.s * 0.34);
 
-      ctx.globalAlpha = 0.14 + fade * 0.46;
+      ctx.globalAlpha = Math.min(1, (0.14 + fade * 0.46) * gain);
       ctx.fillStyle = `rgb(${r},${g},${bl})`;
       ctx.beginPath();
       ctx.arc(p.x, p.y, rad, 0, TAU);
       ctx.fill();
 
       if (a.kind > 0 && fade > 0.55) {
-        ctx.globalAlpha = (fade - 0.55) * 0.34;
+        ctx.globalAlpha = Math.min(1, (fade - 0.55) * 0.34 * gain);
         ctx.beginPath();
         ctx.arc(p.x, p.y, rad * 3.2, 0, TAU);
         ctx.fill();
@@ -204,6 +225,8 @@ export function mountMolecule(canvas) {
   };
   const onVisibility = () => (document.hidden ? stop() : start());
   const onResize = () => { resize(); if (!running) frame(); };
+  /* main.js fires this after the palette attribute changes. */
+  const onTheme = () => { readPalette(); if (!running) frame(); };
 
   resize();
 
@@ -216,6 +239,7 @@ export function mountMolecule(canvas) {
   if (io) io.observe(canvas); else { visible = true; }
 
   window.addEventListener('resize', onResize, { passive: true });
+  window.addEventListener('themechange', onTheme);
   document.addEventListener('visibilitychange', onVisibility);
   if (window.matchMedia('(pointer: fine)').matches) {
     window.addEventListener('pointermove', onPointer, { passive: true });
@@ -228,6 +252,7 @@ export function mountMolecule(canvas) {
     stop();
     io && io.disconnect();
     window.removeEventListener('resize', onResize);
+    window.removeEventListener('themechange', onTheme);
     document.removeEventListener('visibilitychange', onVisibility);
     window.removeEventListener('pointermove', onPointer);
   };

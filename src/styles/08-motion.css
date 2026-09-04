@@ -54,9 +54,28 @@
   .project-body, .paper-body { transition: none; }
 }
 
+/* Print gets its own palette rather than either screen one: browsers drop
+   background fills by default, so every ink-on-dark token would print as pale
+   grey on white paper. Foregrounds go to near-black, surfaces go to paper. */
 @media print {
-  .nav, .nav-sheet, .progress, .hero-canvas, .project-toggle, .paper-toggle, .filters { display: none !important; }
+  :root {
+    color-scheme: light;
+    --ink: #fff; --ink-2: #fff; --surface: #fff; --surface-2: #fff; --surface-3: #fff;
+    --line: #ddd; --line-mid: #ccc; --line-strong: #999;
+    --fg: #111; --fg-2: #333; --fg-3: #444; --fg-4: #555; --fg-5: #888;
+    --eng: #1b3ea8; --eng-soft: transparent; --eng-line: #99a8d0;
+    --res: #7a4f08; --res-soft: transparent; --res-line: #cbb08a;
+    --chip-bg: transparent; --tag-bg: transparent;
+    --tier-silver: #555; --tier-bronze: #7a4f08;
+    --shadow-card: none; --shadow-lift: none;
+  }
+  .nav, .nav-sheet, .progress, .hero-canvas, .project-toggle, .paper-toggle,
+  .filters, .theme-toggle { display: none !important; }
   body { background: #fff; color: #111; }
+  /* Nothing scrolls on paper, so a reveal that has not fired yet would print
+     as a blank page. Put every animated element in its resting state. */
+  .js .reveal, .js .line-inner { opacity: 1 !important; translate: none !important; }
   .project-body, .paper-body { grid-template-rows: 1fr !important; }
   .section { padding-block: 1.5rem; }
+  .portrait { break-inside: avoid; }
 }

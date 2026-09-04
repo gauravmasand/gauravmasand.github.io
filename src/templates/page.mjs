@@ -34,6 +34,15 @@ const NAV = [
   ['skills', 'Skills'],
 ];
 
+/* Both glyphs are in the DOM; the stylesheet shows the one that names the
+   theme you would switch *to*. Script only flips an attribute and a label —
+   which is why the control is removed outright when script is absent. */
+const themeToggle = () => `
+<button class="theme-toggle" type="button" data-theme-toggle
+        aria-label="Switch to the light theme" title="Switch theme">
+  ${icons.sun}${icons.moon}
+</button>`;
+
 const nav = () => `
 <div class="progress" data-progress aria-hidden="true"></div>
 <header class="nav" data-nav>
@@ -47,6 +56,7 @@ const nav = () => `
       ${NAV.map(([id, label]) => `<a href="#${id}" data-nav-link>${label}</a>`).join('')}
     </nav>
     <div class="nav-cta">
+      ${themeToggle()}
       <a class="btn" href="#contact">Get in touch ${icons.arrow}</a>
       <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-sheet">
         <span></span><span></span><span></span>
@@ -64,6 +74,16 @@ const nav = () => `
     ${ext(P.links.linkedin, 'LinkedIn')}
   </div>
 </div>`;
+
+/* Cut-outs, not photographs with a background: the subject is lifted onto
+   transparency by scripts/make-portraits.mjs, so the same file sits correctly
+   on ink and on paper. The panel behind it is drawn in CSS from the palette. */
+const portrait = (p) => `
+<figure class="portrait portrait--${p.variant}">
+  <img src="assets/img/${esc(p.file)}" alt="${esc(p.alt)}"
+       width="${p.w}" height="${p.h}"
+       loading="${esc(p.loading)}" fetchpriority="${esc(p.priority)}" decoding="async">
+</figure>`;
 
 /* ── hero ─────────────────────────────────────────────────────────────── */
 
@@ -117,16 +137,19 @@ const identity = () => `
         <p class="statement" data-reveal>${esc(P.identity.statement)}</p>
         <p class="statement-src mono" data-reveal style="--d:120ms">${esc(P.identity.statementSource)}</p>
       </div>
-      <dl class="now" data-reveal style="--d:180ms">
-        ${P.identity.now
-          .map(
-            (n) => `<div class="now-row">
-          <dt class="mono">${esc(n.k)}</dt>
-          <dd><b>${esc(n.v)}</b><span>${esc(n.note)}</span></dd>
-        </div>`
-          )
-          .join('')}
-      </dl>
+      <div class="identity-side" data-reveal style="--d:180ms">
+        ${portrait(P.portraits.studio)}
+        <dl class="now">
+          ${P.identity.now
+            .map(
+              (n) => `<div class="now-row">
+            <dt class="mono">${esc(n.k)}</dt>
+            <dd><b>${esc(n.v)}</b><span>${esc(n.note)}</span></dd>
+          </div>`
+            )
+            .join('')}
+        </dl>
+      </div>
     </div>
 
     <div class="disciplines">
@@ -469,17 +492,20 @@ const skills = () => `
 
 const contact = () => `
 <section class="section contact" id="contact" aria-labelledby="con-title">
-  <div class="shell">
-    <p class="sec-kicker mono" data-reveal>${esc(W.contact.kicker)}</p>
-    <h2 class="contact-title" id="con-title" data-reveal style="--d:80ms">${esc(W.contact.title)}</h2>
-    <p class="contact-body" data-reveal style="--d:160ms">${esc(W.contact.body)}</p>
+  <div class="shell contact-top">
+    <div class="contact-copy">
+      <p class="sec-kicker mono" data-reveal>${esc(W.contact.kicker)}</p>
+      <h2 class="contact-title" id="con-title" data-reveal style="--d:80ms">${esc(W.contact.title)}</h2>
+      <p class="contact-body" data-reveal style="--d:160ms">${esc(W.contact.body)}</p>
 
-    <div class="contact-actions" data-reveal style="--d:220ms">
-      <a class="btn magnetic" data-magnetic href="${esc(P.links.email)}">${icons.mail}<span>Email me</span></a>
-      <button class="btn btn--ghost magnetic" type="button" data-magnetic data-copy="${esc(P.meta.email)}">
-        ${icons.copy}<span data-copy-label>Copy address</span>
-      </button>
+      <div class="contact-actions" data-reveal style="--d:220ms">
+        <a class="btn magnetic" data-magnetic href="${esc(P.links.email)}">${icons.mail}<span>Email me</span></a>
+        <button class="btn btn--ghost magnetic" type="button" data-magnetic data-copy="${esc(P.meta.email)}">
+          ${icons.copy}<span data-copy-label>Copy address</span>
+        </button>
+      </div>
     </div>
+    <div data-reveal style="--d:280ms">${portrait(P.portraits.candid)}</div>
   </div>
 
   <div class="shell">
@@ -564,7 +590,8 @@ export function renderPage({ cssHref, jsHref, cssInline }) {
 <meta name="description" content="${esc(P.meta.description)}">
 <meta name="author" content="${esc(P.meta.name)}">
 <meta name="keywords" content="${esc(P.meta.keywords.join(', '))}">
-<meta name="theme-color" content="#08090c">
+<meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)" data-theme-color>
+<meta name="theme-color" content="#f7f6f3" media="(prefers-color-scheme: light)" data-theme-color>
 <link rel="canonical" href="${esc(P.meta.siteUrl)}/">
 
 <meta property="og:type" content="website">
@@ -589,8 +616,11 @@ export function renderPage({ cssHref, jsHref, cssInline }) {
 <link rel="manifest" href="site.webmanifest">
 
 <link rel="preload" href="assets/fonts/inter-latin-normal.woff2" as="font" type="font/woff2" crossorigin>
-<!-- Set before first paint so enhanced styles never flash their fallback state. -->
-<script>document.documentElement.classList.add('js')</script>
+<!-- Set before first paint so enhanced styles never flash their fallback
+     state, and so a stored theme choice is in force for the very first frame.
+     No stored choice means no attribute, which leaves the palette to the
+     prefers-color-scheme media query in the stylesheet. -->
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
 ${cssInline ? `<style>${cssInline}</style>` : `<link rel="stylesheet" href="${cssHref}">`}
 <script type="module" src="${jsHref}"></script>
 ${jsonLd()}
